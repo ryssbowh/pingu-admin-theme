@@ -8,8 +8,10 @@
         <div class="card-body">
             @if($settings)
             	@foreach($settings as $key=>$setting)
-            		<div class="col-md-6">{{ $setting->title }}</div>
-            		<div class="col-md-6">{{ $setting->value }}</div>
+                    <div class="row">
+            		  <div class="col-md-6">{{ $setting->title }}</div>
+            		  <div class="col-md-6">{{ $setting->value }}</div>
+                    </div>
             	@endforeach
             @else
             	<div>No Settings found</div>

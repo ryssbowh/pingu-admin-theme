@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    {# Asset::container('modules')->styles() #}
+    {!! Asset::container('modules')->styles() !!}
     {!! Asset::container('theme')->styles() !!}
 </head>
 <body>
@@ -84,9 +84,9 @@
     </div>
 
     <!-- Scripts -->
-    {# Asset::container('vendor')->scripts() #}
-    {# Asset::container('modules')->scripts() #}
-    {# Asset::container('theme')->scripts() #}
+    {!! Asset::container('vendor')->scripts() !!}
+    {!! Asset::container('modules')->scripts() !!}
+    {!! Asset::container('theme')->scripts() !!}
     
 </body>
 </html>
