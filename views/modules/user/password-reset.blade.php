@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('title')
-<h1>Page not found</h1>
+Change password
 @endsection
 
 @section('content')
-some text
+	@include('core::contextualLinks')
+    {{ $form->render() }}
 @endsection

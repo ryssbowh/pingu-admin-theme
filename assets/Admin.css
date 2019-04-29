@@ -13717,6 +13717,47 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.navbar-main {
+  background: #878787;
+  padding: 10px 50px;
+}
+
+.navbar-main a {
+  color: white;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.navbar-main .dropdown-item {
+  color: #878787;
+}
+
+textarea {
+  width: 100%;
+}
+
+#block-list {
+  padding: 0.5rem;
+}
+
+#block-list .card-body {
+  padding: 0;
+}
+
+#block-list .card-header {
+  padding: 0.25rem 1.25rem;
+}
+
+#block-list .list-group-item {
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+}
+
+#block-list .list-group-item:first-child {
+  border-top: none;
+}
+
 .contextualLinks ul {
   border-bottom: 1px solid #ced4da;
 }

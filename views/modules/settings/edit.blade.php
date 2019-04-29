@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('title')
-<h1>Page not found</h1>
+Edit Settings
 @endsection
 
 @section('content')
-some text
+    {{ $form->render() }}
 @endsection

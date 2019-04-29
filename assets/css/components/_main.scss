@@ -6,3 +6,38 @@ body{
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); 
 }
+
+.navbar-main{
+	background: $grey;
+	padding:10px 50px;
+	a{
+		color:white;
+		display:inline-block;
+		margin-right:20px;
+	}
+	.dropdown-item{
+		color: $grey;
+	}
+}
+
+textarea{
+	width:100%;
+}
+
+#block-list{
+	padding:0.5rem;
+	.card-body{
+		padding:0;
+	}
+	.card-header{
+		padding: 0.25rem 1.25rem;
+	}
+	.list-group-item{
+		border-bottom:none;
+		border-left:none;
+		border-right:none;
+		&:first-child{
+			border-top:none;
+		}
+	}
+}
