@@ -1,0 +1,11 @@
+{
+    "name": "ryssbowh/pingu-admin-theme",
+    "description": "Admin theme for Pingu",
+    "type" : "pingu-theme",
+    "authors": [
+        {
+            "name": "Boris Blondin",
+            "email": "blondin.boris@gmail.com"
+        }
+    ]
+}
