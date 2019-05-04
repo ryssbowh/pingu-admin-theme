@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="page-regions">
+    <div class="page-regions" data-page="{{ $page->id }}">
 
         @include('core::contextualLinks')
 

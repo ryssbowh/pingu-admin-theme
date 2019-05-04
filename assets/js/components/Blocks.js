@@ -7,6 +7,7 @@ import 'jquery-ui/ui/widgets/droppable';
 const Blocks = (() => {
 
 	let options = {
+		page: $('.page-regions'),
 		addBlock : $('.js-add-block'),
 		blockList: $('.js-block-list'),
 		regionList: $('#page-container .region'),
@@ -20,16 +21,23 @@ const Blocks = (() => {
 		if(options.addBlock.length){
 			initAddBlock(options.addBlock);
 		}
+		if(options.page.length){
+			loadBlocks();
+		}
 		if(options.blockListElements.length){
 			bindAddToRegion(options.blockListElements.find('.js-add-to-region'));
-			loadBlocks();
 			bindSave(options.saveElement);
 		}
 	};
 
 	function loadBlocks(){
-		h.post('/api/' + window.location.pathname.trimLeft('/admin')).done(function(data){
-
+		let page = options.page.data('page');
+		Page.listBlocksForPage(page).done(function(data){
+			$.each(data, function(region,blocks){
+				$.each(blocks, function(ind, block){
+					createBlockElement(block.block_id, block.name, block.provider.name, region);
+				});
+			});
 		});
 	};
 
@@ -67,20 +75,24 @@ const Blocks = (() => {
 		
 	};
 
+	function createBlockElement(id, name, providerName, regionId){
+		let clone = $('#blockSkeleton').clone();
+		clone.removeAttr('id');
+		clone.removeClass('d-none');
+		clone.data('block-id', id);
+		clone.find('.name').html(name);
+		clone.find('.provider').html(providerName);
+		let region = options.pageContainer.find('[data-region-id='+regionId+']');
+		region.find('ul').append(clone);
+		makeSortable(region.find('ul'));
+		bindDeleteFromRegion(clone);
+	}
+
 	function bindAddToRegion(elems){
 		elems.click(function(e){
-			let clone = $('#blockSkeleton').clone();
-			clone.removeAttr('id');
-			clone.removeClass('d-none');
 			let block = $(this).closest('.js-block');
 			let provider = block.closest('.js-provider');
-			clone.data('block-id', block.data('id'));
-			clone.find('.name').html(block.find('.name').html());
-			clone.find('.provider').html(provider.data('name'));
-			let region = options.pageContainer.find('[data-region-id='+$(this).data('region')+']');
-			region.find('ul').append(clone);
-			makeSortable(region.find('ul'));
-			bindDeleteFromRegion(clone);
+			createBlockElement(block.data('id'), block.find('.name').html(), provider.data('name'), $(this).data('region'));
 			e.preventDefault();
 		});
 	}
