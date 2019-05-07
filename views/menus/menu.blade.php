@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-main">
     <div class="container">
-    	<a class="navbar-brand" href="{{ url('/admin') }}">
+    	<a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
         </a>
 

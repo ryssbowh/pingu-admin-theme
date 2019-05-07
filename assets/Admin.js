@@ -57,6 +57,17 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 
 /***/ }),
 
+/***/ "./Modules/Permissions/Resources/assets/sass/app.scss":
+/*!************************************************************!*\
+  !*** ./Modules/Permissions/Resources/assets/sass/app.scss ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9Nb2R1bGVzL1Blcm1pc3Npb25zL1Jlc291cmNlcy9hc3NldHMvc2Fzcy9hcHAuc2Nzcz8yYTU3Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6Ii4vTW9kdWxlcy9QZXJtaXNzaW9ucy9SZXNvdXJjZXMvYXNzZXRzL3Nhc3MvYXBwLnNjc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyByZW1vdmVkIGJ5IGV4dHJhY3QtdGV4dC13ZWJwYWNrLXBsdWdpbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./Modules/Permissions/Resources/assets/sass/app.scss\n");
+
+/***/ }),
+
 /***/ "./public/themes/Admin/assets/css/master.scss":
 /*!****************************************************!*\
   !*** ./public/themes/Admin/assets/css/master.scss ***!
@@ -128,9 +139,9 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /***/ }),
 
 /***/ 0:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./public/themes/Admin/assets/js/app.js ./public/themes/Admin/assets/css/master.scss ./public/themes/Default/assets/css/master.scss ./Modules/Core/Resources/assets/sass/app.scss ./Modules/Jsgrid/Resources/assets/sass/app.scss ./Modules/Page/Resources/assets/sass/app.scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./public/themes/Admin/assets/js/app.js ./public/themes/Admin/assets/css/master.scss ./public/themes/Default/assets/css/master.scss ./Modules/Core/Resources/assets/sass/app.scss ./Modules/Jsgrid/Resources/assets/sass/app.scss ./Modules/Page/Resources/assets/sass/app.scss ./Modules/Permissions/Resources/assets/sass/app.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -139,7 +150,8 @@ __webpack_require__(/*! /home/bobo/Web/vhosts/php7/laravel.test/public/themes/Ad
 __webpack_require__(/*! /home/bobo/Web/vhosts/php7/laravel.test/public/themes/Default/assets/css/master.scss */"./public/themes/Default/assets/css/master.scss");
 __webpack_require__(/*! /home/bobo/Web/vhosts/php7/laravel.test/Modules/Core/Resources/assets/sass/app.scss */"./Modules/Core/Resources/assets/sass/app.scss");
 __webpack_require__(/*! /home/bobo/Web/vhosts/php7/laravel.test/Modules/Jsgrid/Resources/assets/sass/app.scss */"./Modules/Jsgrid/Resources/assets/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/bobo/Web/vhosts/php7/laravel.test/Modules/Page/Resources/assets/sass/app.scss */"./Modules/Page/Resources/assets/sass/app.scss");
+__webpack_require__(/*! /home/bobo/Web/vhosts/php7/laravel.test/Modules/Page/Resources/assets/sass/app.scss */"./Modules/Page/Resources/assets/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/bobo/Web/vhosts/php7/laravel.test/Modules/Permissions/Resources/assets/sass/app.scss */"./Modules/Permissions/Resources/assets/sass/app.scss");
 
 
 /***/ })
