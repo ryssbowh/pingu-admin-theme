@@ -25,7 +25,9 @@
         </div>
 
         <div class="actions">
-        	<a href="#" class="js-add-region">Add a region</a>
+        	@can('add regions to layouts')
+                <a href="#" class="js-add-region">Add a region</a>
+            @endcan
         	{{ FormFacade::submit('Save')}}
         </div>
 

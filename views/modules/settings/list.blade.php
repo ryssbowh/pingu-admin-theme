@@ -26,5 +26,5 @@ Settings
     @else
     	<div>No Settings found</div>
     @endif
-    <a href="{{ route('admin.settings.edit') }}">Edit</a>
+    <a href="{{ route('settings.admin.edit') }}">Edit</a>
 @endsection

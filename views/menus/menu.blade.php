@@ -6,11 +6,11 @@
 
         <div class="collapse navbar-collapse">
 	    	<ul class="navbar-nav mr-auto">
-		        <li class="nav-item"><a href="{{ route('admin.settings')}}">Settings</a></li>
-		        <li class="nav-item"><a href="{{ route('admin.users')}}">Users</a></li>
-		        <li class="nav-item"><a href="{{ route('admin.roles')}}">Roles</a></li>
-		        <li class="nav-item"><a href="{{ route('admin.pages')}}">Pages</a></li>
-		        <li class="nav-item"><a href="{{ route('admin.pageLayouts')}}">Layouts</a></li>
+		        <li class="nav-item"><a href="{{ route('settings.admin.settings')}}">Settings</a></li>
+		        <li class="nav-item"><a href="{{ route('user.admin.users')}}">Users</a></li>
+		        <li class="nav-item"><a href="{{ route('user.admin.roles')}}">Roles</a></li>
+		        <li class="nav-item"><a href="{{ route('page.admin.pages')}}">Pages</a></li>
+		        <li class="nav-item"><a href="{{ route('page.admin.layouts')}}">Layouts</a></li>
 		    </ul>
 
 		    <ul class="navbar-nav ml-auto">

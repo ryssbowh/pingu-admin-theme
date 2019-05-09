@@ -19,6 +19,11 @@
 </head>
 <body>
     <div id="app">
+        
+        @if(app()->isDownForMaintenance())
+            <div class="maintenance-mode-on">You're using {{ config('app.name') }} in maintenance mode</div>
+        @endif
+
         @include('menus.menu')
 
         <main class="py-4">

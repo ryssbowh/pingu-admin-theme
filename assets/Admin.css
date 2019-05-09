@@ -13758,6 +13758,11 @@ textarea {
   border-top: none;
 }
 
+.maintenance-mode-on {
+  background: #f74125;
+  text-align: center;
+}
+
 .contextualLinks ul {
   border-bottom: 1px solid #ced4da;
 }
