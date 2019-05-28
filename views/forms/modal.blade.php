@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="addBlockModal">
+<div class="modal fade" tabindex="-1" role="dialog" id="modalForm-{{ $form->getName() }}">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         	{{ $form->renderStart() }}
@@ -9,7 +9,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="errors alert alert-danger d-none"></div>
             	{{ $form->renderLayout() }}
             </div>
             <div class="modal-footer">

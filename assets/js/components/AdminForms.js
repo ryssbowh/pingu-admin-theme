@@ -1,4 +1,4 @@
-const Forms = (() => {
+const AdminForms = (() => {
 
 	function showErrors(form, errors){
 		let messages = $('<ul>');
@@ -23,4 +23,4 @@ const Forms = (() => {
 
 })();
 
-export default Forms;
+export default AdminForms;

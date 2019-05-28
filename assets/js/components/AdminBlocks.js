@@ -1,10 +1,11 @@
-import Page from 'page';
-import Forms from './Forms';
-import * as h from 'helpers';
+import Page from 'pingu-page';
+import Forms from './AdminForms';
+import Admin from './Admin';
+import * as h from 'pingu-helpers';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/droppable';
 
-const Blocks = (() => {
+const AdminBlocks = (() => {
 
 	let options = {
 		page: $('.page-regions'),
@@ -19,7 +20,7 @@ const Blocks = (() => {
 	function init(){
 		console.log('Blocks initialized');
 		if(options.addBlock.length){
-			initAddBlock(options.addBlock);
+			bindAddBlock(options.addBlock);
 		}
 		if(options.page.length){
 			loadBlocks();
@@ -39,41 +40,31 @@ const Blocks = (() => {
 				});
 			});
 		});
-	};
+	}; 
 
-	function initAddBlock(elems){
+	function bindAddBlock(elems){
 		elems.click(function(e){
 			e.preventDefault();
-			Page.getCreateBlockForm($(this).data('provider')).done(function(data){
-				let modalId = $(data.form).prop('id');
-				if($('#'+modalId).length){
-					$('#'+modalId).remove();
-				}
-				$('body').append($(data.form));
-				let modal = $('#'+modalId);
-				modal.modal({backdrop:'static'});
-				modal.on('shown.bs.modal', function(e){
-					submitAddBlock(modal)
+			let provider = $(this).data('provider');
+			Page.getCreateBlockForm(provider, 'Admin').done(function(data){
+				let modal = Admin.createFormModal($(data.form));
+				modal.on('form.success', function(form, data){
+					addBlockToList(data.model, provider);
 				});
 			});
 		});
 	};
 
-	function submitAddBlock(modal){
-		let form = modal.find('form');
-		form.submit(function(e){
-			let data = form.serializeArray();
-			h.ajax(form.prop('action'), data).done(function(data){
-				modal.modal('hide');
-			}).fail(function(data){
-				if(data.responseJSON.errors){
-					Forms.showErrors(form, data.responseJSON.errors);
-				}
-			});
-			return false;
-		});
-		
-	};
+	function addBlockToList(block, provider){
+		let providerList = options.blockList.find('[data-provider='+provider+']');
+		let elem = providerList.find('.js-block').first().clone();
+		elem.find('.name').html(block.name);
+		elem.find('.dropdown-toggler').attr('id', 'block-'+block.id+'-dropdown');
+		elem.data('id', block.block_id);
+		console.log(block.block_id);
+		providerList.find('ul').append(elem);
+		bindAddToRegion(elem.find('.js-add-to-region'));
+	}
 
 	function createBlockElement(id, name, providerName, regionId){
 		let clone = $('#blockSkeleton').clone();
@@ -86,6 +77,7 @@ const Blocks = (() => {
 		region.find('ul').append(clone);
 		makeSortable(region.find('ul'));
 		bindDeleteFromRegion(clone);
+		options.saveElement.removeClass('disabled');
 	}
 
 	function bindAddToRegion(elems){
@@ -106,6 +98,7 @@ const Blocks = (() => {
 			e.preventDefault();
 			elem.slideUp(function(){
 				elem.remove();
+				options.saveElement.removeClass('disabled');
 			});
 		});
 	}
@@ -127,16 +120,16 @@ const Blocks = (() => {
 			data.regions = regions;
 			let url = '/api/' + window.location.pathname.trimLeft('/admin');
 			h.put(url, data).done(function(data){
-
+				Admin.showSuccessModal(data.message);
+				options.saveElement.addClass('disabled');
 			});
 		});
 	}
 
 	return {
-		init:init,
-		initAddBlock: initAddBlock
+		init:init
 	};
 
 })();
 
-export default Blocks;
+export default AdminBlocks;

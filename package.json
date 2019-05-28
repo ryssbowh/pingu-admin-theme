@@ -1,0 +1,7 @@
+{
+	"devDependencies":{
+		"dashify" : "2.0.0",
+		"bootstrap": "4.3.*",
+		"nestedSortable": "1.3.*"
+	}
+}

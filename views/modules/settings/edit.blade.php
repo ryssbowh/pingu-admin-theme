@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Edit Settings
+Edit {{ ucfirst($section) }} Settings
 @endsection
 
 @section('content')

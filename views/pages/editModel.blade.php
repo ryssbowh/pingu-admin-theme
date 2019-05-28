@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-Add {{ $object }}
+Edit {{ $model::friendlyName() }}
 @endsection
 
 @section('content')
     @include('core::contextualLinks')
-    <div class="editPage edit-{{ $object }}">
+    <div class="editPage edit-{{ kebab_case(strtolower($model::friendlyName())) }}">
 		{{ $form->render() }}
 	</div>
 @endsection

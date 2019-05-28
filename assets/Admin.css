@@ -7806,12 +7806,14 @@ input[type=button].btn-block {
   margin-left: 0;
 }
 
-.card > .list-group:first-child .list-group-item:first-child {
+.card > .list-group:first-child .list-group-item:first-child,
+.edit-menu-items > .menu-tree .card > ul:first-child .list-group-item:first-child {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
 
-.card > .list-group:last-child .list-group-item:last-child {
+.card > .list-group:last-child .list-group-item:last-child,
+.edit-menu-items > .menu-tree .card > ul:last-child .list-group-item:last-child {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
@@ -7853,7 +7855,8 @@ input[type=button].btn-block {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
 
-.card-header + .list-group .list-group-item:first-child {
+.card-header + .list-group .list-group-item:first-child,
+.edit-menu-items > .menu-tree .card-header + ul .list-group-item:first-child {
   border-top: 0;
 }
 
@@ -8563,7 +8566,8 @@ a.badge-dark.focus {
   flex: 1;
 }
 
-.list-group {
+.list-group,
+.edit-menu-items > .menu-tree ul {
   display: flex;
   flex-direction: column;
   padding-left: 0;
@@ -11263,6 +11267,7 @@ button.bg-dark:focus {
 }
 
 .ml-2,
+.edit-menu-items > .menu-tree .menu-tree,
 .mx-2 {
   margin-left: 0.5rem !important;
 }
@@ -13785,5 +13790,66 @@ textarea {
   left: 0;
   right: 1px;
   bottom: -1px;
+}
+
+.edit-menu-items .list-group-item.inactive .header {
+  opacity: 0.5;
+}
+
+.edit-menu-items .list-group-item .list-group-item {
+  border-right: none;
+  padding-right: 0;
+}
+
+.edit-menu-items .list-group-item .list-group,
+.edit-menu-items > .menu-tree .list-group-item ul {
+  margin-bottom: -0.75rem;
+  margin-top: 0.75rem;
+}
+
+.edit-menu-items .list-group-item .list-group .list-group-item:last-child,
+.edit-menu-items > .menu-tree .list-group-item ul .list-group-item:last-child {
+  border-bottom: none;
+}
+
+.navbar-main .nav-item {
+  position: relative;
+}
+
+.navbar-main .nav-item span {
+  color: white;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.navbar-main .nav-item > ul {
+  -webkit-transform: translateX(-20px);
+          transform: translateX(-20px);
+  padding-top: 20px;
+}
+
+.navbar-main .nav-item > ul ul {
+  left: calc(100% + 20px);
+  padding-top: 0;
+  top: 0;
+}
+
+.navbar-main .nav-item ul {
+  display: none;
+  opacity: 0;
+  transition: all 0.3s ease;
+  position: absolute;
+  background: #878787;
+  list-style-type: none;
+  z-index: 1000;
+}
+
+.navbar-main .nav-item ul .nav-item {
+  padding: 10px 20px;
+}
+
+.navbar-main .nav-item:hover > ul {
+  display: block;
+  opacity: 1;
 }
 
