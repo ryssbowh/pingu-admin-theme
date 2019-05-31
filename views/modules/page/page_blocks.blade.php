@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="page-regions" data-page="{{ $page->id }}">
+    <div class="page-regions" data-page="{{ $page->id }}" data-blockindexuri="{{ $blockIndexUri }}">
 
         @include('core::contextualLinks')
 
@@ -15,12 +15,12 @@
                 <i class="fa fa-bars"></i>
                 <span class="provider"></span> :
                 <span class="name"></span>
-                @can('add/delete blocks to pages')
+                @can('manage pages blocks')
                     <a href="#" class="js-delete-from-region float-right"><i class="fa fa-times"></i></a>
                 @endcan
             </li>
 
-            @can('add/delete blocks to pages')
+            @can('manage pages blocks')
                 <div class="col-3 js-block-list">
                     <div class="card">
                         <div class="card-header">Add a block</div>
@@ -28,21 +28,22 @@
                             @if($providers)
                                 <div class="text-left" id="providers-accordion">
                                 @foreach($providers as $index => $provider)
-                                    @if($provider['blocks'])
-                                        <div class="card js-provider" data-name="{{ $provider['name'] }}" data-provider="{{ $provider['id'] }}">
+                                    @if(!$provider->blocks->isEmpty())
+                                        <div class="card js-provider" data-name="{{ $provider->name }}" data-provider="{{ $provider->id }}">
                                             <div class="card-header">
                                                 <h5 class="mb-0">
-                                                    <button data-target="#list-{{ $index }}" data-toggle="collapse" class="font-weight-bold btn btn-link">{{ $provider['name'] }}</button>
-                                                    <span class="badge badge-primary badge-pill">{{ $provider['blocks']->count() }}</span>
+                                                    <button data-target="#list-{{ $index }}" data-toggle="collapse" class="font-weight-bold btn btn-link">{{ $provider->name }}</button>
+                                                    <span class="badge badge-primary badge-pill">{{ $provider->blocks->count() }}</span>
                                                 </h5>
                                             </div>
 
                                             <div id="list-{{ $index }}" class="collapse @if($index==0) show @endif" data-parent="#providers-accordion">
                                                 <ul class="card-body list-group">
-                                                @foreach($provider['blocks'] as $block)
-                                                    <li class="list-group-item text-left js-block" type="button" data-id="{{ $block->block_id }}"><span class="name">{{ $block->name }}</span>
+                                                @foreach($provider->blocks as $block)
+                                                    <li class="list-group-item text-left js-block" type="button" data-id="{{ $block->id }}"><span class="name">{{ $block->instance->name }}</span>
                                                         <div class="dropdown float-right">
-                                                            <a id="block-{{ $block->id }}-dropdown" class="dropdown-toggler" href="#" data-toggle="dropdown"><i class="fa fa-plus"></i></a>
+                                                            <a id="block-{{ $block->id }}-dropdown" class="dropdown-toggler float-right" href="#" data-toggle="dropdown"><i class="fa fa-plus"></i></a>
+                                                            <a href="{{ $blockClass::transformAjaxUri('edit', [$block->id], true) }}" class="js-edit float-right mr-2"><i class="fa fa-edit"></i></a>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 @foreach($regions as $region)
                                                                     <a class="dropdown-item js-add-to-region" data-region="{{ $region->id }}" href="#">Add to {{ $region->name }}</a>
@@ -65,8 +66,8 @@
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle" id="createBlockDropdown" data-toggle="dropdown">Create a block</a>
                         <div class="dropdown-menu" aria-labelledby="createBlockDropdown">
-                            @foreach($providers as $provider)
-                                <a class="dropdown-item js-add-block" data-provider="{{ $provider['id'] }}" href="#">{{ $provider['name'] }}</a>
+                            @foreach($providers->where('system', false)->all() as $provider)
+                                <a class="dropdown-item js-add-block" data-provider="{{ $provider->id }}" href="{{ $blockClass::transformAjaxUri('create', [$provider->id], true) }}">{{ $provider->name }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -83,9 +84,9 @@
                     @endforeach
                 </div>
 
-                @can('add/delete blocks to pages')
+                @can('manage pages blocks')
                     <div class="actions float-right">
-                    	<a href="#" class="btn btn-primary js-save disabled">Save</a>
+                    	<a href="{{ $blockClass::getAjaxUri('patch', true) }}" class="btn btn-primary js-save disabled">Save</a>
                     </div>
                 @endcan
             </div>

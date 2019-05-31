@@ -67,7 +67,7 @@ const AdminMenu = (() => {
 		items.find('.js-edit').click(function(e){
 			e.preventDefault();
 			let item = $(this).closest('.menu-item');
-			h.get($(this).attr('href'), {_theme:'Admin'}).done(function(data){
+			h.get($(this).attr('href'), {_theme:'admin'}).done(function(data){
 				let modal = Admin.createFormModal(data.form);
 				modal.on('form.success', function(e, data){
 					item.children('.header').children('.name').html(data.model.name);
@@ -81,7 +81,7 @@ const AdminMenu = (() => {
 	{
 		opt.addMenuItem.click(function(e){
 			e.preventDefault();
-			h.get($(this).attr('href'),{_theme:'Admin'}).done(function(data){
+			h.get($(this).attr('href'),{_theme:'admin'}).done(function(data){
 				let modal = Admin.createFormModal(data.form);
 				modal.on('form.success', function(e, data){
 					let item = cloneSkeleton(data.model);

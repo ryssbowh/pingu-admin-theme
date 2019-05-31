@@ -27,16 +27,31 @@ const AdminBlocks = (() => {
 		}
 		if(options.blockListElements.length){
 			bindAddToRegion(options.blockListElements.find('.js-add-to-region'));
+			bindEdit(options.blockListElements.find('.js-edit'));
 			bindSave(options.saveElement);
 		}
 	};
 
+	function bindEdit(elems)
+	{
+		elems.click(function(e){
+			e.preventDefault();
+			h.get($(this).prop('href'), {_theme: 'admin'}).done(function(data){
+				let modal = Admin.createFormModal($(data.form));
+				modal.on('form.success', function(form, data){
+					options.regionList.find('.block[data-id='+data.model.id+']').find('.name').html(data.model.instance.name);
+					options.blockList.find('.js-block[data-id='+data.model.id+']').find('.name').html(data.model.instance.name);
+				});
+			});
+		});
+	};
+
 	function loadBlocks(){
-		let page = options.page.data('page');
-		Page.listBlocksForPage(page).done(function(data){
+		let url = options.page.data('blockindexuri');
+		h.get(url).done(function(data){
 			$.each(data, function(region,blocks){
 				$.each(blocks, function(ind, block){
-					createBlockElement(block.block_id, block.name, block.provider.name, region);
+					createBlockElement(block.id, block.instance.name, block.provider.name, region);
 				});
 			});
 		});
@@ -46,7 +61,7 @@ const AdminBlocks = (() => {
 		elems.click(function(e){
 			e.preventDefault();
 			let provider = $(this).data('provider');
-			Page.getCreateBlockForm(provider, 'Admin').done(function(data){
+			h.get($(this).prop('href'), {_theme:'admin'}).done(function(data){
 				let modal = Admin.createFormModal($(data.form));
 				modal.on('form.success', function(form, data){
 					addBlockToList(data.model, provider);
@@ -58,10 +73,9 @@ const AdminBlocks = (() => {
 	function addBlockToList(block, provider){
 		let providerList = options.blockList.find('[data-provider='+provider+']');
 		let elem = providerList.find('.js-block').first().clone();
-		elem.find('.name').html(block.name);
+		elem.find('.name').html(block.instance.name);
 		elem.find('.dropdown-toggler').attr('id', 'block-'+block.id+'-dropdown');
-		elem.data('id', block.block_id);
-		console.log(block.block_id);
+		elem.attr('data-id', block.id);
 		providerList.find('ul').append(elem);
 		bindAddToRegion(elem.find('.js-add-to-region'));
 	}
@@ -70,7 +84,7 @@ const AdminBlocks = (() => {
 		let clone = $('#blockSkeleton').clone();
 		clone.removeAttr('id');
 		clone.removeClass('d-none');
-		clone.data('block-id', id);
+		clone.attr('data-id', id);
 		clone.find('.name').html(name);
 		clone.find('.provider').html(providerName);
 		let region = options.pageContainer.find('[data-region-id='+regionId+']');
@@ -78,6 +92,7 @@ const AdminBlocks = (() => {
 		makeSortable(region.find('ul'));
 		bindDeleteFromRegion(clone);
 		options.saveElement.removeClass('disabled');
+		return clone;
 	}
 
 	function bindAddToRegion(elems){
@@ -112,14 +127,13 @@ const AdminBlocks = (() => {
 				let sub = {region: $(region).data('region-id')};
 				let blocks = [];
 				$.each($(region).find('.block'), function(blockI, block){
-					blocks.push($(block).data('block-id'));
+					blocks.push($(block).data('id'));
 				});
 				sub.blocks = blocks;
 				regions.push(sub);
 			});
 			data.regions = regions;
-			let url = '/api/' + window.location.pathname.trimLeft('/admin');
-			h.put(url, data).done(function(data){
+			h.patch($(this).prop('href'), data).done(function(data){
 				Admin.showSuccessModal(data.message);
 				options.saveElement.addClass('disabled');
 			});

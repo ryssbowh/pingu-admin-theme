@@ -10,6 +10,10 @@ const Admin = (() => {
 
 	function init()
 	{
+		$('body').on('ajax.failed', function(e, data){
+			showErrorModal(data.responseJSON.message);
+		});
+
 		if(options.jsgrid.length){
 			options.jsgrid.off('jsgrid-error');
 			options.jsgrid.on('jsgrid-error', function(e, action, data){
@@ -50,6 +54,7 @@ const Admin = (() => {
 		options.backdrop = 'static';
 		let modal = createModal($(html), options);
 		modal.off('form.success');
+		modal.off('form.failed');
 		let form = modal.find('form');
 		if(!form){
 			h.logError('Can\'t find a form for this modal');

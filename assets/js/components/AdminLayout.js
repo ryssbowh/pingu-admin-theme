@@ -63,7 +63,7 @@ const AdminLayout = (() => {
 	{
 		options.addRegion.click(function(e){
 			e.preventDefault();
-			h.get($(this).attr('href'), {'_theme': 'Admin'}).done(function(data){
+			h.get($(this).attr('href'), {'_theme': 'admin'}).done(function(data){
 				let modal = Admin.createFormModal(data.form);
 				modal.on('form.success', function(form, data){
 					let region = addRegion(data.model);

@@ -2,6 +2,10 @@
 
 ## TODO
 
+## v1.1.2
+- finished page blocks
+- finished menus
+
 ## v1.1.1
 - added jquery/ui-sortable as an alias
 - added nestedSortable as npm dependency

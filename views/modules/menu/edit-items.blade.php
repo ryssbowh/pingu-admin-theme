@@ -16,11 +16,13 @@
             @can('delete menu items')
               <a href="{{ $deleteItemUri }}" class="js-delete float-right">Delete</a>
             @endcan
-            <a href="{{ $editItemUri }}" class="js-edit float-right mr-1">Edit</a>
+            @can('edit menu items')
+              <a href="{{ $editItemUri }}" class="js-edit float-right mr-1">Edit</a>
+            @endcan
           </div>
         </li>
 
-        @can('add menu')
+        @can('create menu items')
           <a href="{{ $addItemUri }}" class="js-add mb-2 d-inline-block">Add an item</a>
         @endcan
 
@@ -28,7 +30,7 @@
        		 @include('menu::tree')
        	</div>
 
-        @can('edit menu')
+        @can('edit menu items')
           <a href="{{ $patchItemsUri }}" class="js-save mt-2 d-inline-block btn btn-primary float-right disabled">Save</a>
         @endcan
 

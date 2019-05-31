@@ -29,7 +29,7 @@
                         <div class="inner">
                             <input type="text" {{ $inputDisabled }} name="regions[{{ $region->id }}][name]" value="{{ $region->name }}">
                             @can('manage layouts regions')
-                                <a href="{{ $region::transformApiUri('delete', [$region->id], true) }}" class="js-delete">Delete</a>
+                                <a href="{{ $region::transformAjaxUri('delete', [$region->id], true) }}" class="js-delete">Delete</a>
                             @endcan
                         </div>
                     </div>
