@@ -2,6 +2,9 @@
 
 ## TODO
 
+## v1.1.3
+- added content module
+
 ## v1.1.2
 - finished page blocks
 - finished menus
