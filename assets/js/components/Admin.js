@@ -8,12 +8,27 @@ const Admin = (() => {
 		jsgrid: $('.jsgrid-table'),
 	};
 
+	let errors = {
+		code404 : "Route not found",
+		code405 : "Method not allowed"
+	};
+
 	function init()
 	{
+		/**
+		 * Shows all ajax errors in a modal
+		 */
 		$('body').on('ajax.failed', function(e, data){
-			showErrorModal(data.responseJSON.message);
+			let message = data.responseJSON.message;
+			if(!message && 'code'+data.status in errors){
+				message = errors['code'+data.status];
+			}
+			showErrorModal(message);
 		});
 
+		/**
+		 * Shows all jsgrid errors in a modal
+		 */
 		if(options.jsgrid.length){
 			options.jsgrid.off('jsgrid-error');
 			options.jsgrid.on('jsgrid-error', function(e, action, data){
@@ -24,7 +39,9 @@ const Admin = (() => {
 					showErrorModal(data.responseJSON.message);
 				}
 			});
-		}	
+		}
+
+		$('#globalModal').css('z-index',1052);
 	}
 
 	function createModal(html, options)
@@ -41,12 +58,6 @@ const Admin = (() => {
 		let modal = $('#'+modalId);
 		modal.modal(options);
 		return modal;
-	};
-
-	function createStaticModal(html, options = {})
-	{
-		options.backdrop = 'static';
-		return createModal(html, options);
 	};
 
 	function createFormModal(html, options = {}, showErrors = true)
@@ -87,11 +98,17 @@ const Admin = (() => {
 		return modal;
 	};
 
-	function showModal(message, title)
+	function showModal(message, title, type = 'info')
 	{
-		let modal = $('#globalModal').css('z-index',1052);
+		let modal = $('#globalModal');
 		modal.find('.modal-body').html(message);
 		modal.find('.modal-title').html(title);
+		if(type == 'info'){
+			modal.find('button.confirm').addClass('d-none');
+		}
+		else if(type == 'confirm'){
+			modal.find('button.confirm').removeClass('d-none');
+		}
 		modal.modal({backdrop:'static'});
 		return modal;
 	}
@@ -104,6 +121,11 @@ const Admin = (() => {
 	function showErrorModal(message, title = 'Error')
 	{
 		return showModal(message, title);
+	}
+
+	function showConfirmModal(message, title = 'Please confirm')
+	{
+		return showModal(message, title, 'confirm');
 	}
 
 	function showFormErrorsInModal(errors, title = 'Errors were encountered')
@@ -121,12 +143,12 @@ const Admin = (() => {
 	return {
 		init: init,
 		createModal: createModal,
-		createStaticModal: createStaticModal,
 		showFormErrorsInModal: showFormErrorsInModal,
 		createFormModal: createFormModal,
 		showModal: showModal,
 		showSuccessModal: showSuccessModal,
-		showErrorModal: showErrorModal
+		showErrorModal: showErrorModal,
+		showConfirmModal: showConfirmModal
 	};
 
 })();

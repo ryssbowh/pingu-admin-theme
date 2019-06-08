@@ -43,7 +43,7 @@
                                                     <li class="list-group-item text-left js-block" type="button" data-id="{{ $block->id }}"><span class="name">{{ $block->instance->name }}</span>
                                                         <div class="dropdown float-right">
                                                             <a id="block-{{ $block->id }}-dropdown" class="dropdown-toggler float-right" href="#" data-toggle="dropdown"><i class="fa fa-plus"></i></a>
-                                                            <a href="{{ $blockClass::transformAjaxUri('edit', [$block->id], true) }}" class="js-edit float-right mr-2"><i class="fa fa-edit"></i></a>
+                                                            <a href="{{ $blockClass::transformAjaxUri('edit', [$block], true) }}" class="js-edit float-right mr-2"><i class="fa fa-edit"></i></a>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 @foreach($regions as $region)
                                                                     <a class="dropdown-item js-add-to-region" data-region="{{ $region->id }}" href="#">Add to {{ $region->name }}</a>
@@ -67,7 +67,7 @@
                         <a href="#" class="dropdown-toggle" id="createBlockDropdown" data-toggle="dropdown">Create a block</a>
                         <div class="dropdown-menu" aria-labelledby="createBlockDropdown">
                             @foreach($providers->where('system', false)->all() as $provider)
-                                <a class="dropdown-item js-add-block" data-provider="{{ $provider->id }}" href="{{ $blockClass::transformAjaxUri('create', [$provider->id], true) }}">{{ $provider->name }}</a>
+                                <a class="dropdown-item js-add-block" data-provider="{{ $provider->id }}" href="{{ $blockClass::transformAjaxUri('create', [$provider], true) }}">{{ $provider->name }}</a>
                             @endforeach
                         </div>
                     </div>

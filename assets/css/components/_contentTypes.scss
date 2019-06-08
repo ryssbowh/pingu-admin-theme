@@ -1,0 +1,10 @@
+.list-content-type-field form{
+	width: 100%;
+	.fields{
+		width:60%;
+		float:left;
+	}
+	input[type=submit]{
+		float:right;
+	} 
+}

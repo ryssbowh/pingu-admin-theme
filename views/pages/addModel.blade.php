@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-Add a {{ $model::friendlyName() }}
+@if(isset($title))
+	{{ $title }}
+@else
+	Add a {{ $model::friendlyName() }}
+@endif
 @endsection
 
 @section('content')

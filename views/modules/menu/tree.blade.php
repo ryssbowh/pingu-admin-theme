@@ -5,15 +5,18 @@
 	        <div class="header">
 	         	<i class="fa fa-bars"></i>
 	          	<span class="name">{{ $item->name }}</span>
-	          	@can('delete menu items')
-	        		<a href="{{ replaceUriSlugs($item::getAjaxUri('delete', true), [$item->id]) }}" class="js-delete float-right">Delete</a> 
-	        	@endcan
+	          	@if($item->deletable)
+		          	@can('delete menu items')
+		        		<a href="{{ $item::transformAjaxUri('delete', [$item], true) }}" class="js-delete float-right">Delete</a> 
+		        	@endcan
+		        @endif
 	        	@can('edit menu items')
-	            	<a href="{{ replaceUriSlugs($item::getAjaxUri('edit', true), [$item->id]) }}" class="js-edit float-right mr-1">Edit</a>
+	            	<a href="{{ $item::transformAjaxUri('edit', [$item], true) }}" class="js-edit float-right mr-1">Edit</a>
 	            @endcan
 	        </div>
-	        @if(!$item->children->isEmpty())
-				@include('menu::tree', ['items' => $item->children])
+	        <?php $children = $item->getChildren(); ?>
+	        @if(!$children->isEmpty())
+				@include('menu::tree', ['items' => $children])
 			@endif
       	</li>
 	@endforeach

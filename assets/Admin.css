@@ -13853,3 +13853,16 @@ textarea {
   opacity: 1;
 }
 
+.list-content-type-field form {
+  width: 100%;
+}
+
+.list-content-type-field form .fields {
+  width: 60%;
+  float: left;
+}
+
+.list-content-type-field form input[type=submit] {
+  float: right;
+}
+

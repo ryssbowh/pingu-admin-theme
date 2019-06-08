@@ -1,6 +1,5 @@
 import Menu from 'pingu-menu';
 import Forms from 'pingu-forms';
-import dashify from 'dashify';
 import Admin from './Admin';
 import * as h from 'pingu-helpers';
 import "nestedSortable";
@@ -23,9 +22,6 @@ const AdminMenu = (() => {
 	function init()
 	{ 
 		console.log('Menu initialized');
-		if(opt.addPage.length){
-			populateMachineName();
-		}
 		if(opt.editMenuTree.length){
 			makeSortable();
 		}
@@ -54,13 +50,6 @@ const AdminMenu = (() => {
 			}
 		});
 	}
-
-	function populateMachineName()
-	{
-		opt.addPage.find('input[name=name]').blur(function(e){
-			opt.addPage.find('input[name=machineName]').val(dashify($(this).val()));
-		});
-	};
 
 	function bindEdit(items)
 	{
