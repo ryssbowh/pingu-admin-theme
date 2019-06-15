@@ -6,6 +6,7 @@ const Admin = (() => {
 
 	let options = {
 		jsgrid: $('.jsgrid-table'),
+		menu: $('.navbar-main')
 	};
 
 	let errors = {
@@ -42,6 +43,16 @@ const Admin = (() => {
 		}
 
 		$('#globalModal').css('z-index',1052);
+
+		resizeMenu();
+		$(window).resize(function(){
+			resizeMenu();
+		});
+	}
+
+	function resizeMenu()
+	{
+		options.menu.height($(window).height() - $('.phpdebugbar').outerHeight());
 	}
 
 	function createModal(html, options)

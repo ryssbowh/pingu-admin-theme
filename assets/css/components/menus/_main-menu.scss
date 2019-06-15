@@ -26,38 +26,43 @@
 }
 
 .navbar-main{
+	position: absolute;
+	left:0;
+	top:0;
+	height:100%;
+	width:200px;
+	background: $purple;
+	padding:10px;
+	align-items:baseline;
+	display:block;
+	a{
+		color:white;
+		display:inline-block;
+		margin-right:20px;
+	}
+	.menu-items{
+		padding-bottom:100px;
+		padding-top:20px;
+		height: calc(100% - 50px);
+	}
 	.nav-item{
-		position:relative;
 		span{
-			color: white;
-			display: inline-block;
-			margin-right: 20px;
-		}
-		&>ul{
-			transform: translateX(-20px);
-			padding-top:20px;
-			ul{
-				left:calc(100% + 20px);
-				padding-top:0;
-				top:0;
-			}
+			color: $grey;
 		}
 		ul{
-			display: none;
-			opacity:0;
-			transition:all 0.3s ease;
-			position:absolute;
-			background:$grey;
+			padding-left:0;
 			list-style-type:none;
-			z-index:1000;
-			.nav-item{
-				padding:10px 20px;
+			li{
+				padding-left:10px;
 			}
 		}
-		&:hover{
-			& > ul{
-				display:block;
-				opacity:1;
+	}
+	.user-form{
+		position: absolute;
+		bottom: 50px;
+		.dropdown-menu{
+			a{
+				color:black;
 			}
 		}
 	}

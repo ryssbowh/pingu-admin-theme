@@ -30,6 +30,6 @@ Edit Permissions
 			@endforeach()
 		</table>
 	@endforeach()
-	{{ FormFacade::submit('Save',['class' => 'float-right mt-2 '.theme_config('forms.submit-default-classes')]) }}
+	{{ FormFacade::submit('Save',['class' => 'float-right mt-2 btn btn-primary']) }}
 	{{ FormFacade::close() }}
 @endsection

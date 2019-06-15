@@ -2,22 +2,8 @@ body{
 	font-family: 'Nunito';
 }
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); 
-}
-
-.navbar-main{
-	background: $grey;
-	padding:10px 50px;
-	a{
-		color:white;
-		display:inline-block;
-		margin-right:20px;
-	}
-	.dropdown-item{
-		color: $grey;
-	}
+main{
+	padding-left:200px;
 }
 
 textarea{
@@ -45,4 +31,12 @@ textarea{
 .maintenance-mode-on{
 	background: #f74125;
 	text-align:center;
+}
+
+.card-header{
+	background: $blue;
+	color: white;
+	a{
+		color:white;
+	}
 }
