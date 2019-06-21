@@ -2,6 +2,5 @@
     "name": "Admin",
     "extends": "",
     "asset-path": "assets",
-    "views-path": "views",
-    "images-path": "images"
+    "views-path": "views"
 }

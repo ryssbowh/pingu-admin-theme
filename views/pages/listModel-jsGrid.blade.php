@@ -1,12 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.card')
 
 @section('title')
-{{ $title }} <span style="display:none">(total: <span class="jsgrid-total"></span>)</span>
-@if($canSeeAddLink)
-	<div class="float-right">
-		<a href="{{ $addLink }}">Add new</a>
-	</div>
-@endif
+	<h1>{{ $title }} <span style="display:none">(total: <span class="jsgrid-total"></span>)</span></h1>
+	@if($canSeeAddLink)
+		<div class="float-right">
+			<a href="{{ $addLink }}">Add new</a>
+		</div>
+	@endif
 @endsection
 
 @section('content')

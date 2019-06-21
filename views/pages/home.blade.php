@@ -1,9 +1,9 @@
 @extends('layouts.card')
 
 @section('title')
-<h1>Page not found</h1>
+    Admin Home
 @endsection
 
 @section('content')
-some text
+    This is admin home
 @endsection

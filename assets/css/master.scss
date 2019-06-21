@@ -12,9 +12,13 @@
 @import '~bootstrap/scss/bootstrap';
 
 //components
+@import 'components/typography';
 @import 'components/main';
+@import 'components/forms';
 @import 'components/contextualLinks';
 @import 'components/contentTypes'; 
+@import 'components/settings'; 
+@import 'components/jsgrid'; 
 
 //Menus
 @import 'components/menus/main-menu';

@@ -1,2 +1,13 @@
-form{
+.form-editModel{
+	.delete{
+		float:right;
+	}
+}
+
+.field{
+	.helper{
+		display:inline;
+		font-size: 0.7rem;
+		padding-left:10px;
+	}
 }

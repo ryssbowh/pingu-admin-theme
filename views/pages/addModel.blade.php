@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.card')
 
 @section('title')
 @if(isset($title))
-	{{ $title }}
+	<h1>{{ $title }}</h1>
 @else
-	Add a {{ $model::friendlyName() }}
+	<h1>Add a {{ $model::friendlyName() }}</h1>
 @endif
 @endsection
 

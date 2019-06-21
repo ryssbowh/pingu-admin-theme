@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.card')
 
 @section('title')
 Add a setting

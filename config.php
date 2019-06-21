@@ -19,21 +19,23 @@ return [
 	     */
 	    'field-classes' => [
 	    	'default' => [
-	    		'textinput' => 'form-control col-md-8',
-		        'select' => 'form-control col-md-8',
-		        'password' => 'form-control col-md-8',
-		        'datetime' => 'form-control js-datepicker col-md-8',
-		        'email' => 'form-control col-md-8',
-		        'textarea' => 'form-control col-md-8',
+	    		'textinput' => 'form-control',
+	    		'numberinput' => 'form-control',
+		        'select' => 'form-control',
+		        'password' => 'form-control',
+		        'datetime' => 'form-control js-datepicker',
+		        'email' => 'form-control',
+		        'textarea' => 'form-control',
 		        'checkbox' => 'form-check form-check-inline',
 		        'radio' => 'form-check form-check-inline',
-		        'submit' => 'btn btn-primary'
+		        'submit' => 'btn btn-primary',
+		        'link' => 'btn btn-secondary'
 		    ]
 	    ],
 	    /**
 	     * Extra classes for fields
 	     */
-	    'field-default-classes' => 'field-inner col-md-8',
+	    'field-default-classes' => 'field-inner',
 	    /**
 	     * Classes for labels, index by field name
 	     */
@@ -41,7 +43,7 @@ return [
 	    /**
 	     * Default classes for label
 	     */
-	    'label-default-classes' => 'label col-md-4',
+	    'label-default-classes' => 'label',
 	    /**
 	     * Field wrapper classes index by field name
 	     */
@@ -49,6 +51,6 @@ return [
 	    /**
 	     * field wrapper default classes
 	     */
-	    'wrapper-default-classes' => 'field form-group row',
+	    'wrapper-default-classes' => 'field form-group',
 	]
 ];

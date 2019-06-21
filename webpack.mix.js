@@ -1,18 +1,19 @@
 const mix = require('laravel-mix');
 const path = require('path');
 
-var assetPath = './public/themes/Admin/assets/';
+var assetPath = './Themes/Admin/assets/';
+var publicPath = './themes/';
 
 mix.webpackConfig({
-  resolve: {
-    alias: {
-      'jquery-ui/sortable': 'jquery-ui/ui/widgets/sortable',
-    }
-  }
+	resolve:{
+		alias:{
+			'jquery-ui/sortable': 'jquery-ui/ui/widgets/sortable'
+		}
+	}
 });
 
 //Javascript
-mix.js(assetPath + 'js/app.js', assetPath + 'Admin.js').sourceMaps();
+mix.js(assetPath + 'js/app.js', publicPath + 'Admin.js').sourceMaps();
 
 //Css
-mix.sass(assetPath + 'css/master.scss', assetPath + 'Admin.css');
+mix.sass(assetPath + 'css/master.scss', publicPath + 'Admin.css');

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.card')
 
 @section('title')
 Confirm you want to delete {{ $content->content_type->name }} '{{ $content->title}}'
