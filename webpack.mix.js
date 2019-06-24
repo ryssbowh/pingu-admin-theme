@@ -2,7 +2,7 @@ const mix = require('laravel-mix');
 const path = require('path');
 
 var assetPath = './Themes/Admin/assets/';
-var publicPath = './themes/';
+var publicPath = 'theme-assets/';
 
 mix.webpackConfig({
 	resolve:{
