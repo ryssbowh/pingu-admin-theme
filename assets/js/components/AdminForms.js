@@ -1,4 +1,28 @@
+import datetimepicker from 'tempusdominus-bootstrap-4';
+
 const AdminForms = (() => {
+
+	let options = {
+		datetime: $('input.js-datetimepicker')
+	};
+
+	function init()
+	{
+		if(options.datetime.length){
+			initDatetimePickers();
+		}
+	}
+
+	function initDatetimePickers()
+	{
+		$.each(options.datetime, function(i, item){
+			$(item).parent().datetimepicker({
+				format: $(item).parent().data('format'),
+				allowInputToggle: true,
+                sideBySide: true
+			});
+		});
+	}
 
 	function showErrors(form, errors){
 		let messages = $('<ul>');
@@ -18,6 +42,7 @@ const AdminForms = (() => {
 	}
 
 	return {
+		init: init,
 		showErrors: showErrors
 	};
 

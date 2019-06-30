@@ -12,6 +12,6 @@
 @section('content')
     @include('core::contextualLinks')
     <div class="listPage">
-		@include('jsgrid::list', $jsgrid)
+		@include('jsgrid::listModel', $jsgrid)
 	</div>
 @endsection

@@ -23,7 +23,7 @@ return [
 	    		'numberinput' => 'form-control',
 		        'select' => 'form-control',
 		        'password' => 'form-control',
-		        'datetime' => 'form-control js-datepicker',
+		        'datetime' => 'form-control js-datetimepicker',
 		        'email' => 'form-control',
 		        'textarea' => 'form-control',
 		        'checkbox' => 'form-check form-check-inline',
