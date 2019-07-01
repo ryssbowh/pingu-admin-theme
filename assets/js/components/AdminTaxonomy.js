@@ -1,35 +1,34 @@
-import Menu from 'pingu-menu';
 import Forms from 'pingu-forms';
 import Admin from './Admin';
 import * as h from 'PinguHelpers';
 import "nestedSortable";
 
-const AdminMenu = (() => {
+const AdminTaxonomy = (() => {
 
 	let opt = {
-		editMenuTree: $('.edit-menu-items .menu-tree'),
-		menuItemsList: $('.edit-menu-items > .menu-tree > ul'),
-		menuItems: $('.edit-menu-items .menu-item'),
-		addMenuItem: $('.edit-menu-items .js-add'),
-		editMenuItem: $('.edit-menu-items .js-edit'),
-		deleteMenuItem: $('.edit-menu-items .js-delete'),
-		itemSkeleton: $('.edit-menu-items .menu-item.skeleton'),
-		saveItems: $('.edit-menu-items .js-save')
+		editTree: $('.edit-taxonomy-items .taxonomy-tree'),
+		itemsList: $('.edit-taxonomy-items > .taxonomy-tree > ul'),
+		items: $('.edit-taxonomy-items .taxonomy-item'),
+		addItem: $('.edit-taxonomy-items .js-add'),
+		editItem: $('.edit-taxonomy-items .js-edit'),
+		deleteItem: $('.edit-taxonomy-items .js-delete'),
+		itemSkeleton: $('.edit-taxonomy-items .taxonomy-item.skeleton'),
+		saveItems: $('.edit-taxonomy-items .js-save')
 	};
 
 	function init()
 	{ 
-		h.log('Menu initialized');
-		if(opt.editMenuTree.length){
+		h.log('Taxonomy initialized');
+		if(opt.editTree.length){
 			makeSortable();
 		}
-		if(opt.editMenuItem.length){
-		 	bindEdit(opt.menuItems);
+		if(opt.editItem.length){
+		 	bindEdit(opt.items);
 		}
-		if(opt.deleteMenuItem.length){
-			bindDelete(opt.menuItems);
+		if(opt.deleteItem.length){
+			bindDelete(opt.items);
 		}
-		if(opt.addMenuItem.length){
+		if(opt.addItem.length){
 			addItem();
 		}
 		if(opt.saveItems.length){
@@ -39,7 +38,7 @@ const AdminMenu = (() => {
 
 	function makeSortable()
 	{
-		opt.editMenuTree.children('ul').nestedSortable({
+		opt.editTree.children('ul').nestedSortable({
 			handle:'.header',
 			items:'li',
 			listType:'ul',
@@ -53,7 +52,7 @@ const AdminMenu = (() => {
 	{
 		items.find('.js-edit').click(function(e){
 			e.preventDefault();
-			let item = $(this).closest('.menu-item');
+			let item = $(this).closest('.taxonomy-item');
 			h.get($(this).attr('href'), {_theme:'admin'}).done(function(data){
 				let modal = Admin.createFormModal(data.form);
 				modal.on('form.success', function(e, data){
@@ -66,13 +65,13 @@ const AdminMenu = (() => {
 
 	function addItem()
 	{
-		opt.addMenuItem.click(function(e){
+		opt.addItem.click(function(e){
 			e.preventDefault();
 			h.get($(this).attr('href'),{_theme:'admin'}).done(function(data){
 				let modal = Admin.createFormModal(data.form);
 				modal.on('form.success', function(e, data){
 					let item = cloneSkeleton(data.model);
-					opt.menuItemsList.append(item);
+					opt.itemsList.append(item);
 					makeSortable();
 					bindEdit(item);
 					bindDelete(item);
@@ -107,7 +106,7 @@ const AdminMenu = (() => {
 	function bindDelete(items){
 		items.find('.js-delete').click(function(e){
 			e.preventDefault();
-			let item = $(this).closest('.menu-item');
+			let item = $(this).closest('.taxonomy-item');
 			h._delete($(this).attr('href')).done(function(data){
 				if(item.children('ul').length){
 					item.children('ul').appendTo(item.parent());
@@ -121,7 +120,7 @@ const AdminMenu = (() => {
 	function saveItems(){
 		opt.saveItems.click(function(e){
 			e.preventDefault();
-			let data = buildSaveData(opt.menuItemsList.children('li'), null);
+			let data = buildSaveData(opt.itemsList.children('li'), null);
 			h.patch($(this).attr('href'), {models: data}).done(function(data){
 				opt.saveItems.addClass('disabled');
 				Admin.showSuccessModal(data.message);
@@ -151,4 +150,4 @@ const AdminMenu = (() => {
 
 })();
 
-export default AdminMenu;
+export default AdminTaxonomy;

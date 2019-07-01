@@ -29,12 +29,12 @@ textarea{
 }
 
 .maintenance-mode-on{
-	background: #f74125;
+	background: $red;
 	text-align:center;
 }
 
 .card-header{
-	background: $blue;
+	background: $secondary;
 	color: white;
 	a{
 		color:white;

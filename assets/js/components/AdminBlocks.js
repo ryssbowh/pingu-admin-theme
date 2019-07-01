@@ -1,7 +1,7 @@
 import Page from 'pingu-page';
 import Forms from './AdminForms';
 import Admin from './Admin';
-import * as h from 'pingu-helpers';
+import * as h from 'PinguHelpers';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/droppable';
 
@@ -18,7 +18,7 @@ const AdminBlocks = (() => {
 	};
 
 	function init(){
-		console.log('Blocks initialized');
+		h.log('Blocks initialized');
 		if(options.addBlock.length){
 			bindAddBlock(options.addBlock);
 		}

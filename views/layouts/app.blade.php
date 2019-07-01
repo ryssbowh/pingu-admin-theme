@@ -16,6 +16,7 @@
     <!-- Styles -->
     {!! Asset::container('modules')->styles() !!}
     {!! Asset::container('theme')->styles() !!}
+
 </head>
 <body>
 
@@ -54,6 +55,7 @@
     </div>
 
     <!-- Scripts -->
+    @include('core::jsconfig')
     {!! Asset::container('vendor')->scripts() !!}
     {!! Asset::container('modules')->scripts() !!}
     {!! Asset::container('theme')->scripts() !!}

@@ -1,6 +1,6 @@
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/widgets/sortable';
-import * as h from 'pingu-helpers';
+import * as h from 'PinguHelpers';
 import Admin from './Admin';
 
 const AdminLayout = (() => {
@@ -18,7 +18,7 @@ const AdminLayout = (() => {
 
 	function init()
 	{ 
-		console.log('Page initialized');
+		h.log('Page initialized');
 		options.pageContainer.resizable({
 			handles: 's'
 		});

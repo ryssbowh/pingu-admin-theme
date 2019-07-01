@@ -31,7 +31,7 @@
 	top:0;
 	height:100%;
 	width:200px;
-	background: $purple;
+	background: $dark-purple;
 	padding:10px;
 	align-items:baseline;
 	display:block;
@@ -55,6 +55,12 @@
 			li{
 				padding-left:10px;
 			}
+		}
+		&.active > a{
+			background:$primary;
+			border-radius:15px;
+			padding:0 10px;
+			margin-left:-10px;
 		}
 	}
 	.user-form{

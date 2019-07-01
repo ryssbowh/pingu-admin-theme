@@ -1,6 +1,6 @@
 @foreach($items as $item)
 	@if($item->isVisible() )
-		<li class="nav-item {{ $item->class }}">{!! $item->generateLink() !!}
+		<li class="nav-item {{ $item->class }} {{ $item->isActive() ? 'active' : ''}}">{!! $item->generateLink() !!}
 		<?php $children = $item->getActiveChildren(); ?>
 		@if(!$children->isEmpty())
 			<ul class="list-group">

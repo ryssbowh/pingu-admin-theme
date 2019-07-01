@@ -3,3 +3,14 @@
 		max-height: 80px;
 	}
 }
+
+.jsgrid-cell{
+	transition: all 0.2s;
+}
+
+.jsgrid-selected-row{
+	.jsgrid-cell{
+		background-color: $secondary;
+		color:white;
+	}
+}

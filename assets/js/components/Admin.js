@@ -1,6 +1,6 @@
-import * as h from 'pingu-helpers'; 
 import Forms from 'pingu-forms';
 import Jsgrid from 'pingu-jsgrid';
+import * as h from 'PinguHelpers';
 
 const Admin = (() => {
 
@@ -95,7 +95,7 @@ const Admin = (() => {
 								showFormErrorsInModal(data.responseJSON.errors);
 							}
 							else{
-								showModalError(data.responseJSON.message);
+								showErrorModal(data.responseJSON.message);
 							}
 						}
 						modal.trigger('form.failed', data);

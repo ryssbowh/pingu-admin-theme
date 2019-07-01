@@ -1,9 +1,9 @@
 @extends('layouts.card')
 
 @section('title')
-	<h1>Routes</h1>
+<h1>Maintenance mode</h1>
 @endsection
 
 @section('content')
-    @include('jsgrid::list', $jsgrid)
+    {{ $form->render() }}
 @endsection

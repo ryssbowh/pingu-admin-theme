@@ -1,5 +1,5 @@
 import "nestedSortable";
-import * as h from 'pingu-helpers';
+import * as h from 'PinguHelpers';
 import Admin from './Admin';
 
 const AdminContentTypes = (() => {
@@ -12,7 +12,7 @@ const AdminContentTypes = (() => {
 	};
 
 	function init(){
-		console.log('Content types initialized');
+		h.log('Content types initialized');
 		if(opt.listPage.length){
 			makeSortable();
 		}
