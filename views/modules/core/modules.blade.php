@@ -23,14 +23,14 @@ Modules
 					<td>
 						@if(!$module->get('core'))
 							@if($module->enabled())
-								<form action="/admin/modules/disable/{{ $module->getName() }}" method="post">
+								<form action="/admin/modules/uninstall/{{ $module->getName() }}" method="post">
 									{{ csrf_field() }}
-									<input type="submit" class="btn btn-primary" value="Disable">
+									<input type="submit" class="btn btn-primary" value="Uninstall">
 								</form>
 							@else
-								<form action="/admin/modules/enable/{{ $module->getName() }}" method="post">
+								<form action="/admin/modules/install/{{ $module->getName() }}" method="post">
 									{{ csrf_field() }}
-									<input type="submit" class="btn btn-secondary" value="Enable">
+									<input type="submit" class="btn btn-secondary" value="Install">
 								</form>
 							@endif
 						@endif
