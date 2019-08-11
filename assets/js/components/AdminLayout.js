@@ -6,14 +6,14 @@ import Admin from './Admin';
 const AdminLayout = (() => {
 
 	let options = {
-		addRegionPage: $('.layout-regions'),
+		addRegionPage: $('.page-layout'),
 		addRegion: $('.js-add-region'),
 		deleteRegion: $('.js-delete'),
 		page: $('.js-page'),
 		pageContainer: $('#page-container'),
-		save: $('.layout-regions .js-save'),
+		save: $('.page-layout .js-save'),
 		regions: $('#page-container .js-region'),
-		skeleton: $('.layout-regions .region.skeleton')
+		skeleton: $('.page-layout .region.skeleton')
 	};
 
 	function init()

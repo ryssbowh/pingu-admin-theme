@@ -1,11 +1,11 @@
 @extends('layouts.card')
 
 @section('title')
-{{ $layout->name }}'s Regions
+{{ $page->name }}'s Regions
 @endsection
 
 @section('content')
-    <div class="layout-regions" data-id="{{ $layout->id }}">
+    <div class="page-layout" data-id="{{ $page->id }}">
 
         @include('core::contextualLinks')
 
@@ -16,7 +16,7 @@
         <div class="region js-region skeleton d-none">
             <div class="inner">
                 <input type="text" {{ $inputDisabled }} name="">
-                @can('manage layouts regions')
+                @can('manage page layouts')
                     <a href="{{ $deleteRegionUri }}" class="js-delete">Delete</a>
                 @endcan
             </div>
@@ -28,8 +28,8 @@
                     <div class="region js-region" style="width:calc({{ $region->width }}% - 20px);height:{{ $region->height }}px" data-width="{{ $region->width }}" data-height="{{ $region->height }}" data-id="{{ $region->id }}">
                         <div class="inner">
                             <input type="text" {{ $inputDisabled }} name="regions[{{ $region->id }}][name]" value="{{ $region->name }}">
-                            @can('manage layouts regions')
-                                <a href="{{ $region::transformAjaxUri('delete', [$region], true) }}" class="js-delete">Delete</a>
+                            @can('manage page layouts')
+                                <a href="{{ $region::transformUri('delete', [$region], config('core.ajaxPrefix')) }}" class="js-delete">Delete</a>
                             @endcan
                         </div>
                     </div>
@@ -37,7 +37,7 @@
             @endif
         </div>
 
-        @can('manage layouts regions')
+        @can('manage page layouts')
             <div class="actions">
                 <a href="{{ $addRegionUri }}" class="js-add-region">Add a region</a>
                 <a href="{{ $saveRegionUri }}" class="js-save btn btn-primary float-right disabled">Save</a>

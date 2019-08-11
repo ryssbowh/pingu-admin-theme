@@ -8,8 +8,7 @@ import 'jquery-ui/ui/widgets/droppable';
 const AdminBlocks = (() => {
 
 	let options = {
-		page: $('.page-regions'),
-		addBlock : $('.js-add-block'),
+		page: $('.page-blocks'),
 		blockList: $('.js-block-list'),
 		regionList: $('#page-container .region'),
 		blockListElements: $('.js-block-list .js-block'),
@@ -19,9 +18,6 @@ const AdminBlocks = (() => {
 
 	function init(){
 		h.log('Blocks initialized');
-		if(options.addBlock.length){
-			bindAddBlock(options.addBlock);
-		}
 		if(options.page.length){
 			loadBlocks();
 		}
@@ -47,38 +43,15 @@ const AdminBlocks = (() => {
 	};
 
 	function loadBlocks(){
-		let url = options.page.data('blockindexuri');
+		let url = options.page.data('listblocksuri');
 		h.get(url).done(function(data){
 			$.each(data, function(region,blocks){
 				$.each(blocks, function(ind, block){
-					createBlockElement(block.id, block.instance.name, block.provider.name, region);
+					createBlockElement(block.id, block.name, block.section, region);
 				});
 			});
 		});
 	}; 
-
-	function bindAddBlock(elems){
-		elems.click(function(e){
-			e.preventDefault();
-			let provider = $(this).data('provider');
-			h.get($(this).prop('href'), {_theme:'admin'}).done(function(data){
-				let modal = Admin.createFormModal($(data.form));
-				modal.on('form.success', function(form, data){
-					addBlockToList(data.model, provider);
-				});
-			});
-		});
-	};
-
-	function addBlockToList(block, provider){
-		let providerList = options.blockList.find('[data-provider='+provider+']');
-		let elem = providerList.find('.js-block').first().clone();
-		elem.find('.name').html(block.instance.name);
-		elem.find('.dropdown-toggler').attr('id', 'block-'+block.id+'-dropdown');
-		elem.attr('data-id', block.id);
-		providerList.find('ul').append(elem);
-		bindAddToRegion(elem.find('.js-add-to-region'));
-	}
 
 	function createBlockElement(id, name, providerName, regionId){
 		let clone = $('#blockSkeleton').clone();
@@ -86,7 +59,7 @@ const AdminBlocks = (() => {
 		clone.removeClass('d-none');
 		clone.attr('data-id', id);
 		clone.find('.name').html(name);
-		clone.find('.provider').html(providerName);
+		clone.find('.section').html(providerName);
 		let region = options.pageContainer.find('[data-region-id='+regionId+']');
 		region.find('ul').append(clone);
 		makeSortable(region.find('ul'));
@@ -98,8 +71,7 @@ const AdminBlocks = (() => {
 	function bindAddToRegion(elems){
 		elems.click(function(e){
 			let block = $(this).closest('.js-block');
-			let provider = block.closest('.js-provider');
-			createBlockElement(block.data('id'), block.find('.name').html(), provider.data('name'), $(this).data('region'));
+			createBlockElement(block.data('id'), block.find('.name').html(), block.data('section'), $(this).data('region'));
 			e.preventDefault();
 		});
 	}
