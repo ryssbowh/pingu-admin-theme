@@ -5,10 +5,10 @@
 	         	<i class="fa fa-bars"></i>
 	          	<span class="name">{{ $item->name }}</span>
 	          	@can('delete taxonomy terms')
-	        		<a href="{{ $item::transformAjaxUri('delete', [$item], true) }}" class="js-delete float-right">Delete</a> 
+	        		<a href="{{ $item::transformUri('delete', [$item], config('core.ajaxPrefix')) }}" class="js-delete float-right">Delete</a> 
 	        	@endcan
 	        	@can('edit taxonomy terms')
-	            	<a href="{{ $item::transformAjaxUri('edit', [$item], true) }}" class="js-edit float-right mr-1">Edit</a>
+	            	<a href="{{ $item::transformUri('edit', [$item], config('core.ajaxPrefix')) }}" class="js-edit float-right mr-1">Edit</a>
 	            @endcan
 	        </div>
 	        <?php $children = $item->children; ?>

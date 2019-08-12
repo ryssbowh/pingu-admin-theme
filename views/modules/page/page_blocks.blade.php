@@ -39,9 +39,9 @@
                                         <div id="list-{{Str::studly($section)}}" class="collapse" data-parent="#sections-accordion">
                                             <ul class="card-body list-group">
                                             @foreach($blockList as $block)
-                                                <li class="list-group-item text-left js-block" type="button" data-id="{{ $block->block()->id }}" data-section="{{ $section }}"><span class="name">{{ $block->getBlockName() }}</span>
+                                                <li class="list-group-item text-left js-block" type="button" data-id="{{ $block->getBlock()->id }}" data-section="{{ $section }}"><span class="name">{{ $block->getBlockName() }}</span>
                                                     <div class="dropdown float-right">
-                                                        <a id="block-{{ $block->block()->id }}-dropdown" class="dropdown-toggler float-right" href="#" data-toggle="dropdown"><i class="fa fa-plus"></i></a>
+                                                        <a id="block-{{ $block->getBlock()->id }}-dropdown" class="dropdown-toggler float-right" href="#" data-toggle="dropdown"><i class="fa fa-plus"></i></a>
                                                         @if($block->blockIsEditable())
                                                             <a href="" class="js-edit float-right mr-2"><i class="fa fa-edit"></i></a>
                                                         @endif

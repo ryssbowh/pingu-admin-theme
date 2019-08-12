@@ -71,7 +71,7 @@ const AdminTaxonomy = (() => {
 				let modal = Admin.createFormModal(data.form);
 				modal.on('form.success', function(e, data){
 					let item = cloneSkeleton(data.model);
-					opt.itemsList.append(item);
+					appendItemToList(item)
 					makeSortable();
 					bindEdit(item);
 					bindDelete(item);
@@ -80,6 +80,16 @@ const AdminTaxonomy = (() => {
 			
 		});
 	};
+
+	function appendItemToList(item)
+	{
+		if(!opt.itemsList.length){
+			opt.editTree.html('');
+			opt.editTree.append('<ul></ul>');
+			opt.itemsList = $('.edit-taxonomy-items > .taxonomy-tree > ul');
+		}
+		opt.itemsList.append(item);
+	}
 
 	function makeActive(item, active=true)
 	{

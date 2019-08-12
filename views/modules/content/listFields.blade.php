@@ -21,10 +21,10 @@
                 <div class="col">
                   @can('edit content types')
                     @if($field->editable)
-                      <a href="{{ $field::transformAdminUri('edit', [$field], true) }}">Edit</a>
+                      <a href="{{ $field::transformUri('edit', [$field], config('core.adminPrefix')) }}">Edit</a>
                     @endif
                     @if($field->deletable)
-                      <a class="confirm js-delete" href="{{ $field::transformAjaxUri('delete', [$field], true) }}">Delete</a>
+                      <a class="confirm js-delete" href="{{ $field::transformUri('delete', [$field], config('core.ajaxPrefix')) }}">Delete</a>
                     @endif
                   @endcan
                 </div>
@@ -40,7 +40,7 @@
 
       @can('edit content types')
         <div class="actions mt-2 row">
-          <a class="js-save btn btn-primary disabled" href="{{ $contentType::transformAjaxUri('patchFields', [$contentType], true) }}">Save</a>
+          <a class="js-save btn btn-primary disabled" href="{{ $contentType::transformUri('patchFields', [$contentType], config('core.ajaxPrefix')) }}">Save</a>
         </div>
       @endcan
     </div>
