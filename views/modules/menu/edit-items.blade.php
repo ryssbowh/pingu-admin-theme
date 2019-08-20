@@ -7,23 +7,24 @@
 @section('content')
     <div class="edit-menu-items" data-menu="{{ $menu->id }}">
 
-        @include('core::contextualLinks')
-
         <li class="list-group-item menu-item skeleton d-none" data-item="">
           <div class="header">
             <i class="fa fa-bars"></i>
             <span class="name"></span>
+            <input name="models[id][weight]" value="" type="hidden">
             @can('delete menu items')
-              <a href="{{ $deleteItemUri }}" class="js-delete float-right">Delete</a>
+              <a href="{{ $deleteItemUri }}" data-ajaxmethod="delete" data-confirmtitle="Delete item ?" class="js-ajax-confirm-link delete float-right" data-confirmmessage="This action cannot be undone">Delete</a>
             @endcan
             @can('edit menu items')
-              <a href="{{ $editItemUri }}" class="js-edit float-right mr-1">Edit</a>
+              <a href="{{ $editItemUri }}" class="js-ajax-link-form edit float-right mr-1">Edit</a>
             @endcan
           </div>
         </li>
 
+        {{ FormFacade::open(['url' => $patchItemsUri, 'method' => 'patch', 'class' => 'js-show-message js-ajax-form']) }}
+
         @can('create menu items')
-          <a href="{{ $addItemUri }}" class="js-add mb-2 d-inline-block">Add an item</a>
+          <a href="{{ $addItemUri }}" class="js-ajax-link-form add mb-2 d-inline-block">Add an item</a>
         @endcan
 
         <div class="menu-tree">
@@ -31,8 +32,10 @@
        	</div>
 
         @can('edit menu items')
-          <a href="{{ $patchItemsUri }}" class="js-save mt-2 d-inline-block btn btn-primary float-right disabled">Save</a>
+          {{ FormFacade::submit('Save', ['class' => 'save mt-2 d-inline-block btn btn-primary float-right']) }}
         @endcan
+
+        {{ FormFacade::close() }}
 
     </div>
 @endsection

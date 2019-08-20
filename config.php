@@ -8,7 +8,7 @@ return [
 	    'classes' => [
     		'edit-content' => 'edit-content-form content-form',
     		'create-content' => 'create-content-form content-form',
-    		'add-content-type-field' => 'form mt-4 pt-4 border-top'
+    		'add-content-type-field' => 'js-ajax-form'
 	    ],
 	    /**
 	     * default classes for form

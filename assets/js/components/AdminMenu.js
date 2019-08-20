@@ -8,18 +8,18 @@ const AdminMenu = (() => {
 
 	let opt = {
 		editMenuTree: $('.edit-menu-items .menu-tree'),
-		menuItemsList: $('.edit-menu-items > .menu-tree > ul'),
+		menuItemsList: $('.edit-menu-items .menu-tree > ul'),
 		menuItems: $('.edit-menu-items .menu-item'),
-		addMenuItem: $('.edit-menu-items .js-add'),
-		editMenuItem: $('.edit-menu-items .js-edit'),
-		deleteMenuItem: $('.edit-menu-items .js-delete'),
+		addMenuItem: $('.edit-menu-items .add'),
+		editMenuItem: $('.edit-menu-items .edit'),
+		deleteMenuItem: $('.edit-menu-items .delete'),
 		itemSkeleton: $('.edit-menu-items .menu-item.skeleton'),
-		saveItems: $('.edit-menu-items .js-save')
+		saveItems: $('.edit-menu-items .save')
 	};
 
 	function init()
 	{ 
-		h.log('Menu initialized');
+		h.log('[Admin Theme] Menu initialized');
 		if(opt.editMenuTree.length){
 			makeSortable();
 		}
@@ -30,9 +30,10 @@ const AdminMenu = (() => {
 			bindDelete(opt.menuItems);
 		}
 		if(opt.addMenuItem.length){
-			addItem();
+			bindAdd();
 		}
 		if(opt.saveItems.length){
+			opt.saveItems.addClass('disabled');
 			saveItems();
 		}
 	};
@@ -43,7 +44,9 @@ const AdminMenu = (() => {
 			handle:'.header',
 			items:'li',
 			listType:'ul',
-			change: function(e){
+			relocate: function(){
+				console.log('relocate');
+				rebuildWeights(opt.menuItemsList);
 				opt.saveItems.removeClass('disabled');
 			}
 		});
@@ -51,34 +54,30 @@ const AdminMenu = (() => {
 
 	function bindEdit(items)
 	{
-		items.find('.js-edit').click(function(e){
-			e.preventDefault();
+		items.find('.edit').on('form.loaded', function(e, modal){
+			$(modal).find('.wrapper-field-menu').addClass('d-none');
+			$(modal).find('.wrapper-field-weight').addClass('d-none');
+		});
+		items.find('.edit').on('form.success', function(e, data){
 			let item = $(this).closest('.menu-item');
-			h.get($(this).attr('href'), {_theme:'admin'}).done(function(data){
-				let modal = Admin.createFormModal(data.form);
-				modal.on('form.success', function(e, data){
-					item.children('.header').children('.name').html(data.model.name);
-					makeActive(item, data.model.active);
-				});
-			});
+			item.children('.header').children('.name').html(data.model.name);
+			makeActive(item, data.model.active);
 		});
 	};
 
-	function addItem()
+	function bindAdd()
 	{
-		opt.addMenuItem.click(function(e){
-			e.preventDefault();
-			h.get($(this).attr('href'),{_theme:'admin'}).done(function(data){
-				let modal = Admin.createFormModal(data.form);
-				modal.on('form.success', function(e, data){
-					let item = cloneSkeleton(data.model);
-					opt.menuItemsList.append(item);
-					makeSortable();
-					bindEdit(item);
-					bindDelete(item);
-				});
-			});
-			
+		opt.addMenuItem.on('form.loaded', function(e, modal){
+			$(modal).find('.wrapper-field-menu').addClass('d-none');
+			$(modal).find('.wrapper-field-weight').addClass('d-none');
+		});
+		opt.addMenuItem.on('form.success', function(e, data){
+			let item = cloneSkeleton(data.model);
+			opt.menuItemsList.append(item);
+			Admin.bindAjaxLinks(item);
+			makeSortable();
+			bindEdit(item);
+			bindDelete(item);
 		});
 	};
 
@@ -98,51 +97,41 @@ const AdminMenu = (() => {
 		item.find('.name').html(data.name);
 		item.data('item', data.id);
 		item.removeClass('d-none');
-		item.find('.js-edit').attr('href', h.replaceUriSlugs(item.find('.js-edit').attr('href'), [data.id]));
-		item.find('.js-delete').attr('href', h.replaceUriSlugs(item.find('.js-delete').attr('href'), [data.id]));
+		item.find('.edit').attr('href', h.replaceUriSlugs(item.find('.edit').attr('href'), [data.id]));
+		item.find('.delete').attr('href', h.replaceUriSlugs(item.find('.delete').attr('href'), [data.id]));
+		let weight = item.find('input[type=hidden]');
+		weight.attr('name', weight.attr('name').replace('[id]', '['+data.id+']'));
+	
 		makeActive(item, data.active);
 		return item;
 	}
 
 	function bindDelete(items){
-		items.find('.js-delete').click(function(e){
-			e.preventDefault();
+		items.find('.delete').on('ajax.success', function(e){
 			let item = $(this).closest('.menu-item');
-			h._delete($(this).attr('href')).done(function(data){
-				if(item.children('ul').length){
-					item.children('ul').appendTo(item.parent());
-					opt.saveItems.removeClass('disabled');
-				}
-				item.remove();
-			});
+			if(item.children('ul').length){
+				item.children('ul').appendTo(item.parent());
+				opt.saveItems.removeClass('disabled');
+			}
+			item.remove();
 		});
 	};
 
 	function saveItems(){
-		opt.saveItems.click(function(e){
-			e.preventDefault();
-			let data = buildSaveData(opt.menuItemsList.children('li'), null);
-			h.patch($(this).attr('href'), {models: data}).done(function(data){
-				opt.saveItems.addClass('disabled');
-				Admin.showSuccessModal(data.message);
-			});
-		});
+		opt.saveItems.on('ajax.success', function(){
+			opt.saveItems.addClass('disabled');
+		})
 	}
 
-	function buildSaveData(items, parent){
-		let out = [];
-		$.each(items, function(i, item){
-			let newItem = {
-				id:$(item).data('item'),
-				parent: parent,
-				weight: i
-			};
-			if($(item).children('ul').length){
-				newItem.children = buildSaveData($(item).children('ul').children('li'), $(item).data('item'));
+	function rebuildWeights(list, weight = 0)
+	{
+		$.each(list.find('li'), function(i, item){
+			$(item).find('input[type=hidden]').val(weight);
+			weight++;
+			if($(item).find('ul').length){
+				rebuildWeights($(item).find('ul'));
 			}
-			out.push(newItem);
 		});
-		return out;
 	}
 
 	return {

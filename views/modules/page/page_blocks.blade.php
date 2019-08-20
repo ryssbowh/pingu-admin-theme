@@ -7,8 +7,6 @@
 @section('content')
     <div class="page-blocks" data-page="{{ $page->id }}" data-listblocksuri="{{ $listBlocksUri }}">
 
-        @include('core::contextualLinks')
-
         <div class="row">
 
             <li id="blockSkeleton" class="list-group-item d-none block">
@@ -67,7 +65,7 @@
                         <a href="#" class="dropdown-toggle" id="createBlockDropdown" data-toggle="dropdown">Create a block</a>
                         <div class="dropdown-menu" aria-labelledby="createBlockDropdown">
                             @foreach($creators as $slug => $class)
-                                <a class="dropdown-item js-add-block" href="{{ \BlockCreator::transformUri('create', $slug,  config('core.adminPrefix')) }}?redirect={{\Request::path()}}">{{ $class::getBlockSection() }}</a>
+                                <a class="dropdown-item js-add-block" href="{{ $blockClass::makeUri('create', $slug,  adminPrefix()) }}?redirect={{\Request::path()}}">{{ $class::getBlockSection() }}</a>
                             @endforeach
                         </div>
                     </div>

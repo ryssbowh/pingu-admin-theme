@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="edit-content">
+    <div class="edit-content editPage">
       {{ $form->render() }}
     </div>
 @endsection

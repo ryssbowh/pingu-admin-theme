@@ -1,0 +1,14 @@
+.image-transformations{
+	.addForm{
+		.field{
+			width: calc(100% - 80px);
+			max-width: 200px;
+			float:left;
+		}
+		input[type=submit]{
+			width:70px;
+			margin-left: 10px;
+			float:left;
+		}
+	}
+}

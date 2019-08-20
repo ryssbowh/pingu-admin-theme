@@ -1,5 +1,6 @@
 import Forms from 'pingu-forms';
 import Admin from './Admin';
+import Modal from './AdminModal';
 import * as h from 'PinguHelpers';
 import "nestedSortable";
 
@@ -7,18 +8,18 @@ const AdminTaxonomy = (() => {
 
 	let opt = {
 		editTree: $('.edit-taxonomy-items .taxonomy-tree'),
-		itemsList: $('.edit-taxonomy-items > .taxonomy-tree > ul'),
-		items: $('.edit-taxonomy-items .taxonomy-item'),
+		itemsList: $('.edit-taxonomy-items .taxonomy-list'),
+		items: $('.edit-taxonomy-items .taxonomy-item:not(.skeleton)'),
 		addItem: $('.edit-taxonomy-items .js-add'),
 		editItem: $('.edit-taxonomy-items .js-edit'),
 		deleteItem: $('.edit-taxonomy-items .js-delete'),
 		itemSkeleton: $('.edit-taxonomy-items .taxonomy-item.skeleton'),
-		saveItems: $('.edit-taxonomy-items .js-save')
+		saveItems: $('.edit-taxonomy-items .save')
 	};
 
 	function init()
 	{ 
-		h.log('Taxonomy initialized');
+		h.log('[Admin Theme] Taxonomy initialized');
 		if(opt.editTree.length){
 			makeSortable();
 		}
@@ -29,10 +30,11 @@ const AdminTaxonomy = (() => {
 			bindDelete(opt.items);
 		}
 		if(opt.addItem.length){
-			addItem();
+			bindAddItem();
 		}
 		if(opt.saveItems.length){
-			saveItems();
+			opt.saveItems.addClass('disabled');
+			bindSave();
 		}
 	};
 
@@ -42,42 +44,40 @@ const AdminTaxonomy = (() => {
 			handle:'.header',
 			items:'li',
 			listType:'ul',
-			change: function(e){
+			stop: function(e){
+				rebuildWeights();
 				opt.saveItems.removeClass('disabled');
 			}
 		});
 	}
 
+	function rebuildWeights()
+	{
+		let weight = 0;
+		$.each(opt.itemsList.find('li'), function(i, item){
+			$(item).find('input').val(weight);
+			weight++;
+		});
+	}
+
 	function bindEdit(items)
 	{
-		items.find('.js-edit').click(function(e){
-			e.preventDefault();
-			let item = $(this).closest('.taxonomy-item');
-			h.get($(this).attr('href'), {_theme:'admin'}).done(function(data){
-				let modal = Admin.createFormModal(data.form);
-				modal.on('form.success', function(e, data){
-					item.children('.header').children('.name').html(data.model.name);
-					makeActive(item, data.model.active);
-				});
-			});
+		items.find('.js-edit').on('form.success', function(e, data){
+			let item = $(this).closest('li');
+			item.find('.name').html(data.model.name);
+			makeActive(item, data.model.active);
 		});
 	};
 
-	function addItem()
+	function bindAddItem()
 	{
-		opt.addItem.click(function(e){
-			e.preventDefault();
-			h.get($(this).attr('href'),{_theme:'admin'}).done(function(data){
-				let modal = Admin.createFormModal(data.form);
-				modal.on('form.success', function(e, data){
-					let item = cloneSkeleton(data.model);
-					appendItemToList(item)
-					makeSortable();
-					bindEdit(item);
-					bindDelete(item);
-				});
-			});
-			
+		opt.addItem.on('form.success', function(e, data){
+			let item = cloneSkeleton(data.model);
+			appendItemToList(item);
+			makeSortable();
+			Admin.bindAjaxLinks(item);
+			bindEdit(item);
+			bindDelete(item);
 		});
 	};
 
@@ -105,53 +105,32 @@ const AdminTaxonomy = (() => {
 	{
 		let item = opt.itemSkeleton.clone();
 		item.find('.name').html(data.name);
+		let weight = item.find('input');
+		weight.attr('name', weight.attr('name').replace('id', data.id));
 		item.data('item', data.id);
-		item.removeClass('d-none');
-		item.find('.js-edit').attr('href', h.replaceUriSlugs(item.find('.js-edit').attr('href'), [data.id]));
+		item.removeClass('d-none skeleton');
 		item.find('.js-delete').attr('href', h.replaceUriSlugs(item.find('.js-delete').attr('href'), [data.id]));
+		item.find('.js-edit').attr('href', h.replaceUriSlugs(item.find('.js-edit').attr('href'), [data.id]));
 		makeActive(item, data.active);
 		return item;
 	}
 
 	function bindDelete(items){
-		items.find('.js-delete').click(function(e){
-			e.preventDefault();
-			let item = $(this).closest('.taxonomy-item');
-			h._delete($(this).attr('href')).done(function(data){
-				if(item.children('ul').length){
-					item.children('ul').appendTo(item.parent());
-					opt.saveItems.removeClass('disabled');
-				}
-				item.remove();
-			});
+		items.find('.js-delete').on('ajax.success', function(){
+			let item = $(this).closest('li');
+			if(item.children('ul').length){
+				item.children('ul').appendTo(item.parent());
+				opt.saveItems.removeClass('disabled');
+			}
+			item.remove();
 		});
 	};
 
-	function saveItems(){
-		opt.saveItems.click(function(e){
-			e.preventDefault();
-			let data = buildSaveData(opt.itemsList.children('li'), null);
-			h.patch($(this).attr('href'), {models: data}).done(function(data){
-				opt.saveItems.addClass('disabled');
-				Admin.showSuccessModal(data.message);
-			});
+	function bindSave()
+	{
+		opt.saveItems.on('ajax.success', function(){
+			opt.saveItems.addClass('disabled');
 		});
-	}
-
-	function buildSaveData(items, parent){
-		let out = [];
-		$.each(items, function(i, item){
-			let newItem = {
-				id:$(item).data('item'),
-				parent: parent,
-				weight: i
-			};
-			if($(item).children('ul').length){
-				newItem.children = buildSaveData($(item).children('ul').children('li'), $(item).data('item'));
-			}
-			out.push(newItem);
-		});
-		return out;
 	}
 
 	return {

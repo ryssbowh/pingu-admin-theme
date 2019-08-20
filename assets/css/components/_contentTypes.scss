@@ -1,10 +1,11 @@
 .list-content-type-field form{
 	width: 100%;
 	.wrapper-field-type{
-		width:60%;
+		max-width:200px;
 		float:left;
 	}
 	input[type=submit]{
-		float:right;
+		margin-top: 30px;
+		margin-left: 20px;
 	} 
 }

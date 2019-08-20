@@ -1,69 +1,89 @@
 import "nestedSortable";
 import * as h from 'PinguHelpers';
 import Admin from './Admin';
+import Modal from './AdminModal';
 
 const AdminContentTypes = (() => {
 
 	let opt = {
 		addPage: $('.addPage.add-content-type'),
-		listPage: $('.list-content-type-field'),
-		delete: $('.list-content-type-field .js-delete'),
-		save: $('.list-content-type-field .js-save'),
+		list: $('.list-content-type-field ul'),
+		delete: $('.list-content-type-field .delete'),
+		save: $('.list-content-type-field .save'),
+		edit: $('.list-content-type-field .edit'),
+		addForm:$('.list-content-type-field .form-add-content-type-field')
 	};
 
 	function init(){
-		h.log('Content types initialized');
-		if(opt.listPage.length){
+		h.log('[Admin Theme] Content types initialized');
+		if(opt.list.length){
 			makeSortable();
 		}
 		if(opt.save.length){
 			bindSave();
 		}
+		if(opt.edit.length){
+			bindEdit();
+		}
 		if(opt.delete.length){
 			bindDelete();
+		}
+		if(opt.addForm.length){
+			bindAddForm();
 		}
 	};
 
 	function makeSortable()
 	{
-		opt.listPage.children('ul').nestedSortable({
+		opt.list.nestedSortable({
 			handle:'.header',
 			items:'li',
 			listType:'ul',
-			change: function(e){
+			stop: function(e){
+				rebuildWeights();
 				opt.save.removeClass('disabled');
 			}
 		});
 	}
 
+	function rebuildWeights()
+	{
+		let weight = 0;
+		$.each(opt.list.find('li'), function(i, item){
+			$(item).find('input[type=hidden]').val(weight);
+			weight++;
+		});
+	}
+
+	function bindEdit()
+	{
+		opt.edit.on('form.success', function(){
+			location.reload();
+		});
+	}
+
+	function bindAddForm()
+	{
+		opt.addForm.on('form.success', function(e, data){
+			let modal = Modal.createForm(data.form);
+			let form = modal.find('form');
+			form.on('form.success', function(){
+				location.reload();
+			});
+		});
+	}
+
 	function bindDelete()
 	{
-		opt.delete.click(function(e){
-			e.preventDefault();
-			let elem = $(this).closest('.list-group-item');
-			let url = $(this).attr('href');
-			let modal = Admin.showConfirmModal('Are you sure you want to delete this field ?');
-			modal.find('button.confirm').off('click');
-			modal.find('button.confirm').on('click', function(){
-				h._delete(url).done(function(data){
-					elem.remove();
-				});
-			});
+		opt.delete.on('ajax.success',function(){
+			$(this).closest('.list-group-item').remove();
 		});
 	}
 
 	function bindSave()
 	{
-		opt.save.click(function(e){
-			e.preventDefault();
-			let data = {models:[]};
-			$.each(opt.listPage.find('.list-group-item'), function(weight, item){
-				data.models.push({id:$(item).data('id'), weight: weight});
-			});
-			h.patch($(this).attr('href'), data).done(function(data){
-				opt.save.addClass('disabled');
-				Admin.showSuccessModal(data.message);
-			});
+		opt.save.on('ajax.success', function(){
+			location.reload();
 		});
 	};
 

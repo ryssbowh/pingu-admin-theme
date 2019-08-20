@@ -5,13 +5,14 @@
 	        <div class="header">
 	         	<i class="fa fa-bars"></i>
 	          	<span class="name">{{ $item->name }}</span>
+	          	<input name="models[{{ $item->id }}][weight]" value="{{ $item->weight }}" type="hidden">
 	          	@if($item->deletable)
 		          	@can('delete menu items')
-		        		<a href="{{ $item::transformUri('delete', $item, config('core.ajaxPrefix')) }}" class="js-delete float-right">Delete</a> 
+		        		<a href="{{ $item::makeUri('delete', $item, adminPrefix()) }}" data-ajaxmethod="delete" data-confirmtitle="Delete item ?" class="js-ajax-confirm-link delete float-right" data-confirmmessage="This action cannot be undone">Delete</a> 
 		        	@endcan
 		        @endif
 	        	@can('edit menu items')
-	            	<a href="{{ $item::transformUri('edit', $item, config('core.ajaxPrefix')) }}" class="js-edit float-right mr-1">Edit</a>
+	            	<a href="{{ $item::makeUri('edit', $item, adminPrefix()) }}" class="js-ajax-link-form edit float-right mr-1">Edit</a>
 	            @endcan
 	        </div>
 	        <?php $children = $item->getChildren(); ?>

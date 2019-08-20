@@ -15,7 +15,7 @@
     				<small>{{ $type->description}}</small>
     			</div>
     			<div class="float-right">
-    				<a class="btn btn-primary" href="{{ $content::transformAdminUri('create', $type, true) }}">Create</a>
+    				<a class="btn btn-primary" href="{{ $content::makeUri('create', $type, adminPrefix()) }}">Create</a>
     			</div>
     		</li>
     		@endforeach

@@ -1,3 +1,4 @@
+import * as h from 'PinguHelpers';
 
 const AdminInfo = (() => {
 
@@ -10,6 +11,7 @@ const AdminInfo = (() => {
 	let cardHeight = 205;
 
 	function init(){
+		h.log('[Admin Theme] Info initialized');
 		if(options.info.length){
 			resizeLists();
 			bindViewMore();
@@ -40,7 +42,7 @@ const AdminInfo = (() => {
 				$(this).prev().height(cardHeight);
 				$(this).html('View more');
 			}
-		})
+		});
 	}
 
 	return {

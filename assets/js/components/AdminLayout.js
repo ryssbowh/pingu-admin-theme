@@ -6,19 +6,18 @@ import Admin from './Admin';
 const AdminLayout = (() => {
 
 	let options = {
-		addRegionPage: $('.page-layout'),
-		addRegion: $('.js-add-region'),
-		deleteRegion: $('.js-delete'),
-		page: $('.js-page'),
-		pageContainer: $('#page-container'),
+		page: $('.page-layout'),
+		addRegion: $('.page-layout .add-region'),
+		deleteRegion: $('.page-layout .delete'),
+		pageContainer: $('.page-layout #page-container'),
 		save: $('.page-layout .js-save'),
-		regions: $('#page-container .js-region'),
+		regions: $('.page-layout .region'),
 		skeleton: $('.page-layout .region.skeleton')
 	};
 
 	function init()
 	{ 
-		h.log('Page initialized');
+		h.log('[Admin Theme] Page initialized');
 		options.pageContainer.resizable({
 			handles: 's'
 		});
@@ -26,13 +25,14 @@ const AdminLayout = (() => {
 			makeResizable(options.regions);
 			bindNameChange(options.regions);
 		}
-		if(options.addRegionPage.length){
+		if(options.page.length){
 			bindAddRegion();
 		}
 		if(options.deleteRegion.length){
 			bindDeleteRegion(options.regions);
 		}
 		if(options.save.length){
+			disableSave();
 			bindSave();
 		}
 	};
@@ -46,32 +46,19 @@ const AdminLayout = (() => {
 
 	function bindDeleteRegion(elems)
 	{
-		elems.find('.js-delete').click(function(e){
-			e.preventDefault();
+		elems.find('.delete').on('ajax.success', function(){
 			let region = $(this).closest('.js-region');
-			h._delete($(this).attr('href'))
-				.done(function(){
-					region.remove();
-				})
-				.fail(function(data){
-					Admin.showErrorModal(data.responseJSON.message);
-				});
+			region.remove();
 		});
 	}
 
 	function bindAddRegion()
 	{
-		options.addRegion.click(function(e){
-			e.preventDefault();
-			h.get($(this).attr('href'), {'_theme': 'admin'}).done(function(data){
-				let modal = Admin.createFormModal(data.form);
-				modal.on('form.success', function(form, data){
-					let region = addRegion(data.model);
-					bindDeleteRegion(region);
-					bindNameChange(region)
-					makeResizable(region);
-				});
-			});
+		options.addRegion.on('form.success', function(e, data){
+			let region = addRegion(data.model);
+			bindDeleteRegion(region);
+			bindNameChange(region)
+			makeResizable(region);
 		});
 	};
 
@@ -82,10 +69,12 @@ const AdminLayout = (() => {
 		elem.css('width', 'calc('+data.width+'% - 20px)');
 		elem.css('height', data.height+'px');
 		elem.data('id', data.id);
-		elem.data('width', data.width);
-		elem.data('height', data.height);
-		elem.find('input[type=text]').val(data.name).attr('name', 'regions['+data.id+'][name]');
-		elem.find('.js-delete').attr('href', h.replaceUriSlugs(elem.find('.js-delete').attr('href'), [data.id]));
+		let url = elem.find('.delete').attr('href');
+		elem.find('.delete').attr('href', h.replaceUriSlugs(url, data.id));
+		elem.find('input.name').val(data.name).attr('name', 'regions['+data.id+'][name]');
+		elem.find('input.width').val(data.width).attr('name', 'regions['+data.id+'][width]');
+		elem.find('input.height').val(data.height).attr('name', 'regions['+data.id+'][height]');
+		Admin.bindAjaxLinks(elem);
 		options.pageContainer.append(elem);
 		return elem;
 	}
@@ -97,12 +86,12 @@ const AdminLayout = (() => {
 				minHeight: 38,
 				minWidth: 50,
 				containment: '#page-container',
-				resize: function(event, ui){
-					setRegionSize(ui.element);
+				stop: function(event, ui){
+					rebuildSizes();
 					enableSave();
 				},
 				create: function(event, ui){
-					setRegionSize(this);
+					rebuildSizes();
 				}
 			});
 		});
@@ -117,12 +106,14 @@ const AdminLayout = (() => {
 		options.save.addClass('disabled');
 	}
 
-	function setRegionSize(elem)
+	function rebuildSizes()
 	{
 		let containerSize = $('#page-container').width();
-		let size = ((($(elem).outerWidth()) / (containerSize) ) * 100).toFixed(1);
-		$(elem).data('width',size);
-		$(elem).data('height',$(elem).height());
+		$.each($('#page-container .region'), function(i, elem){
+			let size = ((($(elem).outerWidth()) / (containerSize) ) * 100).toFixed(1);
+			$(elem).find('.width').val(size);
+			$(elem).find('.height').val($(elem).height());
+		});
 	};
 
 	function makeSortable()
@@ -134,22 +125,8 @@ const AdminLayout = (() => {
 
 	function bindSave()
 	{
-		options.save.click(function(e){
-			e.preventDefault();
-			let url = $(this).attr('href');
-			let data = [];
-			$.each($('#page-container .js-region'), function(i, region){
-				let elem = {
-					id: $(region).data('id'),
-					width: $(region).data('width'),
-					height: $(region).data('height')
-				};
-				data.push(elem);
-			});
-			h.patch(url, {models:data}).done(function(data){
-				Admin.showSuccessModal(data.message);
-				disableSave();
-			});
+		options.save.on('ajax.success', function(){
+			disableSave();
 		});
 	}
 

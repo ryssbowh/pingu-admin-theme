@@ -13,7 +13,7 @@ class AdminMenuComposer
 	public function compose($view)
 	{
 		$view->with([
-			'menu' => Menu::findByName('admin-menu')
+			'menu' => Menu::findByMachineName('admin-menu')
 		]);
 	}
 }

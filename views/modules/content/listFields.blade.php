@@ -5,8 +5,10 @@
 @endsection
 
 @section('content')
-    @include('core::contextualLinks')
+
     <div class="list-content-type-field container">
+
+      {{ FormFacade::open(['url' => $contentType::makeUri('patchFields', [$contentType], adminPrefix()), 'class' => 'js-ajax-form js-show-message', 'method' => 'patch']) }}
 
       @if($fields->isEmpty())
         <p>No fields</p>
@@ -14,6 +16,7 @@
         <ul class="list-group row">
           @foreach($fields as $field)
             <li class="list-group-item container" data-id="{{ $field->id }}">
+              <input type="hidden" name="models[{{ $field->id }}][weight]" value="{{ $field->weight }}">
               <div class="row">
                 <div class="col-1 header"><i class="fa fa-bars"></i></div>
                 <div class="col">{{ $field->name }} ({{ $field->machineName }})</div>
@@ -21,10 +24,10 @@
                 <div class="col">
                   @can('edit content types')
                     @if($field->editable)
-                      <a href="{{ $field::transformUri('edit', [$field], config('core.adminPrefix')) }}">Edit</a>
+                      <a class="js-ajax-link-form edit" href="{{ $field::makeUri('edit', [$field], adminPrefix()) }}">Edit</a>
                     @endif
                     @if($field->deletable)
-                      <a class="confirm js-delete" href="{{ $field::transformUri('delete', [$field], config('core.ajaxPrefix')) }}">Delete</a>
+                      <a class="js-ajax-confirm-link delete" data-ajaxmethod="delete" data-confirmtitle="Delete field ?" data-confirmmessage="This action cannot be undone" href="{{ $field::makeUri('delete', [$field], adminPrefix()) }}">Delete</a>
                     @endif
                   @endcan
                 </div>
@@ -34,14 +37,12 @@
         </ul>
       @endif
 
-      <div class="add-field-form row">
+      {{ FormFacade::submit('Save', ['class' => 'save btn btn-primary disabled float-right']) }}
+      {{ FormFacade::close() }}
+
+      <div class="add-field-form row mt-2">
         {{ $form->render() }}
       </div>
 
-      @can('edit content types')
-        <div class="actions mt-2 row">
-          <a class="js-save btn btn-primary disabled" href="{{ $contentType::transformUri('patchFields', [$contentType], config('core.ajaxPrefix')) }}">Save</a>
-        </div>
-      @endcan
     </div>
 @endsection
