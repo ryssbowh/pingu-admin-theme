@@ -5,7 +5,8 @@ const Admin = (() => {
 
 	let options = {
 		jsgrid: $('.jsgrid-table'),
-		menu: $('.navbar-main')
+		menu: $('.navbar-main'),
+		globalSpinner: $('#js-global-spinner')
 	};
 
 	let errors = {
@@ -38,6 +39,16 @@ const Admin = (() => {
 		$(window).resize(function(){
 			resizeMenu();
 		});
+	}
+
+	function showSpinner()
+	{
+		options.globalSpinner.show();
+	}
+
+	function hideSpinner()
+	{
+		options.globalSpinner.hide();
 	}
 
 	function bindAjaxLinks(element)
@@ -142,6 +153,7 @@ const Admin = (() => {
 			data._method = link.data('ajaxmethod');
 			method = 'post';
 		}
+		showSpinner();
 		h.ajax(url, data, method).done(function(data){
 			link.trigger('ajax.success', data);
 			if(callbackSuccess){
@@ -152,6 +164,8 @@ const Admin = (() => {
 			if(callbackFailure){
 				callbackFailure(data);
 			}
+		}).always(function(){
+			hideSpinner();
 		});
 	}
 
@@ -189,6 +203,7 @@ const Admin = (() => {
 	{
 		links.click(function(e){
 			e.preventDefault();
+			if($(this).hasClass('disabled')){ return;}
 			performAjaxLink($(this));
 		});
 	}
@@ -197,6 +212,7 @@ const Admin = (() => {
 	{
 		links.click(function(e){
 			e.preventDefault();
+			if($(this).hasClass('disabled')){ return;}
 			let link = $(this);
 			let modal = performConfirm(link, function(){
 				link.trigger('confirmed');
@@ -216,6 +232,7 @@ const Admin = (() => {
 	{
 		links.click(function(e){
 			e.preventDefault();
+			if($(this).hasClass('disabled')){ return;}
 			let link = $(this);
 			performAjaxLink(link, function(data){
 				let modal = Modal.createForm(data.form);
@@ -239,7 +256,9 @@ const Admin = (() => {
 		getErrorMessageFromResponse: getErrorMessageFromResponse,
 		bindAjaxLinks: bindAjaxLinks,
 		bindViewMoreLinks: bindViewMoreLinks,
-		bindConfirmLinks: bindConfirmLinks
+		bindConfirmLinks: bindConfirmLinks,
+		showSpinner: showSpinner,
+		hideSpinner: hideSpinner
 	};
 
 })();

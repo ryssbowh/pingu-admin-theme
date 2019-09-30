@@ -31,10 +31,12 @@ const AdminForms = (() => {
 		let promise;
 		forms.on('submit', function(e){
 			e.preventDefault();
+			if($(this).hasClass('disabled')){ return; }
 			let form = $(this);
 			let data = form.serializeArray();
 			data.push({name: '_theme', value: 'admin'});
 			let url = Admin.ajaxUrl(form.attr('action'));
+			Admin.showSpinner();
 			if(getMethod(form) == 'get'){
 				promise = h.get(url, data);
 			}
@@ -52,6 +54,9 @@ const AdminForms = (() => {
 					highlightInvalidFields(form, Object.keys(data.responseJSON.errors));
 				}
 				form.trigger('form.failure', data);
+			})
+			.always(function(){
+				Admin.hideSpinner();
 			});
 		});
 	}

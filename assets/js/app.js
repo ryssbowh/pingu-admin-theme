@@ -7,7 +7,7 @@ import AdminLayout from './components/AdminLayout.js';
 import AdminMenu from './components/AdminMenu.js';
 import AdminTaxonomy from './components/AdminTaxonomy.js';
 import AdminMedia from './components/AdminMedia.js';
-import AdminContentTypes from './components/AdminContentTypes.js';
+import AdminBundleFields from './components/AdminBundleFields.js';
 import Admin from './components/Admin.js';
 
 $(() => {
@@ -20,5 +20,5 @@ $(() => {
 	AdminMenu.init();
 	AdminTaxonomy.init();
 	AdminMedia.init();
-	AdminContentTypes.init();
+	AdminBundleFields.init();
 });

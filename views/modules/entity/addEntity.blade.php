@@ -1,11 +1,11 @@
 @extends('layouts.card')
 
 @section('title')
-Add a {{ $fieldType->name }} field to {{ $contentType->name }}
+Add a {{ $bundle->bundleFriendlyName() }}
 @endsection
 
 @section('content')
-    <div class="add-content-type-field">
+    <div class="add-entity addPage">
       {{ $form->render() }}
     </div>
 @endsection

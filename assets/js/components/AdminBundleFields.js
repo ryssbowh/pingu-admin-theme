@@ -3,15 +3,14 @@ import * as h from 'PinguHelpers';
 import Admin from './Admin';
 import Modal from './AdminModal';
 
-const AdminContentTypes = (() => {
+const AdminBundleFields = (() => {
 
 	let opt = {
-		addPage: $('.addPage.add-content-type'),
-		list: $('.list-content-type-field ul'),
-		delete: $('.list-content-type-field .delete'),
-		save: $('.list-content-type-field .save'),
-		edit: $('.list-content-type-field .edit'),
-		addForm:$('.list-content-type-field .form-add-content-type-field')
+		list: $('.list-entity-fields ul'),
+		delete: $('.list-entity-fields .delete'),
+		form: $('.list-entity-fields > form'),
+		edit: $('.list-entity-fields .edit'),
+		addForm:$('.list-entity-fields .form-add-entity-field')
 	};
 
 	function init(){
@@ -19,7 +18,7 @@ const AdminContentTypes = (() => {
 		if(opt.list.length){
 			makeSortable();
 		}
-		if(opt.save.length){
+		if(opt.form.length){
 			bindSave();
 		}
 		if(opt.edit.length){
@@ -41,7 +40,7 @@ const AdminContentTypes = (() => {
 			listType:'ul',
 			stop: function(e){
 				rebuildWeights();
-				opt.save.removeClass('disabled');
+				opt.form.find('input[type=submit]').removeClass('disabled');
 			}
 		});
 	}
@@ -82,8 +81,8 @@ const AdminContentTypes = (() => {
 
 	function bindSave()
 	{
-		opt.save.on('ajax.success', function(){
-			location.reload();
+		opt.form.on('form.success', function(){
+			opt.form.find('input[type=submit]').addClass('disabled');
 		});
 	};
 
@@ -93,4 +92,4 @@ const AdminContentTypes = (() => {
 
 })();
 
-export default AdminContentTypes;
+export default AdminBundleFields;

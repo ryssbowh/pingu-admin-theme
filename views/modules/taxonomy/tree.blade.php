@@ -5,10 +5,10 @@
          	<i class="fa fa-bars"></i>
           	<span class="name">{{ $item->name }}</span>
           	@can('delete taxonomy terms')
-        		<a href="{{ $item::makeUri('delete', [$item], adminPrefix()) }}" data-ajaxmethod="delete" class="js-delete float-right js-ajax-confirm-link" data-confirmmessage="This action cannot be undone">Delete</a> 
+        		<a href="{{ $item->uris()->make('delete', [$item], adminPrefix()) }}" data-ajaxmethod="delete" class="js-delete float-right js-ajax-confirm-link" data-confirmmessage="This action cannot be undone">Delete</a> 
         	@endcan
         	@can('edit taxonomy terms')
-            	<a href="{{ $item::makeUri('edit', [$item], adminPrefix()) }}" class="js-edit js-ajax-link-form float-right mr-1">Edit</a>
+            	<a href="{{ $item->uris()->make('edit', [$item], adminPrefix()) }}" class="js-edit js-ajax-link-form float-right mr-1">Edit</a>
             @endcan
         </div>
         <?php $children = $item->children; ?>

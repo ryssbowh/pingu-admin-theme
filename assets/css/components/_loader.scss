@@ -1,0 +1,53 @@
+@mixin loading-spinner($selector: "&::before", $time: 1s) {
+    @keyframes spinner {
+        0% {
+            transform: translate3d(-50%, -50%, 0) rotate(0deg);
+        }
+
+        100% {
+            transform: translate3d(-50%, -50%, 0) rotate(360deg);
+        }
+    }
+    
+    animation-play-state: running;
+    opacity: 1;
+    height: 50px;
+    left:calc(50% - 25px);
+    top:calc(50% - 25px);
+    transform: translate(-50%, -50%);
+    opacity: inherit;
+    position: absolute;
+    width: 50px;
+    
+    &.-paused { 
+        animation-play-state: paused; 
+        opacity: 0.2;
+        transition: opacity linear 0.1s;
+    }
+
+    #{$selector} {
+        animation: $time linear infinite spinner;
+        animation-play-state: inherit;
+        border: solid 5px #dedede;
+        border-bottom-color: $primary;
+        border-radius: 50%;
+        content: "";
+        height: 100%;
+        left:50%;
+        top:50%;
+        opacity: inherit;
+        position: absolute;
+        width: 100%;
+        will-change: transform;
+    }
+}
+
+#js-global-spinner{
+    display:none;
+    @include full-fixed-position;
+    background: rgba(207, 207, 207, 0.24);
+    .loading-spinner {
+        @include loading-spinner;
+        display: inline-block;
+    }
+}

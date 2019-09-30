@@ -1,10 +1,9 @@
 @extends('layouts.card')
 
 @section('title')
-Change password
+	<h1>Change password</h1>
 @endsection
 
 @section('content')
-	@include('core::contextualLinks')
-    {{ $form->render() }}
+    {!! $form->render() !!}
 @endsection

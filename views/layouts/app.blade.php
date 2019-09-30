@@ -39,6 +39,10 @@
         </div>
     </div>
 
+    <div id="js-global-spinner">
+        <div class="loading-spinner"></div>
+    </div>
+
     <div id="app">
         
         @if(app()->isDownForMaintenance())

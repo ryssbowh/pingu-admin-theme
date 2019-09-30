@@ -1,6 +1,6 @@
 .deletePage, .editPage, .addPage{
-	.back, .delete{
-		float:right;
+	input[type=submit]:not(.confirm){
+		float: right;
 	}
 }
 
