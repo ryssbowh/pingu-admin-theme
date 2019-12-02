@@ -2,19 +2,19 @@
 
 @section('title')
     <h1>{{ $entity::friendlyNames() }}</h1>
-    @if($canCreate)
+    @can('create', get_class($entity))
         <span class="float-right"><a href="{{ $createUrl }}">New</a></span>
-    @endif
+    @endcan
 @endsection
 
 @section('content')
-    <div class="list-entity {{ $entity::machineNames() }}">
-    	@if($entities)
+    <div class="list-entity list-entity-{{ $type }}">
+    	@if(!$entities->isEmpty()) 
         <table class="table">
             <thead>
                 <tr>
                     @foreach($entities[0]->adminListFields as $field)
-                        <th scope="col">{{ ucfirst($field) }}</th>
+                        <th scope="col">{{ $entity::fieldFriendlyName($field) }}</th>
                     @endforeach
                     <th scope="col"></th>
                 </tr>
@@ -23,17 +23,19 @@
     		@foreach($entities as $entity)
                 <tr>
                     @foreach($entity->adminListFields as $field)
-                        <td>{{ $entity->$field }}</td>
+                        <td>{!! $entity->fieldFriendlyValue($field) !!}</td>
                     @endforeach
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
-                            <div class="dropdown-menu">
-                                @foreach($entity->actions()->get() as $action)
-                                    <a class="dropdown-item btn btn-primary" href="{{ $action['url'] }}">{{ $action['label'] }}</a>
-                                @endforeach
+                        @if($actions = $entity::actions()->make($entity))
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                                <div class="dropdown-menu">
+                                    @foreach($actions as $action)
+                                        <a class="dropdown-item btn btn-primary" href="{{ $action['url'] }}">{{ $action['label'] }}</a>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </td>
                 </tr>
             @endforeach

@@ -13,11 +13,11 @@
                     <li class="list-group-item"><b>{{ $section }}</b>
                         <ul class="list-group mt-3">
                             @foreach($bundleList as $bundle)
-                                <li class="list-group-item">{{ $bundle->bundleFriendlyname() }}
+                                <li class="list-group-item">{{ $bundle->bundleFriendlyName() }}
                                     <div class="btn-group float-right">
                                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                                         <div class="dropdown-menu">
-                                            @foreach($bundle->actions()->get() as $action)
+                                            @foreach($bundle::actions()->make($bundle) as $action)
                                                 <a class="dropdown-item btn btn-primary" href="{{ $action['url'] }}">{{ $action['label'] }}</a>
                                             @endforeach
                                         </div>
@@ -27,11 +27,11 @@
                         </ul>
                     </li>
                 @else
-                    <li class="list-group-item">{{ $bundleList[0]->bundleFriendlyname() }}
+                    <li class="list-group-item">{{ $bundleList[0]->bundleFriendlyName() }}
                         <div class="btn-group float-right">
                             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                             <div class="dropdown-menu">
-                                @foreach($bundleList[0]->actions()->get() as $action)
+                                @foreach($bundleList[0]::actions()->make($bundleList[0]) as $action)
                                     <a class="dropdown-item btn btn-primary" href="{{ $action['url'] }}">{{ $action['label'] }}</a>
                                 @endforeach
                             </div>

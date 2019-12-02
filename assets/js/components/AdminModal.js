@@ -1,4 +1,3 @@
-import Forms from 'pingu-forms';
 import AdminForms from './AdminForms';
 import Admin from './Admin';
 import * as h from 'PinguHelpers';
@@ -31,7 +30,7 @@ const AdminModal = (() => {
 
 	function create(html, options)
 	{
-		let modalId = html.prop('id');
+		let modalId = html.attr('id');
 		if(!modalId){
 			h.logError('your root element must have an id to create a modal'); 
 			return;
@@ -53,8 +52,7 @@ const AdminModal = (() => {
 		if(!form.length){
 			return modal;
 		}
-		AdminForms.initAjaxForms(form);
-		Forms.initForm(form);
+		AdminForms.initForm(form);
 		if(showErrors){
 			Admin.stopShowingAjaxErrors();
 			modal.on('hidden.bs.modal', function(e){

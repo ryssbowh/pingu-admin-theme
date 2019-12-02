@@ -45,8 +45,7 @@ const AdminMenu = (() => {
 			items:'li',
 			listType:'ul',
 			relocate: function(){
-				console.log('relocate');
-				rebuildWeights(opt.menuItemsList);
+				rebuildForm(opt.menuItemsList);
 				opt.saveItems.removeClass('disabled');
 			}
 		});
@@ -123,13 +122,20 @@ const AdminMenu = (() => {
 		})
 	}
 
-	function rebuildWeights(list, weight = 0)
+	function rebuildForm(list, weight = 0)
 	{
 		$.each(list.find('li'), function(i, item){
-			$(item).find('input[type=hidden]').val(weight);
+			$(item).find('input.weight').val(weight);
+            let parent = $(item).parent().parent();
+            if (parent.hasClass('menu-tree')) {
+                $(item).find('input.parent').val('');
+            }
+            else{
+                $(item).find('input.parent').val(parent.data('item'));
+            }
 			weight++;
 			if($(item).find('ul').length){
-				rebuildWeights($(item).find('ul'));
+				rebuildForm($(item).find('ul'));
 			}
 		});
 	}

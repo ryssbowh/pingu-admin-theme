@@ -11,7 +11,8 @@
           <div class="header">
             <i class="fa fa-bars"></i>
             <span class="name"></span>
-            <input name="models[id][weight]" value="" type="hidden">
+            <input name="models[id][weight]" value="" type="hidden" class="weight">
+            <input name="models[id][parent]" value="" type="hidden" class="parent">
             @can('delete menu items')
               <a href="{{ $deleteItemUri }}" data-ajaxmethod="delete" data-confirmtitle="Delete item ?" class="js-ajax-confirm-link delete float-right" data-confirmmessage="This action cannot be undone">Delete</a>
             @endcan

@@ -19,15 +19,15 @@ const AdminBlocks = (() => {
 	};
 
 	function init(){
-		h.log('[Admin Theme] Blocks initialized');
-		if(options.page.length){
-			loadBlocks();
-		}
-		if(options.blockListElements.length){
-			bindAddToRegion(options.blockListElements.find('.js-add-to-region'));
-			bindEdit(options.blockListElements.find('.js-edit'));
-			bindSave(options.saveElement);
-		}
+		// h.log('[Admin Theme] Blocks initialized');
+		// if(options.page.length){
+		// 	loadBlocks();
+		// }
+		// if(options.blockListElements.length){
+		// 	bindAddToRegion(options.blockListElements.find('.js-add-to-region'));
+		// 	bindEdit(options.blockListElements.find('.js-edit'));
+		// 	bindSave(options.saveElement);
+		// }
 	};
 
 	function bindEdit(elems)

@@ -64,15 +64,15 @@ const AdminTaxonomy = (() => {
 	{
 		items.find('.js-edit').on('form.success', function(e, data){
 			let item = $(this).closest('li');
-			item.find('.name').html(data.model.name);
-			makeActive(item, data.model.active);
+			item.find('.name').html(data.entity.name);
+			makeActive(item, data.entity.active);
 		});
 	};
 
 	function bindAddItem()
 	{
 		opt.addItem.on('form.success', function(e, data){
-			let item = cloneSkeleton(data.model);
+			let item = cloneSkeleton(data.entity);
 			appendItemToList(item);
 			makeSortable();
 			Admin.bindAjaxLinks(item);

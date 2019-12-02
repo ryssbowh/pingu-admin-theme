@@ -5,7 +5,7 @@
 
     <div class="menu-items">
     	<ul class="navbar-nav mr-auto">
-	        @include('menus.includes.menutree', ['items' => $menu->getActiveRootItems()])
+	        @include('menus.includes.menutree', ['items' => \Menus::build($menu)])
 	    </ul>
 	</div>
 

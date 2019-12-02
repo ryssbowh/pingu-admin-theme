@@ -1,25 +1,25 @@
 @extends('layouts.card')
 
 @section('title')
-{{ ucfirst($section) }} Settings
+{{ $repository->section() }} Settings
 @endsection
 
 @section('content')
     <div class="settings-list">
-    @if($settings)
+    @if($keys = $repository->keys())
         <table class="table">
             <thead>
                 <tr><th>Setting</th><th>Value</th></tr>
             </thead>
             <tbody>
-                @foreach($settings as $setting)
+                @foreach($keys as $name)
                     <tr>
-                        <td>{{ $setting->title }}
-                            @if($setting->helper)
-                                <small>  ({{ $setting->helper }})</small>
+                        <td>{{ $repository->title($name) }}
+                            @if($helper = $repository->helper($name))
+                                <small>  ({{ $helper }})</small>
                             @endif
                         </td>
-                        <td>{{ $setting->value }} {{ $setting->unit }}</td>
+                        <td>{{ $repository->friendlyValue($name) }} {{ $repository->unit($name) }}</td>
                     </tr>
                 @endforeach
             </tbody>

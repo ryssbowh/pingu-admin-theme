@@ -9,7 +9,15 @@
                 </button>
             </div>
             <div class="modal-body">
-            	{{ $form->renderFields() }}
+            	<div class="fields">
+                    @foreach($form->getGroups() as $group => $elements)
+                        <div class="form-group form-group-{{ $group }}">
+                            @foreach($elements as $element)
+                                {!! $form->getElement($element)->render() !!}
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
             </div>
             {{ $form->renderEnd() }}
         </div>

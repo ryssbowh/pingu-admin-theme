@@ -7,6 +7,7 @@ import AdminLayout from './components/AdminLayout.js';
 import AdminMenu from './components/AdminMenu.js';
 import AdminTaxonomy from './components/AdminTaxonomy.js';
 import AdminMedia from './components/AdminMedia.js';
+import AdminPage from './components/AdminPage.js';
 import AdminBundleFields from './components/AdminBundleFields.js';
 import Admin from './components/Admin.js';
 
@@ -20,5 +21,6 @@ $(() => {
 	AdminMenu.init();
 	AdminTaxonomy.init();
 	AdminMedia.init();
+    AdminPage.init();
 	AdminBundleFields.init();
 });

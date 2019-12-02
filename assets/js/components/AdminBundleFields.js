@@ -57,7 +57,7 @@ const AdminBundleFields = (() => {
 	function bindEdit()
 	{
 		opt.edit.on('form.success', function(){
-			location.reload();
+			location.reload(); 
 		});
 	}
 

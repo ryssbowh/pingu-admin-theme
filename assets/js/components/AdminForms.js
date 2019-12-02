@@ -2,23 +2,24 @@ import datetimepicker from 'tempusdominus-bootstrap-4';
 import * as h from 'PinguHelpers';
 import Admin from './Admin';
 import Modal from './AdminModal';
+import Forms from 'pingu-forms';
 
 const AdminForms = (() => {
 
 	let options = {
 		datetime: $('input.js-datetimepicker'),
-		ajaxForms: $('.js-ajax-form')
+		ajaxFormsClass: 'js-ajax-form',
+        forms: $('form')
 	};
 
 	function init()
 	{
 		h.log('[Admin Theme] Forms initialized');
-		if(options.datetime.length){
-			initDatetimePickers($('body'));
-		}
-		if(options.ajaxForms.length){
-			initAjaxForms(options.ajaxForms);
-		}
+        if(options.forms.length){
+            $.each(options.forms, function(i, form){
+                initForm($(form));
+            });
+        }
 	}
 
 	function getMethod(form)
@@ -26,13 +27,23 @@ const AdminForms = (() => {
 		return form.attr('method').toLowerCase();
 	}
 
-	function initAjaxForms(forms)
+    function initForm(form)
+    {
+        Forms.initForm(form);
+        initDatetimePickers(form);
+        initHideCardinality(form);
+        if (form.hasClass(options.ajaxFormsClass)) {
+            initAjaxForm(form);
+        }
+
+    }
+
+	function initAjaxForm(form)
 	{
 		let promise;
-		forms.on('submit', function(e){
+		form.on('submit', function(e){
 			e.preventDefault();
-			if($(this).hasClass('disabled')){ return; }
-			let form = $(this);
+			if(form.hasClass('disabled')){ return; }
 			let data = form.serializeArray();
 			data.push({name: '_theme', value: 'admin'});
 			let url = Admin.ajaxUrl(form.attr('action'));
@@ -49,14 +60,14 @@ const AdminForms = (() => {
 					Modal.showSuccess(data.message);
 				}
 			})
+            .always(function(){
+                Admin.hideSpinner();
+            })
 			.fail(function(data){
 				if(typeof data.responseJSON.errors === 'object'){
 					highlightInvalidFields(form, Object.keys(data.responseJSON.errors));
 				}
 				form.trigger('form.failure', data);
-			})
-			.always(function(){
-				Admin.hideSpinner();
 			});
 		});
 	}
@@ -71,6 +82,23 @@ const AdminForms = (() => {
 			});
 		});
 	}
+
+    function initHideCardinality(form)
+    {
+        if (form.hasClass('form-create-bundle-field')) {
+            let cardinality = form.find('.field-wrapper-cardinality');
+            form.find('select[name=_cardinality_select]').change(function(){
+                if ($(this).val() == -1) {
+                    cardinality.find('input').val(-1);
+                    cardinality.addClass('d-none');
+                }
+                else{
+                    cardinality.find('input').val(1);
+                    cardinality.removeClass('d-none');
+                }
+            });
+        }
+    }
 
 	function highlightInvalidFields(form, fields)
 	{
@@ -99,7 +127,7 @@ const AdminForms = (() => {
 	return {
 		init: init,
 		showErrors: showErrors,
-		initAjaxForms: initAjaxForms,
+		initForm: initForm,
 		highlightInvalidFields: highlightInvalidFields
 	};
 

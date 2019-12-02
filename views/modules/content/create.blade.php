@@ -15,13 +15,13 @@
     				<small>{{ $type->description}}</small>
     			</div>
     			<div class="float-right">
-    				<a class="btn btn-primary" href="{{ $content::makeUri('create', $type, adminPrefix()) }}">Create</a>
+    				<a class="btn btn-primary" href="{{ $content::uris()->make('create', $type->bundle(), adminPrefix()) }}">Create</a>
     			</div>
     		</li>
     		@endforeach
     	</ul>
     	@else
-    	<p>You can't create any content</p>
+    	   <p>You can't create any content</p>
     	@endif
     </div>
 @endsection

@@ -1,80 +1,117 @@
 .page-blocks{
-	.region{
-		float:left;
-		border:1px solid black;
-		margin: 10px 10px 0 0;
-		position:relative;
-		&>.name{
-			position:absolute;
-			top:50%;
-			left:50%;
-			transform: translate(-50%,-50%);
-			transition: all 0.3s;
-			opacity:0.3;
-			font-size: 30px;
-			z-index:1;
-		}
-	}
-	.actions{
-		float:left;
-		clear:left;
-		margin-top:10px;
-	}
-	.js-section{
-		.card-header{
-			background: white;
-		}
-	}
+    .block-list{
+        border:1px solid grey;
+        border-radius: 5px;
+        position:relative;
+        min-height:400px;
+        padding: 0;
+        &>.name{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            transition: all 0.3s;
+            opacity:0.3;
+            font-size: 30px;
+            z-index:1;
+        }
+        ul{
+            padding:0;
+        }
+    }
+    .block{
+        .disabled{
+            color: grey;
+        }
+    }
+    .card-body{
+        padding:0;
+    }
+    .card-header{
+        padding: 0;
+        .btn-link{
+            color: white;
+        }
+    }
 }
 
-.page-layout{
-	.page{
-		border:1px solid black;
-		width:100%;
-		float:left;
-		min-height:400px;
-		box-sizing: content-box;
-		overflow-y: hidden;
-	}
-	.js-no-regions{
-		margin:10px;
-	}
-	.region{
-		float:left;
-		padding:10px;
-		box-sizing: content-box;
-		padding:10px;
-		overflow:hidden;
-		min-height:58px;
-		.inner{
-			width:100%;
-			height:100%;
-			padding:10px;
-			border:1px solid black;
-			*{
-				width:100%;
-			}
-			input{
-				max-width:200px;
-			}
-		}
-		.ui-resizable-s{
-			bottom:5px;
-		}
-		.ui-resizable-e{
-			right:5px;
-		}
-		.ui-resizable-se{
-			right:11px;
-			bottom:11px;
-		}
-	}
-	.actions{
-		float:left;
-		margin-top:20px;
-		width:100%;
-		input{
-			float:right;
-		}
-	}
-}
+// .page-blocks{
+// 	.region{
+// 		float:left;
+// 		border:1px solid black;
+// 		margin: 10px 10px 0 0;
+// 		position:relative;
+// 		&>.name{
+// 			position:absolute;
+// 			top:50%;
+// 			left:50%;
+// 			transform: translate(-50%,-50%);
+// 			transition: all 0.3s;
+// 			opacity:0.3;
+// 			font-size: 30px;
+// 			z-index:1;
+// 		}
+// 	}
+// 	.actions{
+// 		float:left;
+// 		clear:left;
+// 		margin-top:10px;
+// 	}
+// 	.js-section{
+// 		.card-header{
+// 			background: white;
+// 		}
+// 	}
+// }
+
+// .page-layout{
+// 	.page{
+// 		border:1px solid black;
+// 		width:100%;
+// 		float:left;
+// 		min-height:400px;
+// 		box-sizing: content-box;
+// 		overflow-y: hidden;
+// 	}
+// 	.js-no-regions{
+// 		margin:10px;
+// 	}
+// 	.region{
+// 		float:left;
+// 		padding:10px;
+// 		box-sizing: content-box;
+// 		padding:10px;
+// 		overflow:hidden;
+// 		min-height:58px;
+// 		.inner{
+// 			width:100%;
+// 			height:100%;
+// 			padding:10px;
+// 			border:1px solid black;
+// 			*{
+// 				width:100%;
+// 			}
+// 			input{
+// 				max-width:200px;
+// 			}
+// 		}
+// 		.ui-resizable-s{
+// 			bottom:5px;
+// 		}
+// 		.ui-resizable-e{
+// 			right:5px;
+// 		}
+// 		.ui-resizable-se{
+// 			right:11px;
+// 			bottom:11px;
+// 		}
+// 	}
+// 	.actions{
+// 		float:left;
+// 		margin-top:20px;
+// 		width:100%;
+// 		input{
+// 			float:right;
+// 		}
+// 	}
+// }

@@ -11,7 +11,7 @@ const AdminMedia = (() => {
 		deleteTransformerLinks: $('.image-transformations a.deleteLink'),
 		editTransformerLinks: $('.image-transformations a.editLink'),
 		list: $('.transformations-list'),
-		saveForm: $('.transformations-list form'),
+		saveForm: $('.image-transformations form'),
 		styleAddLink: $('.add-image-style-link')
 	};
 
@@ -43,11 +43,11 @@ const AdminMedia = (() => {
 
 	function makeSortable()
 	{
-		options.list.nestedSortable({
+		options.list.nestedSortable({ 
 			handle:'.handle',
 			items:'li',
 			listType:'ul',
-			stop: function(e){
+			relocate: function(e){
 				rebuildWeights();
 				options.saveForm.find('input[type=submit]').removeClass('disabled');
 			}

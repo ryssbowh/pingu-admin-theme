@@ -1,13 +1,40 @@
+.field-wrapper{
+    @extend .form-group;
+}
+
+input{
+    &[type=password], &[type=text], &[type=email], &[type=number]{
+        @extend .form-control;
+    }
+    &[type=submit]{
+        @extend .btn;
+        @extend .btn-primary;
+    }
+}
+
+select{
+    @extend .form-control;
+}
+
+.checkboxes-items{
+    @extend .form-control;
+}
+
+.checkboxes-item{
+    @extend .form-check;
+    @extend .form-check-inline;
+}
+
+.checkboxes-item-label{
+    @extend .form-check-label;
+}
+
+.form-element .helper{
+    font-size: 0.7rem;
+}
+
 .deletePage, .editPage, .addPage{
 	input[type=submit]:not(.confirm){
 		float: right;
-	}
-}
-
-.field{
-	.helper{
-		display:inline;
-		font-size: 0.7rem;
-		padding-left:10px;
 	}
 }

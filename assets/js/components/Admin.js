@@ -35,10 +35,10 @@ const Admin = (() => {
 		bindAjaxLinks($('body'));
 		bindViewMoreLinks($('body'));
 
-		resizeMenu();
-		$(window).resize(function(){
-			resizeMenu();
-		});
+		// resizeMenu();
+		// $(window).resize(function(){
+		// 	resizeMenu();
+		// });
 	}
 
 	function showSpinner()
@@ -124,8 +124,8 @@ const Admin = (() => {
 
 	function ajaxUrl(url)
 	{
-		let adminPrefix = '/' + h.config('core.adminPrefix') + '/';
-		let ajaxPrefix = '/' + h.config('core.ajaxPrefix') + '/';
+		let adminPrefix = '/' + h.config('core.adminPrefix');
+		let ajaxPrefix = '/' + h.config('core.ajaxPrefix');
 		let siteUrl = h.config('app.url');
 		if(url.startsWith(siteUrl)){
 			url = url.substring(siteUrl.length);

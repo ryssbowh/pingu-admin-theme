@@ -1,12 +1,10 @@
 @foreach($items as $item)
-	@if($item->isVisible() )
-		<li class="nav-item {{ $item->class }} {{ $item->isActive() ? 'active' : ''}}">{!! $item->generateLink() !!}
-		<?php $children = $item->getActiveChildren(); ?>
-		@if(!$children->isEmpty())
-			<ul class="list-group">
-				@include('menus.includes.menutree', ['items' => $children])
-			</ul>
-		@endif
-		</li>
-	@endif
+    <li class="nav-item {{ $item['class'] }} {{ $item['item']->isActive() ? 'active' : ''}}">
+        {!! $item['link'] !!}
+        @isset($item['children'])
+            <ul class="list-group">
+                @include('menus.includes.menutree', ['items' => $item['children']])
+            </ul>
+        @endisset
+    </li>
 @endforeach
