@@ -24,12 +24,14 @@ Edit Permissions
 						@endif
 					</td>
 					@foreach($roles as $role)
-						<td>{{ FormFacade::checkbox('perms['.$role->id.']['.$permission->id.']', 1, $permission->roleHasPermission($role)) }}</td>
+						<td>{{ FormFacade::checkbox('perms['.$role->id.']['.$permission->id.']', 1, $permission->roleHasPermission($role), ['disabled' => !$canEdit]) }}</td>
 					@endforeach()
 				</tr>
 			@endforeach()
-		</table>
+		</table> 
 	@endforeach()
-	{{ FormFacade::submit('Save',['class' => 'float-right mt-2 btn btn-primary']) }}
+    @if($canEdit)
+	   {{ FormFacade::submit('Save',['class' => 'float-right mt-2 btn btn-primary']) }}
+    @endif
 	{{ FormFacade::close() }}
 @endsection

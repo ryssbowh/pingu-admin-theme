@@ -1,0 +1,14 @@
+.form-layout{
+    .js-list-root{
+        .group-fields{
+            @extend .pl-3;
+            // min-height:20px;
+            li:first-child{
+                @extend .mt-3;
+            }
+        }
+        .placeholder{
+            border:1px solid red;
+        }
+    }
+}

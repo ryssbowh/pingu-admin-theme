@@ -6,6 +6,9 @@
 		"font-awesome": "^4.7.0",
 		"tempusdominus-bootstrap-4": "^5.1.2",
 		"tempusdominus-core": "^5.0.3",
-        "pretty-checkbox": "^3.0.3"
+        "pretty-checkbox": "^3.0.3",
+        "form-serializer": "^2.5.0",
+        "bootstrap4c-chosen": "^1.1.1",
+        "chosen-js": "^1.8.7"
 	}
 }

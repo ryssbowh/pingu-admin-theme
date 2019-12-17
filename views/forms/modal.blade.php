@@ -10,13 +10,13 @@
             </div>
             <div class="modal-body">
             	<div class="fields">
-                    @foreach($form->getGroups() as $group => $elements)
-                        <div class="form-group form-group-{{ $group }}">
-                            @foreach($elements as $element)
-                                {!! $form->getElement($element)->render() !!}
-                            @endforeach
-                        </div>
-                    @endforeach
+                    @if($form->hasGroups())
+                        @include('forms::groups')
+                    @else
+                        @foreach($elements as $element)
+                            {{ $element->render() }}
+                        @endforeach
+                    @endif
                 </div>
             </div>
             {{ $form->renderEnd() }}

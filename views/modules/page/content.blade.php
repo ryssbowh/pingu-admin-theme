@@ -11,18 +11,11 @@
             <i class="fa fa-bars"></i>
             <span class="title"></span>
             <input type="hidden" class="weight" name="blocks[][weight]">
-            @can('manage page blocks')
                 <a href="#" class="js-delete float-right"><i class="fa fa-times"></i></a>
                 <a href="#" class="js-edit float-right mr-3">Edit</a>
-                <div class="pretty p-switch p-fill ml-5">
-                    <input type="checkbox" class="active" name="blocks[][active]">
-                    <div class="state p-primary">
-                        <label>Active</label>
-                    </div>
-                </div>
-            @endcan
         </li>
 
+        @can('create', $blockModel)
         <div class="block-available col-3">
             @if($blocks)
                 <div class="text-left" id="sections-accordion">
@@ -54,6 +47,7 @@
                 <p>No blocks available</p>
             @endif
         </div>
+        @endcan
 
         <div class="col-9">
             {{ FormFacade::open(['url' => $saveBlocksUri, 'method' => 'patch', 'class' => 'js-show-message js-ajax-form']) }}
@@ -65,17 +59,11 @@
                                 <i class="fa fa-bars"></i>
                                 <span class="title @if(!$block->active) disabled @endif">{{ $block->instance()->title() }}</span>
                                 <input type="hidden" class="weight" name="blocks[{{ $block->id }}][weight]">
-                                @can('manage page blocks')
+                                @can('delete', $block)
                                     <a href="{{ $page::uris()->make('deleteBlock', [$page, $block], adminPrefix()) }}" class="js-delete float-right"><i class="fa fa-times"></i></a>
-                                    @if($block->instance()->hasOptions())
-                                        <a href="" class="js-edit float-right mr-3">Edit</a>
-                                    @endif
-                                    <div class="pretty p-switch p-fill ml-5">
-                                        <input type="checkbox" class="active" name="blocks[{{ $block->id }}][active]" @if($block->active) checked @endif>
-                                        <div class="state p-primary">
-                                            <label>Active</label>
-                                        </div>
-                                    </div>
+                                @endcan
+                                @can('edit', $block)
+                                    <a href="" class="js-edit float-right mr-3">Edit</a>
                                 @endcan
                             </li>
                         @endforeach

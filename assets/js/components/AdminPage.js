@@ -72,9 +72,6 @@ const AdminBlocks = (() => {
 		clone.find('.title').html(block.instance.title);
         clone.find('.active').prop('checked', block.active);
         toggleActive(clone.find('.active'));
-        if (!block.instance.hasOptions) {
-            clone.find('.js-edit').remove();
-        }
         if (!block.active) {
             clone.find('.title').addClass('disabled');
         }
@@ -89,6 +86,7 @@ const AdminBlocks = (() => {
 
     function replaceIdInName(elem, id)
     {
+        if(!elem.length) return;
         let name = elem.attr('name');
         name = name.replace('[]', '['+id+']');
         elem.attr('name', name);
@@ -97,20 +95,13 @@ const AdminBlocks = (() => {
 	function bindAdd(elems){
 		elems.click(function(e){
             e.preventDefault();
-            if($(this).data('hasoptions')){
-                let ajax = Block.createRequest($(this).data('machinename'), {_theme: 'admin'});
-                ajax.done(function(data){
-                    let modal = Modal.createForm($(data.form));
-                    modal.on('form.success', function (e, data) {
-                        addBlockToPage(data);
-                    })
-                });
-            } else {
-                let ajax = Block.storeRequest($(this).data('machinename'));
-                ajax.done(function (data) {
+            let ajax = Block.createRequest($(this).data('machinename'), {_theme: 'admin'});
+            ajax.done(function(data){
+                let modal = Modal.createForm($(data.form));
+                modal.on('form.success', function (e, data) {
                     addBlockToPage(data);
                 })
-            }
+            });
 		});
 	}
 

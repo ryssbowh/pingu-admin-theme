@@ -1,0 +1,21 @@
+body{
+	font-family: 'Nunito';
+}
+
+main{
+	padding-left:200px;
+}
+
+.maintenance-mode-on{
+	background: $red;
+	text-align:center;
+}
+
+.card-header{
+	background: $secondary;
+	color: white;
+	a{
+		color:white;
+	}
+}
+

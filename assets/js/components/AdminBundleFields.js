@@ -8,51 +8,23 @@ const AdminBundleFields = (() => {
 	let opt = {
 		list: $('.list-entity-fields ul'),
 		delete: $('.list-entity-fields .delete'),
-		form: $('.list-entity-fields > form'),
 		edit: $('.list-entity-fields .edit'),
-		addForm:$('.list-entity-fields .form-add-entity-field')
+		addFieldForm:$('.list-entity-fields .form-add-entity-field'),
+        addGroupForm:$('.list-entity-fields .form-create-form-layout-group')
 	};
 
 	function init(){
-		h.log('[Admin Theme] Content types initialized');
-		if(opt.list.length){
-			makeSortable();
-		}
-		if(opt.form.length){
-			bindSave();
-		}
+		h.log('[Admin Theme] Bundle Fields initialized');
 		if(opt.edit.length){
 			bindEdit();
 		}
 		if(opt.delete.length){
 			bindDelete();
 		}
-		if(opt.addForm.length){
-			bindAddForm();
+		if(opt.addFieldForm.length){
+			bindAddFieldForm();
 		}
 	};
-
-	function makeSortable()
-	{
-		opt.list.nestedSortable({
-			handle:'.header',
-			items:'li',
-			listType:'ul',
-			stop: function(e){
-				rebuildWeights();
-				opt.form.find('input[type=submit]').removeClass('disabled');
-			}
-		});
-	}
-
-	function rebuildWeights()
-	{
-		let weight = 0;
-		$.each(opt.list.find('li'), function(i, item){
-			$(item).find('input[type=hidden]').val(weight);
-			weight++;
-		});
-	}
 
 	function bindEdit()
 	{
@@ -61,9 +33,9 @@ const AdminBundleFields = (() => {
 		});
 	}
 
-	function bindAddForm()
+	function bindAddFieldForm()
 	{
-		opt.addForm.on('form.success', function(e, data){
+		opt.addFieldForm.on('form.success', function(e, data){
 			let modal = Modal.createForm(data.form);
 			let form = modal.find('form');
 			form.on('form.success', function(){
@@ -78,13 +50,6 @@ const AdminBundleFields = (() => {
 			$(this).closest('.list-group-item').remove();
 		});
 	}
-
-	function bindSave()
-	{
-		opt.form.on('form.success', function(){
-			opt.form.find('input[type=submit]').addClass('disabled');
-		});
-	};
 
 	return {
 		init:init

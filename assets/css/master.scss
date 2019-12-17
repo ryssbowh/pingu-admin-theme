@@ -5,14 +5,21 @@
 // Variables
 @import 'base/variables';
 @import 'base/colors';
-@import 'mixins/mixins';
 
 // Bootstrap
 @import '~font-awesome/scss/font-awesome';
 @import '~bootstrap/scss/bootstrap';
 @import '~tempusdominus-bootstrap-4/src/sass/tempusdominus-bootstrap-4-build';
+@import "~sass-svg-uri/_svg-uri.scss";
+@import '~bootstrap4c-chosen/src/scss/component-variables';
+@import '~bootstrap4c-chosen/src/scss/component-chosen';
 
-// plugins
+// Variables
+@import 'base/forms';
+@import 'base/typography';
+@import 'mixins/mixins';
+
+// other plugins
 @import '~jquery-ui/themes/base/core.css';
 @import '~jquery-ui/themes/base/theme.css';
 @import '~jquery-ui/themes/base/resizable.css';
@@ -20,17 +27,16 @@
 @import '~pretty-checkbox/src/pretty-checkbox';
 
 //components
-@import 'components/typography';
-@import 'components/main';
-@import 'components/forms';
-@import 'components/contextualLinks';
-@import 'components/contentTypes'; 
-@import 'components/settings'; 
-@import 'components/jsgrid'; 
-@import 'components/page'; 
-@import 'components/info'; 
-@import 'components/media'; 
-@import 'components/loader'; 
+@import 'components/partials/main';
+@import 'components/partials/contextualLinks';
+@import 'components/partials/jsgrid';
+@import 'components/partials/loader';
+
+@import 'components/pages/editPages';
+@import 'components/pages/contentTypes';
+@import 'components/pages/info';
+@import 'components/pages/media';
+@import 'components/pages/editLayout';
 
 //Menus
 @import 'components/menus/main-menu';

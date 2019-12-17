@@ -59,8 +59,8 @@ const AdminMenu = (() => {
 		});
 		items.find('.edit').on('form.success', function(e, data){
 			let item = $(this).closest('.menu-item');
-			item.children('.header').children('.name').html(data.model.name);
-			makeActive(item, data.model.active);
+			item.children('.header').children('.name').html(data.entity.name);
+			makeActive(item, data.entity.active);
 		});
 	};
 
@@ -71,7 +71,7 @@ const AdminMenu = (() => {
 			$(modal).find('.wrapper-field-weight').addClass('d-none');
 		});
 		opt.addMenuItem.on('form.success', function(e, data){
-			let item = cloneSkeleton(data.model);
+			let item = cloneSkeleton(data.entity);
 			opt.menuItemsList.append(item);
 			Admin.bindAjaxLinks(item);
 			makeSortable();

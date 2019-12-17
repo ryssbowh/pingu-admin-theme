@@ -32,6 +32,7 @@ const AdminForms = (() => {
         Forms.initForm(form);
         initDatetimePickers(form);
         initHideCardinality(form);
+        initSelects(form);
         if (form.hasClass(options.ajaxFormsClass)) {
             initAjaxForm(form);
         }
@@ -40,37 +41,47 @@ const AdminForms = (() => {
 
 	function initAjaxForm(form)
 	{
-		let promise;
 		form.on('submit', function(e){
 			e.preventDefault();
 			if(form.hasClass('disabled')){ return; }
-			let data = form.serializeArray();
-			data.push({name: '_theme', value: 'admin'});
-			let url = Admin.ajaxUrl(form.attr('action'));
-			Admin.showSpinner();
-			if(getMethod(form) == 'get'){
-				promise = h.get(url, data);
-			}
-			else{
-				promise = h.post(url, data);
-			}
-			promise.done(function(data){
-				form.trigger('form.success', data);
-				if(form.hasClass('js-show-message') && data.message){
-					Modal.showSuccess(data.message);
-				}
-			})
-            .always(function(){
-                Admin.hideSpinner();
-            })
-			.fail(function(data){
-				if(typeof data.responseJSON.errors === 'object'){
-					highlightInvalidFields(form, Object.keys(data.responseJSON.errors));
-				}
-				form.trigger('form.failure', data);
-			});
+			let data = form.serializeObject();
+			submitAjaxForm(form, data);
 		});
 	}
+
+    function submitAjaxForm(form, data)
+    {
+        data._theme = 'admin';
+        let url = Admin.ajaxUrl(form.attr('action'));
+        Admin.showSpinner();
+        let promise;
+        if(getMethod(form) == 'get'){
+            promise = h.get(url, data);
+        }
+        else{
+            promise = h.post(url, data);
+        }
+        promise.done(function(data){
+            form.trigger('form.success', data);
+            if(form.hasClass('js-show-message') && data.message){
+                Modal.showSuccess(data.message);
+            }
+        })
+        .always(function(){
+            Admin.hideSpinner();
+        })
+        .fail(function(data){
+            if(typeof data.responseJSON.errors === 'object'){
+                highlightInvalidFields(form, Object.keys(data.responseJSON.errors));
+            }
+            form.trigger('form.failure', data);
+        });
+    }
+
+    function initSelects(element)
+    {
+        element.find('select').chosen();
+    }
 
 	function initDatetimePickers(element)
 	{
@@ -128,7 +139,8 @@ const AdminForms = (() => {
 		init: init,
 		showErrors: showErrors,
 		initForm: initForm,
-		highlightInvalidFields: highlightInvalidFields
+		highlightInvalidFields: highlightInvalidFields,
+        submitAjaxForm: submitAjaxForm
 	};
 
 })();

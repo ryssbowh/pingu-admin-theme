@@ -19,7 +19,7 @@ const Admin = (() => {
 	};
 
 	function init()
-	{
+	{ 
 		startShowingAjaxErrors();
 		/**
 		 * Shows all jsgrid errors in a modal
@@ -83,15 +83,26 @@ const Admin = (() => {
 		}
 	}
 
+    function getErrorTitleFromResponse(data)
+    {
+        if (data.status == 422) {
+            return data.responseJSON.message;
+        }
+        return 'Error';
+    }
+
 	function getErrorMessageFromResponse(data)
 	{
 		let message = data.responseJSON.message;
+        if (data.status == 422) {
+            return buildErrorsFromResponse(data);
+        }
 		if(!message){
 			if('code'+data.status in errors){
 				message = errors['code'+data.status];
 			}
 		}
-		return message;
+        return message;
 	}
 
 	function buildErrorsFromResponse(data)
@@ -108,7 +119,7 @@ const Admin = (() => {
 	function startShowingAjaxErrors()
 	{
 		$('body').on('ajax.failure', function(e, data){
-			Modal.showError(getErrorMessageFromResponse(data));
+			Modal.showError(getErrorMessageFromResponse(data), getErrorTitleFromResponse(data));
 		});
 	}
 
@@ -144,26 +155,23 @@ const Admin = (() => {
 		return url;
 	}
 
-	function performAjaxLink(link, callbackSuccess, callbackFailure)
+	function performAjaxCall(link, data = {}, url = false)
 	{
-		let url = ajaxUrl(link.attr('href'));
-		let data = {_theme: 'admin'};
+        if (!url) {
+            url = ajaxUrl(link.attr('href'));
+        }
+		data._theme = 'admin';
 		let method = 'get';
 		if(link.data('ajaxmethod')){
 			data._method = link.data('ajaxmethod');
 			method = 'post';
 		}
 		showSpinner();
-		h.ajax(url, data, method).done(function(data){
+        link.trigger('form.sending', data);
+		return h.ajax(url, data, method).done(function(data){
 			link.trigger('ajax.success', data);
-			if(callbackSuccess){
-				callbackSuccess(data);
-			}
 		}).fail(function(data){
 			link.trigger('ajax.failure', data);
-			if(callbackFailure){
-				callbackFailure(data);
-			}
 		}).always(function(){
 			hideSpinner();
 		});
@@ -204,7 +212,7 @@ const Admin = (() => {
 		links.click(function(e){
 			e.preventDefault();
 			if($(this).hasClass('disabled')){ return;}
-			performAjaxLink($(this));
+			performAjaxCall($(this));
 		});
 	}
 
@@ -224,7 +232,7 @@ const Admin = (() => {
 	{
 		initConfirmLinks(links);
 		links.on('confirmed', function(e){
-			performAjaxLink($(this));
+			performAjaxCall($(this));
 		});
 	}
 
@@ -234,18 +242,27 @@ const Admin = (() => {
 			e.preventDefault();
 			if($(this).hasClass('disabled')){ return;}
 			let link = $(this);
-			performAjaxLink(link, function(data){
-				let modal = Modal.createForm(data.form);
-				link.trigger('form.loaded', modal);
-				modal.on('form.success', function(e, data){
-					link.trigger('form.success', data);
-				});
-				modal.on('form.failure', function(e, data){
-					link.trigger('form.failure', data);
-				});
+			performAjaxCall(link).done(function(data){
+				if (data.form) {
+                    initModalForm(data.form, link);
+                } else {
+                    h.logWarning("No form was sent by the server on a ajax form link, aborting");
+                }
 			});
 		});
 	}
+
+    function initModalForm(form, element)
+    {
+        let modal = Modal.createForm(form);
+        element.trigger('form.loaded', modal);
+        modal.on('form.success', function(e, data){
+            element.trigger('form.success', data);
+        });
+        modal.on('form.failure', function(e, data){
+            element.trigger('form.failure', data);
+        });
+    }
 
 	return {
 		init: init,
@@ -258,7 +275,9 @@ const Admin = (() => {
 		bindViewMoreLinks: bindViewMoreLinks,
 		bindConfirmLinks: bindConfirmLinks,
 		showSpinner: showSpinner,
-		hideSpinner: hideSpinner
+		hideSpinner: hideSpinner,
+        initModalForm: initModalForm,
+        performAjaxCall: performAjaxCall
 	};
 
 })();

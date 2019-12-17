@@ -2,6 +2,10 @@
     @extend .form-group;
 }
 
+textarea{
+    width:100%;
+}
+
 input{
     &[type=password], &[type=text], &[type=email], &[type=number]{
         @extend .form-control;
@@ -23,10 +27,12 @@ select{
 .checkboxes-item{
     @extend .form-check;
     @extend .form-check-inline;
-}
-
-.checkboxes-item-label{
-    @extend .form-check-label;
+    input{
+        @extend .form-check-input;
+    }
+    label{
+        @extend .form-check-label;
+    }
 }
 
 .form-element .helper{
