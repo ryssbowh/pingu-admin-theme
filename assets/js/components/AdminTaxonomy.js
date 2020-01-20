@@ -67,12 +67,12 @@ const AdminTaxonomy = (() => {
 			item.find('.name').html(data.entity.name);
 			makeActive(item, data.entity.active);
 		});
-	};
+	}; 
 
 	function bindAddItem()
 	{
 		opt.addItem.on('form.success', function(e, data){
-			let item = cloneSkeleton(data.entity);
+			let item = cloneSkeleton(data.model);
 			appendItemToList(item);
 			makeSortable();
 			Admin.bindAjaxLinks(item);
