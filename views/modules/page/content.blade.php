@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="page-blocks row" data-id="{{ $page->id }}">
+    <div class="page-blocks row" data-slug="{{ $page->slug }}">
 
         <li id="blockSkeleton" class="list-group-item d-none block">
             <i class="fa fa-bars"></i>

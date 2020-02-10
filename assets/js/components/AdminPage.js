@@ -59,6 +59,11 @@ const AdminBlocks = (() => {
                 let modal = Modal.createForm(data.form);
                 modal.on('form.success', function(e, data){
                     block.find('.title').html(data.instance.title);
+                    if (data.active) {
+                        block.find('.title').removeClass('disabled');
+                    } else {
+                        block.find('.title').addClass('disabled');
+                    }
                 });
             });
 		});
@@ -107,7 +112,7 @@ const AdminBlocks = (() => {
 
     function addBlockToPage(block)
     {
-        Page.addBlockRequest(options.page.data('id'), block.id).done(
+        Page.addBlockRequest(options.page.data('slug'), block.id).done(
             function () {
                 createBlockElement(block);
             }
