@@ -4,6 +4,7 @@
 
 textarea{
     width:100%;
+    @extend .form-control;
 }
 
 input{

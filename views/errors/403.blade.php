@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-some text
+You don't have permission to see this
 @endsection

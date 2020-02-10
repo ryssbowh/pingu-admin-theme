@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-some text
+Ooops, we couldn't find that page
 @endsection
