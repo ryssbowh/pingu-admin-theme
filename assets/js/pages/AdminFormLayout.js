@@ -1,8 +1,4 @@
 import "nestedSortable";
-import * as h from 'PinguHelpers';
-import Admin from './Admin';
-import Modal from './AdminModal';
-import Forms from './AdminForms';
 import FormLayout from 'FormLayout';
 
 const AdminFormLayout = (() => {
@@ -16,7 +12,7 @@ const AdminFormLayout = (() => {
 	};
 
 	function init(){
-		h.log('[Admin Theme] Form Layout initialized');
+		Helpers.log('[Admin Theme] Form Layout initialized');
 		if(opt.list.length){
             rebuildTree();
 			makeSortable();
@@ -87,8 +83,8 @@ const AdminFormLayout = (() => {
                 values: JSON.parse(item.find('.options').val()),
                 _theme: 'admin'
             };
-            Admin.performAjaxCall(link, data, FormLayout.editOptionsUri(field)).done(function(data){
-                Admin.initModalForm(data.form, link);
+            AdminTheme.performAjaxCall(link, data, FormLayout.editOptionsUri(field)).done(function(data){
+                AdminTheme.initModalForm(data.html, link);
             });
         });
 
@@ -165,7 +161,7 @@ const AdminFormLayout = (() => {
                 });
                 data.groups.push(datagroup);
             });
-            Forms.submitAjaxForm($(this), data);
+            $(this).data('class-instance').submitAjax(data);
 		});
 	};
 
@@ -186,7 +182,7 @@ const AdminFormLayout = (() => {
         opt.widgets.change(function(){
             let item = $(this).closest('.row');
             let field = $(this).val();
-            Admin.performAjaxCall(item, {}, FormLayout.viewOptionsUri(field)).done(function(data){
+            AdminTheme.performAjaxCall(item, {}, FormLayout.viewOptionsUri(field)).done(function(data){
                 updateOptions(item, data);
             });
         });

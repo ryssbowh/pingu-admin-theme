@@ -1,38 +1,31 @@
-import AdminForms from './AdminForms';
-import Admin from './Admin';
-import * as h from 'PinguHelpers';
+class AdminModal {
 
-const AdminModal = (() => {
-
-	let options = {
-		globalModal: $('#globalModal')
-	};
-
-	function init()
+	constructor()
 	{
-		options.globalModal.css('z-index',1052);
+        this.globalModal = $('#globalModal');
+		this.globalModal.css('z-index',1052);
 	}
 
-	function showAjaxError(data)
+	showAjaxError(data)
 	{
 		let message = '';
 		let title = '';
 		if(data.responseJSON.errors){
 			title = 'Errors were encountered';
-			message = Admin.buildErrorsFromResponse(data);
+			message = AdminTheme.buildErrorsFromResponse(data);
 		}
 		else{
 			title = 'Server Error';
-			message = Admin.getErrorMessageFromResponse(data);
+			message = AdminTheme.getErrorMessageFromResponse(data);
 		}
-		show(message, title);
+		this.show(message, title);
 	}
 
-	function create(html, options)
+	create(html, options)
 	{
 		let modalId = html.attr('id');
 		if(!modalId){
-			h.logError('your root element must have an id to create a modal'); 
+			Helpers.logError('your root element must have an id to create a modal'); 
 			return;
 		}
 		if($('#'+modalId).length){
@@ -41,29 +34,32 @@ const AdminModal = (() => {
 		$('body').append(html);
 		let modal = $('#'+modalId);
 		modal.modal(options);
+        ObjectMapping.bind(modal);
 		return modal;
 	};
 
-	function createForm(html, options = {}, showErrors = true)
+	createForm(html, options = {}, showErrors = true)
 	{
 		options.backdrop = 'static';
-		let modal = create($(html), options);
+		let modal = this.create($(html), options);
 		let form = modal.find('form.js-ajax-form');
+        let _this = this;
+
 		if(!form.length){
+            Helpers.logError("Can't instanciate a form from xhr response, form element is missing");
 			return modal;
 		}
-		AdminForms.initForm(form);
 		if(showErrors){
-			Admin.stopShowingAjaxErrors();
+			AdminTheme.stopShowingAjaxErrors();
 			modal.on('hidden.bs.modal', function(e){
-				Admin.startShowingAjaxErrors();
+				AdminTheme.startShowingAjaxErrors();
 			});
 		}
 		modal.on('shown.bs.modal', function(e){
-			focusOnFirstInput(modal);
+			_this.focusOnFirstInput(modal);
 			form.on('form.failure', function(e, data){
 				if(showErrors){
-					showAjaxError(data);
+					this.showAjaxError(data);
 				}
 			});
 			form.on('form.success', function(e, data){
@@ -73,15 +69,15 @@ const AdminModal = (() => {
 		return modal;
 	};
 
-	function focusOnFirstInput(modal)
+	focusOnFirstInput(modal)
 	{
 		let input = $(modal).find('input[type=text]:visible').first();
 		input.focus();
 	}
 
-	function show(message, title, type = 'info')
+	show(message, title, type = 'info')
 	{
-		let modal = options.globalModal;
+		let modal = this.globalModal;
 		modal.find('.modal-body').html(message);
 		modal.find('.modal-title').html(title);
 		if(type == 'info'){
@@ -94,19 +90,19 @@ const AdminModal = (() => {
 		return modal;
 	}
 
-	function showSuccess(message, title = 'Success')
+	showSuccess(message, title = 'Success')
 	{
-		return show(message, title);
+		return this.show(message, title);
 	}
 
-	function showError(message, title = 'Error')
+	showError(message, title = 'Error')
 	{
-		return show(message, title);
+		return this.show(message, title);
 	}
 
-	function showConfirm(message, title = 'Please confirm', confirmCallback, cancelCallback)
+	showConfirm(message, title = 'Please confirm', confirmCallback, cancelCallback)
 	{
-		let modal = show(message, title, 'confirm');
+		let modal = this.show(message, title, 'confirm');
 		modal.find('button.confirm').off('click');
 		modal.find('button.confirm').on('click', function(){
 			modal.trigger('modal.confirmed');
@@ -124,17 +120,6 @@ const AdminModal = (() => {
 		return modal;
 	}
 
-	return {
-		init: init,
-		showAjaxError: showAjaxError,
-		create: create,
-		createForm: createForm,
-		show: show,
-		showSuccess: showSuccess,
-		showError: showError,
-		showConfirm: showConfirm
-	};
-
-})();
+};
 
 export default AdminModal;

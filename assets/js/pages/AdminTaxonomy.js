@@ -1,7 +1,3 @@
-import Forms from 'pingu-forms';
-import Admin from './Admin';
-import Modal from './AdminModal';
-import * as h from 'PinguHelpers';
 import "nestedSortable";
 
 const AdminTaxonomy = (() => {
@@ -19,7 +15,7 @@ const AdminTaxonomy = (() => {
 
 	function init()
 	{ 
-		h.log('[Admin Theme] Taxonomy initialized');
+		Helpers.log('[Admin Theme] Taxonomy initialized');
 		if(opt.editTree.length){
 			makeSortable();
 		}
@@ -75,7 +71,7 @@ const AdminTaxonomy = (() => {
 			let item = cloneSkeleton(data.model);
 			appendItemToList(item);
 			makeSortable();
-			Admin.bindAjaxLinks(item);
+			AdminTheme.bindAjaxLinks(item);
 			bindEdit(item);
 			bindDelete(item);
 		});
@@ -109,8 +105,8 @@ const AdminTaxonomy = (() => {
 		weight.attr('name', weight.attr('name').replace('id', data.id));
 		item.data('item', data.id);
 		item.removeClass('d-none skeleton');
-		item.find('.js-delete').attr('href', h.replaceUriSlugs(item.find('.js-delete').attr('href'), [data.id]));
-		item.find('.js-edit').attr('href', h.replaceUriSlugs(item.find('.js-edit').attr('href'), [data.id]));
+		item.find('.js-delete').attr('href', Helpers.replaceUriSlugs(item.find('.js-delete').attr('href'), [data.id]));
+		item.find('.js-edit').attr('href', Helpers.replaceUriSlugs(item.find('.js-edit').attr('href'), [data.id]));
 		makeActive(item, data.active);
 		return item;
 	}

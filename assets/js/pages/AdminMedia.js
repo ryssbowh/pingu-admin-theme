@@ -1,7 +1,3 @@
-import Forms from './AdminForms';
-import Admin from './Admin';
-import Modal from './AdminModal';
-import * as h from 'PinguHelpers';
 import "nestedSortable";
 
 const AdminMedia = (() => {
@@ -16,7 +12,7 @@ const AdminMedia = (() => {
 	};
 
 	function init(){
-		h.log('[Admin Theme] Media initialized');
+		Helpers.log('[Admin Theme] Media initialized');
 		if(options.createTransformerForm.length){
 			initAddTransformerForm();
 			initTransformerDelete();
@@ -66,8 +62,8 @@ const AdminMedia = (() => {
 	function initAddTransformerForm()
 	{
 		options.createTransformerForm.on('form.success', function(e, data){
-			if(data.form){
-				let modal = Modal.createForm(data.form);
+			if(data.html){
+				let modal = Modal.createForm(data.html);
 				modal.on('form.success', function(e, data){
 					location.reload();
 				});
@@ -88,7 +84,7 @@ const AdminMedia = (() => {
 	function initTransformerEdit()
 	{
 		options.editTransformerLinks.on('ajax.success', function(e, data){
-			let modal = Modal.createForm(data.form);
+			let modal = Modal.createForm(data.html);
 			modal.on('form.success', function(e, data){
 				location.reload();
 			});

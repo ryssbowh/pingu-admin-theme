@@ -9,6 +9,7 @@
         "pretty-checkbox": "^3.0.3",
         "form-serializer": "^2.5.0",
         "bootstrap4c-chosen": "^1.1.1",
-        "chosen-js": "^1.8.7"
+        "chosen-js": "^1.8.7",
+        "babel-plugin-transform-class-properties": "^6.24.1"
 	}
 }

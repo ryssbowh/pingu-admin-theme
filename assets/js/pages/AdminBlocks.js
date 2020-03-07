@@ -1,8 +1,4 @@
 import Page from 'pingu-page';
-import Forms from './AdminForms';
-import Modal from './AdminModal';
-import Admin from './Admin';
-import * as h from 'PinguHelpers';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/droppable';
 
@@ -34,8 +30,8 @@ const AdminBlocks = (() => {
 	{
 		elems.click(function(e){
 			e.preventDefault();
-			h.get($(this).prop('href'), {_theme: 'admin'}).done(function(data){
-				let modal = Modal.createForm($(data.form));
+			Helpers.get($(this).prop('href'), {_theme: 'admin'}).done(function(data){
+				let modal = Modal.createForm($(data.html));
 				modal.on('form.success', function(form, data){
 					options.regionList.find('.block[data-id='+data.model.id+']').find('.name').html(data.model.instance.name);
 					options.blockList.find('.js-block[data-id='+data.model.id+']').find('.name').html(data.model.instance.name);
@@ -107,7 +103,7 @@ const AdminBlocks = (() => {
 				regions.push(sub);
 			});
 			data.regions = regions;
-			h.patch($(this).prop('href'), data).done(function(data){
+			Helpers.patch($(this).prop('href'), data).done(function(data){
 				Modal.showSuccess(data.message);
 				options.saveElement.addClass('disabled');
 			});

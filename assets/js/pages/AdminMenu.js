@@ -1,7 +1,4 @@
-import Menu from 'pingu-menu';
-import Forms from 'pingu-forms';
-import Admin from './Admin';
-import * as h from 'PinguHelpers';
+import Menu from 'MenuModule';
 import "nestedSortable";
 
 const AdminMenu = (() => {
@@ -19,7 +16,7 @@ const AdminMenu = (() => {
 
 	function init()
 	{ 
-		h.log('[Admin Theme] Menu initialized');
+		Helpers.log('[Admin Theme] Menu initialized');
 		if(opt.editMenuTree.length){
 			makeSortable();
 		}
@@ -73,7 +70,7 @@ const AdminMenu = (() => {
 		opt.addMenuItem.on('form.success', function(e, data){
 			let item = cloneSkeleton(data.entity);
 			opt.menuItemsList.append(item);
-			Admin.bindAjaxLinks(item);
+			AdminTheme.bindAjaxLinks(item);
 			makeSortable();
 			bindEdit(item);
 			bindDelete(item);

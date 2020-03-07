@@ -7,7 +7,7 @@ textarea{
     @extend .form-control;
 }
 
-input{
+input:not(.chosen-search-input){
     &[type=password], &[type=text], &[type=email], &[type=number]{
         @extend .form-control;
     }

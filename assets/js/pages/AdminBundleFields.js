@@ -1,7 +1,4 @@
 import "nestedSortable";
-import * as h from 'PinguHelpers';
-import Admin from './Admin';
-import Modal from './AdminModal';
 
 const AdminBundleFields = (() => {
 
@@ -14,7 +11,7 @@ const AdminBundleFields = (() => {
 	};
 
 	function init(){
-		h.log('[Admin Theme] Bundle Fields initialized');
+		Helpers.log('[Admin Theme] Bundle Fields initialized');
 		if(opt.edit.length){
 			bindEdit();
 		}
@@ -36,7 +33,7 @@ const AdminBundleFields = (() => {
 	function bindAddFieldForm()
 	{
 		opt.addFieldForm.on('form.success', function(e, data){
-			let modal = Modal.createForm(data.form);
+			let modal = Modal.createForm(data.html);
 			let form = modal.find('form');
 			form.on('form.success', function(){
 				location.reload();

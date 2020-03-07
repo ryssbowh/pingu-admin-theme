@@ -1,7 +1,5 @@
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/widgets/sortable';
-import * as h from 'PinguHelpers';
-import Admin from './Admin';
 
 const AdminLayout = (() => {
 
@@ -17,7 +15,7 @@ const AdminLayout = (() => {
 
 	function init()
 	{ 
-		h.log('[Admin Theme] Page initialized');
+		Helpers.log('[Admin Theme] Page initialized');
 		options.pageContainer.resizable({
 			handles: 's'
 		});
@@ -74,7 +72,7 @@ const AdminLayout = (() => {
 		elem.find('input.name').val(data.name).attr('name', 'regions['+data.id+'][name]');
 		elem.find('input.width').val(data.width).attr('name', 'regions['+data.id+'][width]');
 		elem.find('input.height').val(data.height).attr('name', 'regions['+data.id+'][height]');
-		Admin.bindAjaxLinks(elem);
+		AdminTheme.bindAjaxLinks(elem);
 		options.pageContainer.append(elem);
 		return elem;
 	}

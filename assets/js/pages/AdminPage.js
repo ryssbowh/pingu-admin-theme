@@ -1,9 +1,5 @@
 import Page from 'pingu-page';
-import Forms from './AdminForms';
-import Block from 'Block';
-import Modal from './AdminModal';
-import Admin from './Admin';
-import * as h from 'PinguHelpers';
+import Block from 'BlockModule';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/droppable';
 
@@ -19,7 +15,7 @@ const AdminBlocks = (() => {
 
 	function init(){
 		if(options.page.length){
-            h.log('[Admin Theme] Blocks initialized');
+            Helpers.log('[Admin Theme] Blocks initialized');
             bindAdd(options.blocksAvailable);
             bindEdit(options.blocks);
             bindDelete(options.blocks);
@@ -56,7 +52,7 @@ const AdminBlocks = (() => {
             let block = $(this).closest('.block');
 			let ajax = Block.editRequest(block.data('id'), {_theme: 'admin'});
             ajax.done(function(data){
-                let modal = Modal.createForm(data.form);
+                let modal = Modal.createForm(data.html);
                 modal.on('form.success', function(e, data){
                     block.find('.title').html(data.instance.title);
                     if (data.active) {
@@ -102,7 +98,7 @@ const AdminBlocks = (() => {
             e.preventDefault();
             let ajax = Block.createRequest($(this).data('machinename'), {_theme: 'admin'});
             ajax.done(function(data){
-                let modal = Modal.createForm($(data.form));
+                let modal = Modal.createForm($(data.html));
                 modal.on('form.success', function (e, data) {
                     addBlockToPage(data);
                 })

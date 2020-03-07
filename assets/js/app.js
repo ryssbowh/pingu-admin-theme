@@ -2,23 +2,24 @@ import 'bootstrap';
 import 'chosen-js';
 import 'form-serializer';
 import AdminModal from './components/AdminModal.js';
-import AdminBlocks from './components/AdminInfo.js';
-import AdminInfo from './components/AdminBlocks.js';
-import AdminForms from './components/AdminForms.js';
-import AdminLayout from './components/AdminLayout.js';
-import AdminFormLayout from './components/AdminFormLayout.js';
-import AdminMenu from './components/AdminMenu.js';
-import AdminTaxonomy from './components/AdminTaxonomy.js';
-import AdminMedia from './components/AdminMedia.js';
-import AdminPage from './components/AdminPage.js';
-import AdminBundleFields from './components/AdminBundleFields.js';
-import Admin from './components/Admin.js';
+import AdminTheme from './components/AdminTheme.js';
+import ObjectMapping from './components/ObjectMapping.js';
+
+import AdminBlocks from './pages/AdminInfo.js';
+import AdminInfo from './pages/AdminBlocks.js';
+import AdminLayout from './pages/AdminLayout.js';
+import AdminFormLayout from './pages/AdminFormLayout.js';
+import AdminMenu from './pages/AdminMenu.js';
+import AdminTaxonomy from './pages/AdminTaxonomy.js';
+import AdminMedia from './pages/AdminMedia.js';
+import AdminPage from './pages/AdminPage.js';
+import AdminBundleFields from './pages/AdminBundleFields.js';
 
 $(() => {
-	Admin.init();
-	AdminModal.init();
+    window.Modal = new AdminModal();
+    window.ObjectMapping = new ObjectMapping();
+    window.AdminTheme = new AdminTheme();
 	AdminInfo.init();
-	AdminForms.init();
 	AdminBlocks.init();
 	AdminLayout.init();
     AdminFormLayout.init();

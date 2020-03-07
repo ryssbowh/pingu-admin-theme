@@ -1,15 +1,12 @@
-import Modal from './AdminModal';
-import * as h from 'PinguHelpers';
+class AdminTheme {
 
-const Admin = (() => {
-
-	let options = {
+	options = {
 		jsgrid: $('.jsgrid-table'),
 		menu: $('.navbar-main'),
 		globalSpinner: $('#js-global-spinner')
 	};
 
-	let errors = {
+	errors = {
 		code404 : "Route not found",
 		code405 : "Method not allowed",
 		code403 : "Not authorized, are you logged in ?",
@@ -18,72 +15,75 @@ const Admin = (() => {
 		code422 : "Validation failed",
 	};
 
-	function init()
+	constructor()
 	{ 
-		startShowingAjaxErrors();
+		this.startShowingAjaxErrors();
 		/**
 		 * Shows all jsgrid errors in a modal
 		 */
-		if(options.jsgrid.length){
-			options.jsgrid.off('jsgrid-error');
-			options.jsgrid.on('jsgrid-error', function(e, action, data){
+		if(this.options.jsgrid.length){
+			this.options.jsgrid.off('jsgrid-error');
+			this.options.jsgrid.on('jsgrid-error', function(e, action, data){
 				Modal.showAjaxError(data);
 			});
 		}
 
-		bindConfirmLinks($('body'));
-		bindAjaxLinks($('body'));
-		bindViewMoreLinks($('body'));
-
-		// resizeMenu();
-		// $(window).resize(function(){
-		// 	resizeMenu();
-		// });
+        this.bindAjaxCalls();
+		this.bindConfirmLinks($('body'));
+		this.bindAjaxLinks($('body'));
+		this.bindViewMoreLinks($('body'));
 	}
 
-	function showSpinner()
+    bindAjaxCalls ()
+    {
+        $('body').on('ajax.sending', function(e, data){
+            data._theme = 'admin';
+        });
+    }
+
+	showSpinner()
 	{
-		options.globalSpinner.show();
+		this.options.globalSpinner.show();
 	}
 
-	function hideSpinner()
+	hideSpinner()
 	{
-		options.globalSpinner.hide();
+		this.options.globalSpinner.hide();
 	}
 
-	function bindAjaxLinks(element)
+	bindAjaxLinks(element)
 	{
 		let ajaxLinks = element.find('.js-ajax-link');
 		if(ajaxLinks.length){
-			initAjaxLinks(ajaxLinks);
+			this.initAjaxLinks(ajaxLinks);
 		}
 		let ajaxFormLinks = element.find('.js-ajax-link-form');
 		if(ajaxFormLinks.length){
-			initAjaxFormLinks(ajaxFormLinks);
+			this.initAjaxFormLinks(ajaxFormLinks);
 		}
 		let ajaxConfirmAjaxLinks = element.find('.js-ajax-confirm-link');
 		if(ajaxConfirmAjaxLinks.length){
-			initAjaxConfirmLinks(ajaxConfirmAjaxLinks);
+			this.initAjaxConfirmLinks(ajaxConfirmAjaxLinks);
 		}
 	}
 
-	function bindConfirmLinks(element)
+	bindConfirmLinks(element)
 	{
 		let confirmLinks = element.find('.js-confirm-link');
 		if(confirmLinks.length){
-			initConfirmLinks(confirmLinks);
+			this.initConfirmLinks(confirmLinks);
 		}
 	}
 
-	function bindViewMoreLinks(element)
+	bindViewMoreLinks(element)
 	{
 		let viewMoreLinks = element.find('.js-view-more');
 		if(viewMoreLinks.length){
-			initViewMore(viewMoreLinks);
+			this.initViewMore(viewMoreLinks);
 		}
 	}
 
-    function getErrorTitleFromResponse(data)
+    getErrorTitleFromResponse(data)
     {
         if (data.status == 422) {
             return data.responseJSON.message;
@@ -91,11 +91,11 @@ const Admin = (() => {
         return 'Error';
     }
 
-	function getErrorMessageFromResponse(data)
+	getErrorMessageFromResponse(data)
 	{
 		let message = data.responseJSON.message;
         if (data.status == 422) {
-            return buildErrorsFromResponse(data);
+            return this.buildErrorsFromResponse(data);
         }
 		if(!message){
 			if('code'+data.status in errors){
@@ -105,7 +105,7 @@ const Admin = (() => {
         return message;
 	}
 
-	function buildErrorsFromResponse(data)
+	buildErrorsFromResponse(data)
 	{
 		let ul = $('<ul class="list-group">');
 		$.each(data.responseJSON.errors, function(key, messages){
@@ -116,28 +116,29 @@ const Admin = (() => {
 		return ul;
 	}
 
-	function startShowingAjaxErrors()
+	startShowingAjaxErrors()
 	{
+        let _this = this;
 		$('body').on('ajax.failure', function(e, data){
-			Modal.showError(getErrorMessageFromResponse(data), getErrorTitleFromResponse(data));
+			Modal.showError(_this.getErrorMessageFromResponse(data), _this.getErrorTitleFromResponse(data));
 		});
 	}
 
-	function stopShowingAjaxErrors()
+	stopShowingAjaxErrors()
 	{
 		$('body').off('ajax.failure');
 	}
 
-	function resizeMenu()
+	resizeMenu()
 	{
-		options.menu.height($(window).height() - $('.phpdebugbar').outerHeight());
+		this.options.menu.height($(window).height() - $('.phpdebugbar').outerHeight());
 	}
 
-	function ajaxUrl(url)
+	ajaxUrl(url)
 	{
-		let adminPrefix = '/' + h.config('core.adminPrefix');
-		let ajaxPrefix = '/' + h.config('core.ajaxPrefix');
-		let siteUrl = h.config('app.url');
+		let adminPrefix = '/' + Config.get('core.adminPrefix');
+		let ajaxPrefix = '/' + Config.get('core.ajaxPrefix');
+		let siteUrl = Config.get('app.url');
 		if(url.startsWith(siteUrl)){
 			url = url.substring(siteUrl.length);
 		}
@@ -155,29 +156,29 @@ const Admin = (() => {
 		return url;
 	}
 
-	function performAjaxCall(link, data = {}, url = false)
+	performAjaxCall(link, data = {}, url = false)
 	{
         if (!url) {
-            url = ajaxUrl(link.attr('href'));
+            url = this.ajaxUrl(link.attr('href'));
         }
-		data._theme = 'admin';
+        let _this = this;
 		let method = 'get';
 		if(link.data('ajaxmethod')){
 			data._method = link.data('ajaxmethod');
 			method = 'post';
 		}
-		showSpinner();
+		this.showSpinner();
         link.trigger('form.sending', data);
-		return h.ajax(url, data, method).done(function(data){
+		return Helpers.ajax(url, data, method).done(function(data){
 			link.trigger('ajax.success', data);
 		}).fail(function(data){
 			link.trigger('ajax.failure', data);
 		}).always(function(){
-			hideSpinner();
+			_this.hideSpinner();
 		});
 	}
 
-	function performConfirm(link, confirmCallback)
+	performConfirm(link, confirmCallback)
 	{
 		let title = 'Please confirm';
 		let message = '';
@@ -190,7 +191,7 @@ const Admin = (() => {
 		return Modal.showConfirm(message, title, confirmCallback);
 	}
 
-	function initViewMore(links)
+	initViewMore(links)
 	{
 		links.click(function(e){
 			e.preventDefault();
@@ -207,52 +208,56 @@ const Admin = (() => {
 		});
 	}
 
-	function initAjaxLinks(links)
+	initAjaxLinks(links)
 	{
+        let _this = this;
 		links.click(function(e){
 			e.preventDefault();
 			if($(this).hasClass('disabled')){ return;}
-			performAjaxCall($(this));
+			_this.performAjaxCall($(this));
 		});
 	}
 
-	function initConfirmLinks(links)
+	initConfirmLinks(links)
 	{
+        let _this = this;
 		links.click(function(e){
 			e.preventDefault();
 			if($(this).hasClass('disabled')){ return;}
 			let link = $(this);
-			let modal = performConfirm(link, function(){
+			let modal = _this.performConfirm(link, function(){
 				link.trigger('confirmed');
 			});
 		});
 	}
 
-	function initAjaxConfirmLinks(links)
+	initAjaxConfirmLinks(links)
 	{
-		initConfirmLinks(links);
+		this.initConfirmLinks(links);
+        let _this = this;
 		links.on('confirmed', function(e){
-			performAjaxCall($(this));
+			_this.performAjaxCall($(this));
 		});
 	}
 
-	function initAjaxFormLinks(links)
+	initAjaxFormLinks(links)
 	{
+        let _this = this;
 		links.click(function(e){
 			e.preventDefault();
 			if($(this).hasClass('disabled')){ return;}
 			let link = $(this);
-			performAjaxCall(link).done(function(data){
-				if (data.form) {
-                    initModalForm(data.form, link);
+			_this.performAjaxCall(link).done(function(data){
+				if (data.html) {
+                    _this.initModalForm(data.html, link);
                 } else {
-                    h.logWarning("No form was sent by the server on a ajax form link, aborting");
+                    Helpers.logWarning("No form was sent by the server on a ajax form link, aborting");
                 }
 			});
 		});
 	}
 
-    function initModalForm(form, element)
+    initModalForm(form, element)
     {
         let modal = Modal.createForm(form);
         element.trigger('form.loaded', modal);
@@ -263,23 +268,6 @@ const Admin = (() => {
             element.trigger('form.failure', data);
         });
     }
+}
 
-	return {
-		init: init,
-		ajaxUrl: ajaxUrl,
-		startShowingAjaxErrors: startShowingAjaxErrors,
-		stopShowingAjaxErrors: stopShowingAjaxErrors,
-		buildErrorsFromResponse: buildErrorsFromResponse,
-		getErrorMessageFromResponse: getErrorMessageFromResponse,
-		bindAjaxLinks: bindAjaxLinks,
-		bindViewMoreLinks: bindViewMoreLinks,
-		bindConfirmLinks: bindConfirmLinks,
-		showSpinner: showSpinner,
-		hideSpinner: hideSpinner,
-        initModalForm: initModalForm,
-        performAjaxCall: performAjaxCall
-	};
-
-})();
-
-export default Admin;
+export default AdminTheme;

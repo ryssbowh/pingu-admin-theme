@@ -7,7 +7,10 @@ var publicPath = 'theme-assets/';
 mix.webpackConfig({
 	resolve:{
 		alias:{
-			'jquery-ui/sortable': 'jquery-ui/ui/widgets/sortable'
+			'jquery-ui/sortable': 'jquery-ui/ui/widgets/sortable',
+            'ObjectMapping': path.resolve(assetPath + '/js/components', './ObjectMapping'),
+            'Admin': path.resolve(assetPath + '/js/components', './Admin'),
+            'Modal': path.resolve(assetPath + '/js/components', './AdminModal')
 		}
 	}
 });

@@ -1,5 +1,3 @@
-import * as h from 'PinguHelpers';
-
 const AdminInfo = (() => {
 
 	let options = {
@@ -11,7 +9,7 @@ const AdminInfo = (() => {
 	let cardHeight = 205;
 
 	function init(){
-		h.log('[Admin Theme] Info initialized');
+		Helpers.log('[Admin Theme] Info initialized');
 		if(options.info.length){
 			resizeLists();
 			bindViewMore();
