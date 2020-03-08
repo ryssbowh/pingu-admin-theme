@@ -11,7 +11,7 @@ class ObjectMapping {
         Helpers.log('[Admin Theme] Object Mapping initialized');
         this.mapping = {
             '.field-group-uploadmedia': UploadMediaGroup,
-            '.field-group-datetime': DatetimeGroup,
+            '.field-group-datetime,.field-group-time': DatetimeGroup,
             '.field-group' : FieldGroup,
             '.field-wrapper': Field,
             'form' : Form
