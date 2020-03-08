@@ -31,11 +31,16 @@ class Field {
 
     initDatetimePickers ()
     {
-        $.each(this.element.find('input.js-datetimepicker'), function(i, item){
+        $.each(this.element.find('input.field-datetime'), function(i, item){
             $(item).parent().datetimepicker({
                 format: $(item).parent().data('format'),
                 allowInputToggle: true,
-                sideBySide: true
+                sideBySide: true,
+                buttons: {
+                    showToday: false,
+                    showClear: false,
+                    showClose: false
+                }
             });
         });
     }

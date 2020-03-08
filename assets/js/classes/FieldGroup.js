@@ -27,6 +27,7 @@ class FieldGroup {
         this.addLink.click(function(e){
             e.preventDefault();
             var elem = _this.cloneElement();
+            ObjectMapping.bind(elem);
             elem.insertAfter(_this.elements.last());
             _this.elements = _this.element.find('.form-element');
             _this.toggleAddFieldLink();
@@ -56,11 +57,17 @@ class FieldGroup {
         this.toggleAddFieldLink()
     }
 
+    getIndex(elem)
+    {
+        var name = elem.find('input').prop('name');
+        return parseInt(name.match(/\[[0-9]+\]/)[0].match(/[0-9]+/, '')[0]);
+    }
+
     cloneElement () 
     {
         let elem = this.elements.last().clone();
         var name = elem.find('input').prop('name');
-        var number = parseInt(name.match(/\[[0-9]+\]/)[0].match(/[0-9]+/, '')[0]) + 1;
+        var number = this.getIndex(elem) + 1;
         elem.find('input').prop('name', name.replace(/\[[0-9]+\]/, '['+number+']'));
         elem.find('input').val('');
         elem.find('.js-remove-group-element').removeClass('d-none');

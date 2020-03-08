@@ -15,6 +15,10 @@ import AdminMedia from './pages/AdminMedia.js';
 import AdminPage from './pages/AdminPage.js';
 import AdminBundleFields from './pages/AdminBundleFields.js';
 
+String.prototype.rtrim = function(s) { 
+    return this.replace(new RegExp(s + "*$"),''); 
+};
+
 $(() => {
     window.Modal = new AdminModal();
     window.ObjectMapping = new ObjectMapping();
