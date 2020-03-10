@@ -14,7 +14,7 @@
         <?php $children = $item->children; ?>
         @if(!$children->isEmpty())
             <ul class="list-group">
-                @include('taxonomy::tree', ['items' => $children])
+                @include('pages.taxonomy._includes.tree', ['items' => $children])
             </ul>
         @endif
     </li>

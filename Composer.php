@@ -16,7 +16,7 @@ class Composer
     {
         return [
             AdminMenuComposer::class  => ['menus.menu'],
-            ImageTransformations::class => ['media::imageTransformations']
+            ImageTransformations::class => ['pages.media.indexTransformations']
         ];
     }
 }

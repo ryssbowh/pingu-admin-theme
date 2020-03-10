@@ -32,7 +32,7 @@
         <div class="taxonomy-tree">
           @if(!$items->isEmpty())
             <ul class="list-group taxonomy-list">
-              @include('taxonomy::tree')
+              @include('pages.taxonomy._includes.tree')
             </ul>
           @else
             <p>No items</p>
