@@ -29,7 +29,7 @@
         @endcan
 
         <div class="menu-tree">
-       		 @include('menu::tree')
+       		 @include('pages.menu._includes.tree')
        	</div>
 
         @can('edit menu items')

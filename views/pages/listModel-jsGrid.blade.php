@@ -10,8 +10,8 @@
 @endsection
 
 @section('content')
-    @include('core::contextualLinks')
+    @include('core@contextualLinks')
     <div class="listPage">
-		@include('jsgrid::listModel', $jsgrid)
+		@include('jsgrid@listModel', $jsgrid)
 	</div>
 @endsection

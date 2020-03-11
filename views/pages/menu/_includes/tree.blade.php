@@ -19,7 +19,7 @@
             </div>
             <?php $children = $item->getChildren(); ?>
             @if(!$children->isEmpty())
-                @include('menu::tree', ['items' => $children])
+                @include('pages.menu._includes.tree', ['items' => $children])
             @endif
         </li>
     @endforeach

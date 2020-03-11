@@ -8,7 +8,7 @@
                     <div class="card-header">@yield('title')</div>
 
                     <div class="card-body">
-                        @include('core::contextualLinks')
+                        @include('core@contextualLinks')
                         @yield('content')
                     </div>
                 </div>

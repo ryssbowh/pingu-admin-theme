@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    @include('jsgrid::list', $jsgrid)
+    @include('jsgrid@list', $jsgrid)
 @endsection

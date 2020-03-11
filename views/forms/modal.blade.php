@@ -11,7 +11,7 @@
             <div class="modal-body">
             	<div class="fields">
                     @if($form->hasGroups())
-                        @include('forms::groups')
+                        @include('forms@groups')
                     @else
                         @foreach($elements as $element)
                             {{ $element->render() }}

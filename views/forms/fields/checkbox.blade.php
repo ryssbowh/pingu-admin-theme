@@ -1,4 +1,4 @@
-@extends('forms::field')
+@extends('forms@field')
 
 @section('inner')
 	<div class="checkboxes-item pretty p-switch p-fill p-smooth">

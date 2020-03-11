@@ -52,14 +52,14 @@
         @include('menus.menu')
 
         <main class="py-4">
-            @include('core::notify')
+            @include('core@notify')
             
             @yield('main')
         </main>
     </div>
 
     <!-- Scripts -->
-    @include('core::jsconfig')
+    @include('core@jsconfig')
     {!! Asset::container('vendor')->scripts() !!}
     {!! Asset::container('modules')->scripts() !!}
     {!! Asset::container('theme')->scripts() !!}
