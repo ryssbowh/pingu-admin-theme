@@ -59,7 +59,7 @@ class AdminModal {
 			_this.focusOnFirstInput(modal);
 			form.on('form.failure', function(e, data){
 				if(showErrors){
-					this.showAjaxError(data);
+					_this.showAjaxError(data);
 				}
 			});
 			form.on('form.success', function(e, data){

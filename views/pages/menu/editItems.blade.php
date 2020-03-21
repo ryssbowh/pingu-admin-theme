@@ -13,28 +13,28 @@
             <span class="name"></span>
             <input name="models[id][weight]" value="" type="hidden" class="weight">
             <input name="models[id][parent]" value="" type="hidden" class="parent">
-            @can('delete menu items')
+            @ifperm('delete menu items')
               <a href="{{ $deleteItemUri }}" data-ajaxmethod="delete" data-confirmtitle="Delete item ?" class="js-ajax-confirm-link delete float-right" data-confirmmessage="This action cannot be undone">Delete</a>
-            @endcan
-            @can('edit menu items')
+            @endifperm
+            @ifperm('edit menu items')
               <a href="{{ $editItemUri }}" class="js-ajax-link-form edit float-right mr-1">Edit</a>
-            @endcan
+            @endifperm
           </div>
         </li>
 
         {{ FormFacade::open(['url' => $patchItemsUri, 'method' => 'patch', 'class' => 'js-show-message js-ajax-form']) }}
 
-        @can('create menu items')
+        @ifperm('create menu items')
           <a href="{{ $addItemUri }}" class="js-ajax-link-form add mb-2 d-inline-block">Add an item</a>
-        @endcan
+        @endifperm
 
         <div class="menu-tree">
        		 @include('pages.menu._includes.tree')
        	</div>
 
-        @can('edit menu items')
+        @ifperm('edit menu items')
           {{ FormFacade::submit('Save', ['class' => 'save mt-2 d-inline-block btn btn-primary float-right']) }}
-        @endcan
+        @endifperm
 
         {{ FormFacade::close() }}
 

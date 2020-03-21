@@ -9,13 +9,13 @@
                 <input name="models[{{ $item->id }}][weight]" value="{{ $item->weight }}" type="hidden" class="weight">
                 <input name="models[{{ $item->id }}][parent]" value="{{ $parent }}" type="hidden" class="parent">
                 @if($item->deletable)
-                    @can('delete menu items')
+                    @ifperm('delete menu items')
                         <a href="{{ $item::uris()->make('delete', $item, adminPrefix()) }}" data-ajaxmethod="delete" data-confirmtitle="Delete item ?" class="js-ajax-confirm-link delete float-right" data-confirmmessage="This action cannot be undone">Delete</a> 
-                    @endcan
+                    @endifperm
                 @endif
-                @can('edit menu items')
+                @ifperm('edit menu items')
                     <a href="{{ $item::uris()->make('edit', $item, adminPrefix()) }}" class="js-ajax-link-form edit float-right mr-1">Edit</a>
-                @endcan
+                @endifperm
             </div>
             <?php $children = $item->getChildren(); ?>
             @if(!$children->isEmpty())

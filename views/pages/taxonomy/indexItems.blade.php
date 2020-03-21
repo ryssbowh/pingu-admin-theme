@@ -12,22 +12,22 @@
             <i class="fa fa-bars"></i>
             <span class="name"></span>
             <input type="hidden" name="models[id][weight]">
-            @can('delete taxonomy terms')
+            @ifperm('delete taxonomy terms')
               <a href="{{ $deleteItemUri }}" class="js-delete js-ajax-confirm-link float-right" data-ajaxmethod="delete" data-confirmmessage="This action cannot be undone">Delete</a>
-            @endcan
-            @can('edit taxonomy terms')
+            @endifperm
+            @ifperm('edit taxonomy terms')
               <a href="{{ $editItemUri }}" class="js-edit js-ajax-link-form float-right mr-1">Edit</a>
-            @endcan
+            @endifperm
           </div>
         </li>
 
-        @can('add taxonomy terms')
+        @ifperm('add taxonomy terms')
           <a href="{{ $addItemUri }}" class="js-add mb-2 d-inline-block js-ajax-link-form">Add an item</a>
-        @endcan
+        @endifperm
 
-        @can('edit taxonomy terms')
+        @ifperm('edit taxonomy terms')
           {{ FormFacade::open(['url' => $patchItemsUri, 'method' => 'patch', 'class' => 'form js-ajax-form js-show-message']) }}
-        @endcan
+        @endifperm
 
         <div class="taxonomy-tree">
           @if(!$items->isEmpty())
@@ -39,10 +39,10 @@
           @endif
        	</div>
 
-        @can('edit taxonomy terms')
+        @ifperm('edit taxonomy terms')
           {{ FormFacade::submit('Save', ['class' => 'save mt-2 d-inline-block btn btn-primary float-right']) }}
           {{ FormFacade::close() }}
-        @endcan
+        @endifperm
 
     </div>
 @endsection

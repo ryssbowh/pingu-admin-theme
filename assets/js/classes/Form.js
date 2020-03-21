@@ -58,27 +58,27 @@ class Form {
         });
     }
 
-	highlightInvalidFields(fields)
+	highlightInvalidFields(element, fields)
 	{
-        let _this = this;
 		fields.forEach(function(item){
-			_this.element.find('[name='+item+']').addClass('is-invalid');
+			element.find('[name='+item+']').addClass('is-invalid');
 		});
 	}
 
-	showErrors(errors){
+	showErrors(errors)
+    {
 		let messages = $('<ul>');
 		let messageDiv;
         let _this = this;
 		Object.keys(errors).forEach(key => {
 			let value = errors[key];
 			let input;
-			if(input = _this.element.find('[name='+key+']')){
+			if (input = _this.element.find('[name='+key+']')) {
 				input.addClass('is-invalid');
 				messages.append($('<li>'+value+'</li>'));
 			}
 		});
-		if(messageDiv = _this.element.find('.errors')){
+		if (messageDiv = _this.element.find('.errors')) {
 			messageDiv.append(messages);
 			messageDiv.removeClass('d-none');
 		}

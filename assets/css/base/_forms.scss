@@ -17,11 +17,7 @@ input:not(.chosen-search-input){
     }
 }
 
-select{
-    @extend .form-control;
-}
-
-.checkboxes-items{
+.checkboxes-items, select{
     @extend .form-control;
 }
 
@@ -44,4 +40,17 @@ select{
 	input[type=submit]:not(.confirm){
 		float: right;
 	}
+}
+
+.form-filter-entity {
+    .fields{
+        display:flex;
+    }
+    .form-element{
+        @extend .mr-1;
+    }
+    .field-_reset{
+        @extend .btn;
+        @extend .btn-secondary;
+    }
 }

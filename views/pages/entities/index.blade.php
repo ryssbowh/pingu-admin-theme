@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <div class="list-entity list-entity-{{ $type }}">
+    <div class="list-entity list-entity-{{ $entity->entityType() }}">
     	@if(!$entities->isEmpty()) 
         <table class="table">
             <thead>
@@ -23,7 +23,7 @@
     		@foreach($entities as $entity)
                 <tr>
                     @foreach($entity->adminListFields as $field)
-                        <td>{!! $entity->fieldFriendlyValue($field) !!}</td>
+                        <td>{!! $entity->getFriendlyValue($field) !!}</td>
                     @endforeach
                     <td>
                         @if($actions = $entity::actions()->make($entity))

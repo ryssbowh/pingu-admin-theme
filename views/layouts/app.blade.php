@@ -52,9 +52,11 @@
         @include('menus.menu')
 
         <main class="py-4">
-            @include('core@notify')
-            
-            @yield('main')
+            <div class="container">
+                @include('core@notify')
+                
+                @yield('main')
+            </div>
         </main>
     </div>
 

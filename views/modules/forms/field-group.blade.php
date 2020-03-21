@@ -1,7 +1,7 @@
 <div data-class="{{ class_basename($group->first()) }}" class="{{ $classes }}" data-cardinality="{{ $group->getCardinality() }}">
 	@if($label = $group->option('label'))
 		<label class="{{ $labelClasses }}">
-            {{ $label }}
+            {{ $label.($group->first()->option('required') ? ' *' : '') }}
             @if($helper = $group->option('helper'))
                 <div class="helper">{!! $helper !!}</div>
             @endif

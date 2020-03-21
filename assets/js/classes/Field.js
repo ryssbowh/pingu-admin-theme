@@ -10,6 +10,18 @@ class Field {
         this.initHideCardinality();
         this.initSelects();
         this.initDashify();
+        this.initSelectValidation();
+    }
+
+    initSelectValidation()
+    {
+        let _this = this;
+        this.element.find('select').on('invalid', function(){
+            _this.element.find('.chosen-container').addClass('is-invalid');
+        });
+        this.element.find('select').on('change', function(){
+            _this.element.find('.chosen-container').removeClass('is-invalid');
+        });
     }
 
     initDashify()

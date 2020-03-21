@@ -35,7 +35,7 @@
                             ?>
                             <li class="list-group-item container">
                                 <div class="row">
-                                    <input type="hidden" class="options" value="{{ json_encode($options->values()) }}">
+                                    <input type="hidden" class="options" value="{{ json_encode($options->formValues()) }}">
                                     <input type="hidden" class="id" value="{{ $fieldLayout->id }}">
                                     <div class="col header"><i class="fa fa-bars"></i></div>
                                     <div class="col">{{ $field->name() }}</div>
