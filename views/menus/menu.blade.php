@@ -3,10 +3,10 @@
         {{ config('app.name', 'Laravel') }}
     </a>
 
-    <div class="menu-items">
-    	<ul class="navbar-nav mr-auto">
+    <div class="main-menu">
+    	<nav class="navbar-nav mr-auto list-group">
 	        @include('menus.includes.menutree', ['items' => \Menus::build($menu)])
-	    </ul>
+	    </nav>
 	</div>
 
 	<ul class="navbar-nav ml-auto user-form">

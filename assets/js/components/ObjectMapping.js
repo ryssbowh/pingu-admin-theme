@@ -3,6 +3,7 @@ import Form from '../classes/Form';
 import Field from '../classes/Field';
 import UploadMediaGroup from '../classes/UploadMediaGroup';
 import DatetimeGroup from '../classes/DatetimeGroup';
+import MainMenuGroup from '../classes/MainMenuGroup';
 
 class ObjectMapping {
 
@@ -10,6 +11,7 @@ class ObjectMapping {
     {
         Helpers.log('[Admin Theme] Object Mapping initialized');
         this.mapping = {
+            '.main-menu .list-group': MainMenuGroup, 
             '.field-group-uploadmedia': UploadMediaGroup,
             '.field-group-datetime,.field-group-time': DatetimeGroup,
             '.field-group' : FieldGroup,

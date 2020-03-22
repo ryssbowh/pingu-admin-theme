@@ -14,7 +14,7 @@
             <thead>
                 <tr>
                     @foreach($entities[0]->adminListFields as $field)
-                        <th scope="col">{{ $entity::fieldFriendlyName($field) }}</th>
+                        <th scope="col">{{ $entity::getFriendlyFieldName($field) }}</th>
                     @endforeach
                     <th scope="col"></th>
                 </tr>
