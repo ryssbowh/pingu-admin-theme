@@ -15,7 +15,7 @@ const AdminBlocks = (() => {
 
 	function init(){
 		if(options.page.length){
-            Helpers.log('[Admin Theme] Blocks initialized');
+            Logger.log('[Admin Theme] Blocks initialized');
             bindAdd(options.blocksAvailable);
             bindEdit(options.blocks);
             bindDelete(options.blocks);

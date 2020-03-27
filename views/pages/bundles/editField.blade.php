@@ -2,7 +2,10 @@
 
 @section('title')
 	<h1>Edit field {{ $field->instance->name }}</h1>
-	<span class="float-right"><a href="{{ url()->previous() }}">Back</a></span>
+@endsection
+
+@section('primaryActions')
+    <a href="{{ url()->previous() }}">Back</a>
 @endsection
 
 @section('content')

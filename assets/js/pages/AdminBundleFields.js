@@ -11,7 +11,7 @@ const AdminBundleFields = (() => {
 	};
 
 	function init(){
-		Helpers.log('[Admin Theme] Bundle Fields initialized');
+		Logger.log('[Admin Theme] Bundle Fields initialized');
 		if(opt.edit.length){
 			bindEdit();
 		}

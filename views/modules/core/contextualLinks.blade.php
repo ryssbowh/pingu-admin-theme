@@ -1,4 +1,4 @@
-@if($links = ContextualLinks::get())
+@if($links = ContextualLinks::get() and sizeof($links) > 1)
 	<div class="contextualLinks">
 		<ul>
 			@foreach($links as $name => $details)

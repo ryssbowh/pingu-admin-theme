@@ -1,7 +1,7 @@
 @extends('layouts.card')
 
 @section('title')
-Edit Permissions
+    <h1>Edit Permissions</h1>
 @endsection
 
 @section('content')

@@ -9,7 +9,7 @@ class ObjectMapping {
 
     constructor ()
     {
-        Helpers.log('[Admin Theme] Object Mapping initialized');
+        Logger.log('[Admin Theme] Object Mapping initialized');
         this.mapping = {
             '.main-menu .list-group': MainMenuGroup, 
             '.field-group-uploadmedia': UploadMediaGroup,

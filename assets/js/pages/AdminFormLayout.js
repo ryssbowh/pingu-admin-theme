@@ -12,7 +12,7 @@ const AdminFormLayout = (() => {
 	};
 
 	function init(){
-		Helpers.log('[Admin Theme] Form Layout initialized');
+		Logger.log('[Admin Theme] Form Layout initialized');
 		if(opt.list.length){
             rebuildTree();
 			makeSortable();

@@ -1,5 +1,17 @@
 .field-wrapper{
     @extend .form-group;
+    select{
+        display:none;
+    }
+}
+
+.form-element{
+    .helper{
+        @include font-size(12px);
+    }
+    a{
+        color: $secondary;
+    } 
 }
 
 textarea{
@@ -17,6 +29,19 @@ input:not(.chosen-search-input){
     }
 }
 
+.checkbox-item{
+    @extend .pretty;
+    @extend .p-default;
+    @extend .p-curve;
+    @extend .p-fill;
+    @extend .p-smooth;
+}
+
+.checkbox-label{
+    @extend .state;
+    @extend .p-primary;
+}
+
 .checkboxes-items, select{
     @extend .form-control;
 }
@@ -30,10 +55,6 @@ input:not(.chosen-search-input){
     label{
         @extend .form-check-label;
     }
-}
-
-.form-element .helper{
-    font-size: 0.7rem;
 }
 
 .deletePage, .editPage, .addPage{
@@ -53,4 +74,12 @@ input:not(.chosen-search-input){
         @extend .btn;
         @extend .btn-secondary;
     }
+}
+
+fieldset{
+    @include border-radius();
+    border-top: 3px solid $secondary;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background:$light-grey;
 }

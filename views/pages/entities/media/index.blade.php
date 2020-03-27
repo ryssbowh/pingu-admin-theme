@@ -1,11 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.card')
 
-@section('main')
+@section('title')
+    <h1>Medias</h1>
+@endsection
+
+@section('primaryActions')
+    <a href="{{ $createUrl }}">Upload media</a>
+@endsection
+
+@section('content')
     <div class="media-list index-entities">
         <div class="row">
             <div class="col-12 col-sm-2">
                 @include('pages.entities.media._includes.folderTree')
-                <a href="{{ $createUrl }}" class="">Upload media</a>
             </div>
             <div class="col-12 col-sm-10 pl-0">
                 <div class="filters mb-2">
@@ -45,7 +52,7 @@
                         ?>
                     @endwhile
                 </div>
-                <div class="entity-pages text-center">
+                <div class="entity-pager text-center">
                     {{ $entities->links() }}
                 </div>
             </div>

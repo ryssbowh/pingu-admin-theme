@@ -1,5 +1,24 @@
-.card-header h1{
-	font-size: 1.5rem;
-	float:left;
-	margin:0;
+body{
+    @include font-size(14px);
+    font-family: 'Nunito';
+}
+
+h1{
+    @include font-size(40px);
+}
+
+h2{
+    @include font-size(30px);
+}
+
+h3{
+    @include font-size(20px);
+}
+
+h4{
+    @include font-size(18px);
+}
+
+h5, h6{
+    @include font-size(16px);
 }

@@ -16,7 +16,7 @@ const AdminMenu = (() => {
 
 	function init()
 	{ 
-		Helpers.log('[Admin Theme] Menu initialized');
+		Logger.log('[Admin Theme] Menu initialized');
 		if(opt.editMenuTree.length){
 			makeSortable();
 		}
@@ -68,7 +68,7 @@ const AdminMenu = (() => {
 			$(modal).find('.wrapper-field-weight').addClass('d-none');
 		});
 		opt.addMenuItem.on('form.success', function(e, data){
-			let item = cloneSkeleton(data.entity);
+			let item = cloneSkeleton(data.model);
 			opt.menuItemsList.append(item);
 			AdminTheme.bindAjaxLinks(item);
 			makeSortable();

@@ -14,7 +14,7 @@
                         <ul class="list-group mt-3">
                             @foreach($bundleList as $bundle)
                                 <li class="list-group-item">{{ $bundle->bundleFriendlyName() }}
-                                    <div class="btn-group float-right">
+                                    <div class="btn-group float-right dropleft">
                                         <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                                         <div class="dropdown-menu">
                                             @foreach($bundle::actions()->make($bundle) as $action)
@@ -28,7 +28,7 @@
                     </li>
                 @else
                     <li class="list-group-item">{{ $bundleList[0]->bundleFriendlyName() }}
-                        <div class="btn-group float-right">
+                        <div class="btn-group float-right dropleft">
                             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
                             <div class="dropdown-menu">
                                 @foreach($bundleList[0]::actions()->make($bundleList[0]) as $action)

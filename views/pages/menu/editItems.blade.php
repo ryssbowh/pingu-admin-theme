@@ -4,6 +4,10 @@
 <h1>{{ $menu->name }}'s Items</h1>
 @endsection
 
+@section('primaryActions')
+    <a href="{{ url()->previous() }}">Back</a>
+@endsection
+
 @section('content')
     <div class="edit-menu-items" data-menu="{{ $menu->id }}">
 

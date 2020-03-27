@@ -25,7 +25,7 @@ class AdminModal {
 	{
 		let modalId = html.attr('id');
 		if(!modalId){
-			Helpers.logError('your root element must have an id to create a modal'); 
+			Logger.logError('your root element must have an id to create a modal'); 
 			return;
 		}
 		if($('#'+modalId).length){
@@ -46,7 +46,7 @@ class AdminModal {
         let _this = this;
 
 		if(!form.length){
-            Helpers.logError("Can't instanciate a form from xhr response, form element is missing");
+            Logger.logError("Can't instanciate a form from xhr response, form element is missing");
 			return modal;
 		}
 		if(showErrors){

@@ -1,7 +1,7 @@
 @extends('layouts.card')
 
 @section('title')
-Modules
+    <h1>Modules</h1>
 @endsection
 
 @section('content')

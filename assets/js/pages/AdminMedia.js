@@ -17,7 +17,7 @@ const AdminMedia = (() => {
 	};
 
 	function init(){
-		Helpers.log('[Admin Theme] Media initialized');
+		Logger.log('[Admin Theme] Media initialized');
 		if(options.createTransformerForm.length){
 			initAddTransformerForm();
 			initTransformerDelete();

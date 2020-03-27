@@ -4,7 +4,6 @@
 
 // Variables
 @import 'base/variables';
-@import 'base/colors';
 
 // Bootstrap
 @import '~font-awesome/scss/font-awesome';
@@ -12,11 +11,13 @@
 @import '~tempusdominus-bootstrap-4/src/sass/tempusdominus-bootstrap-4-build';
 @import '~bootstrap4c-chosen/src/scss/component-variables';
 @import '~bootstrap4c-chosen/src/scss/component-chosen';
+@import '~rfs/scss';
 
-// Variables
+// Base
 @import 'base/forms';
 @import 'base/typography';
 @import 'mixins/mixins';
+@import 'base/main';
 
 // other plugins
 @import '~jquery-ui/themes/base/core.css';
@@ -25,17 +26,22 @@
 @import '~jquery-ui/themes/base/draggable.css';
 @import '~pretty-checkbox/src/pretty-checkbox';
 
+//layouts
+@import 'layouts/card';
+
 //components
-@import 'components/partials/main';
 @import 'components/partials/contextualLinks';
 @import 'components/partials/jsgrid';
 @import 'components/partials/loader';
 
+//pages
 @import 'components/pages/editPages';
 @import 'components/pages/contentTypes';
 @import 'components/pages/info';
 @import 'components/pages/media';
 @import 'components/pages/editLayout';
+@import 'components/pages/fieldDisplay';
+@import 'components/pages/viewModes';
 
 //Menus
 @import 'components/menus/main-menu';

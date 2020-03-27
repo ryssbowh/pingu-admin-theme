@@ -1,7 +1,11 @@
 @extends('layouts.card')
 
 @section('title')
-{{ $page->name }}'s Blocks
+    {{ $page->name }}'s Blocks
+@endsection
+
+@section('primaryActions')
+    <a href="{{ url()->previous() }}">Back</a>
 @endsection
 
 @section('content')

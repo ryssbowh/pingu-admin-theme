@@ -1,0 +1,13 @@
+.card-layout{
+    .layout-header{
+        border-bottom: 2px solid $primary;
+        .primary-actions{
+            @include font-size(20px);
+            padding-top:0.5rem;
+            text-align: right;
+        }
+    }
+    .layout-body{
+        @extend .mt-4;
+    }
+}

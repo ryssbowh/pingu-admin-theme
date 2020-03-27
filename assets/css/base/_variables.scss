@@ -1,3 +1,31 @@
+// Colors
+$blue: #4108ff;
+$indigo: #6574cd;
+$purple: #5a008e;
+$pink: #f66D9b;
+$red: #ff5959;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$grey:#878787;
+$light-purple: #b963ff;
+$dark-purple: #3a0069;
+$light-grey: darken(white, 10%);
+
+$primary: #6500e0;
+$secondary: #149e80;
+
+$component-active-bg: $secondary;
+
+// pretty checkboxes
+$pretty--color-primary:$secondary;
+
+//chosen
+$input-focus-border-color: $secondary;
+$input-placeholder-color: $secondary;
+$link-color: $secondary;
 
 // Body
 $body-bg: #f8fafc;

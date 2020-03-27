@@ -1,0 +1,44 @@
+main{
+    padding-left:200px;
+}
+
+.maintenance-mode-on{
+    background: $red;
+    text-align:center;
+}
+
+.card-header{
+    background: $secondary;
+    color: white;
+    a{
+        color:white;
+    }
+}
+
+.entity-pager > ul {
+    display: inline-flex;
+}
+
+.showOnLoad{
+    transition: all 0.3s;
+    opacity: 0;
+    &.loaded{
+        opacity:1;
+    }
+}
+
+a{
+    color: $primary;
+    transition: all 0.3s;
+    &:hover{
+        text-decoration: none;
+        color: $primary;
+    }
+    &:focus{
+        outline:none;
+    }
+}
+
+p{
+    margin-bottom:0.5rem;
+}

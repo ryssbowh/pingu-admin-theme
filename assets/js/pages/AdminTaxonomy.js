@@ -15,7 +15,7 @@ const AdminTaxonomy = (() => {
 
 	function init()
 	{ 
-		Helpers.log('[Admin Theme] Taxonomy initialized');
+		Logger.log('[Admin Theme] Taxonomy initialized');
 		if(opt.editTree.length){
 			makeSortable();
 		}

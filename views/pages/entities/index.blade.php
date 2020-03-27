@@ -2,8 +2,11 @@
 
 @section('title')
     <h1>{{ $entity::friendlyNames() }}</h1>
+@endsection
+
+@section('primaryActions')
     @can('create', get_class($entity))
-        <span class="float-right"><a href="{{ $createUrl }}">New</a></span>
+        <a href="{{ $createUrl }}">New</a>
     @endcan
 @endsection
 
@@ -27,14 +30,21 @@
                     @endforeach
                     <td>
                         @if($actions = $entity::actions()->make($entity))
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
-                                <div class="dropdown-menu">
-                                    @foreach($actions as $action)
-                                        <a class="dropdown-item btn btn-primary" href="{{ $action['url'] }}">{{ $action['label'] }}</a>
-                                    @endforeach
+                            @if(sizeof($actions) > 1)
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                                    <div class="dropdown-menu">
+                                        @foreach($actions as $action)
+                                            <a class="dropdown-item" href="{{ $action['url'] }}">{{ $action['label'] }}</a>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <?php
+                                $index = array_keys($actions)[0];
+                                ?>
+                                <a class="btn btn-secondary" href="{{ $actions[$index]['url'] }}">{{ $actions[$index]['label'] }}</a>
+                            @endif
                         @endif
                     </td>
                 </tr>

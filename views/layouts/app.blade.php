@@ -51,7 +51,7 @@
 
         @include('menus.menu')
 
-        <main class="py-4">
+        <main class="py-4 @if(env('APP_ENV') == 'production') showOnLoad @endif">
             <div class="container">
                 @include('core@notify')
                 

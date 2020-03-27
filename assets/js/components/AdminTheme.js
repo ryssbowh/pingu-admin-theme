@@ -251,7 +251,7 @@ class AdminTheme {
 				if (data.html) {
                     _this.initModalForm(data.html, link);
                 } else {
-                    Helpers.logWarning("No form was sent by the server on a ajax form link, aborting");
+                    Logger.logWarning("No form was sent by the server on a ajax form link, aborting");
                 }
 			});
 		});

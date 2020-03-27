@@ -1,7 +1,7 @@
 @extends('layouts.card')
 
 @section('title')
-{{ $entity::friendlyName() }}'s revisions
+    {{ $entity::friendlyName() }}'s revisions
 @endsection
 
 @section('content')

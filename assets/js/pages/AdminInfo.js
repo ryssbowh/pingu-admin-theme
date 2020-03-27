@@ -9,7 +9,7 @@ const AdminInfo = (() => {
 	let cardHeight = 205;
 
 	function init(){
-		Helpers.log('[Admin Theme] Info initialized');
+		Logger.log('[Admin Theme] Info initialized');
 		if(options.info.length){
 			resizeLists();
 			bindViewMore();

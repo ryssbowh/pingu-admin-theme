@@ -15,7 +15,7 @@ const AdminLayout = (() => {
 
 	function init()
 	{ 
-		Helpers.log('[Admin Theme] Page initialized');
+		Logger.log('[Admin Theme] Page initialized');
 		options.pageContainer.resizable({
 			handles: 's'
 		});

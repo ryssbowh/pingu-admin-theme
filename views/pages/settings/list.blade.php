@@ -1,7 +1,7 @@
 @extends('layouts.card')
 
 @section('title')
-{{ $repository->section() }} Settings
+    <h1>{{ $repository->section() }} Settings</h1>
 @endsection
 
 @section('content')

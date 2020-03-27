@@ -13,7 +13,9 @@ import AdminMenu from './pages/AdminMenu.js';
 import AdminTaxonomy from './pages/AdminTaxonomy.js';
 import AdminMedia from './pages/AdminMedia.js';
 import AdminPage from './pages/AdminPage.js';
+import AdminFieldDisplay from './pages/AdminFieldDisplay.js';
 import AdminBundleFields from './pages/AdminBundleFields.js';
+import AdminViewModes from './pages/AdminViewModes.js';
 
 String.prototype.rtrim = function(s) { 
     return this.replace(new RegExp(s + "*$"),''); 
@@ -31,5 +33,8 @@ $(() => {
 	AdminTaxonomy.init();
 	AdminMedia.init();
     AdminPage.init();
+    AdminFieldDisplay.init();
 	AdminBundleFields.init();
+    AdminViewModes.init();
+    $('.showOnLoad').addClass('loaded');
 });

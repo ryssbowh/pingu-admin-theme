@@ -1,18 +1,24 @@
 @extends('layouts.app')
 
 @section('main')
-	<div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">@yield('title')</div>
-
-                    <div class="card-body">
-                        @include('core@contextualLinks')
-                        @yield('content')
-                    </div>
+	<div class="card-layout">
+        <div class="layout-header">
+            <div class="row">
+                <div class="col-10">
+                    @yield('title')
+                    @yield('helper')
+                </div>
+                <div class="col-2 primary-actions">
+                    @yield('primaryActions')
                 </div>
             </div>
+            <div class="row mt-2">
+                @include('core@contextualLinks')
+            </div>
+        </div>
+
+        <div class="layout-body">
+            @yield('content')
         </div>
     </div>
 @endsection

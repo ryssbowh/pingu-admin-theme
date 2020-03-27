@@ -1,7 +1,7 @@
 @extends('layouts.card')
 
 @section('title')
-<h1>{{ $taxonomy->name }}'s Items</h1>
+    <h1>{{ $taxonomy->name }}'s Items</h1>
 @endsection
 
 @section('content')

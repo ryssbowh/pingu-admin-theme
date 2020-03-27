@@ -1,7 +1,11 @@
 @extends('layouts.card')
 
 @section('title')
-<h1>{{ $style->name }}'s transformations</h1>
+    <h1>{{ $style->name }}'s transformations</h1>
+@endsection
+
+@section('primaryActions')
+    <a href="{{ url()->previous() }}">Back</a>
 @endsection
 
 @section('content')

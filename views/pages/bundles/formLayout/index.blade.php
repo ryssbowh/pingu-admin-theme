@@ -8,7 +8,7 @@
 
     <div class="form-layout container">
 
-        {{ FormFacade::open(['url' => $bundle::uris()->make('patchFormLayout', $bundle, ajaxPrefix()), 'method' => 'patch', 'class' => 'js-show-message']) }}
+        {{ FormFacade::open(['url' => $bundle::uris()->make('patchFormLayout', $bundle, ajaxPrefix()), 'method' => 'patch', 'class' => 'js-show-message', 'autocomplete' => 'off']) }}
 
         @if($layout->isEmpty())
             <p>No fields</p>
@@ -37,15 +37,15 @@
                                 <div class="row">
                                     <input type="hidden" class="options" value="{{ json_encode($options->formValues()) }}">
                                     <input type="hidden" class="id" value="{{ $fieldLayout->id }}">
-                                    <div class="col header"><i class="fa fa-bars"></i></div>
+                                    <div class="col-1 header"><i class="fa fa-bars"></i></div>
                                     <div class="col">{{ $field->name() }}</div>
-                                    <div class="col">
+                                    <div class="col field-wrapper">
                                         {{ FormFacade::select('', \FormField::availableWidgets($field), $fieldLayout->widget::machineName()) }}
                                     </div>
                                     <div class="col description">
                                         {!! $options->friendlyDescription() !!}
                                     </div>
-                                    <div class="col text-right">
+                                    <div class="col-1 text-right">
                                         @if($options->hasOptions())
                                             <a class="js-edit" href="#">Edit</a>
                                         @endif
