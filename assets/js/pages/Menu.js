@@ -1,7 +1,6 @@
-import Menu from 'MenuModule';
 import "nestedSortable";
 
-const AdminMenu = (() => {
+const Menu = (() => {
 
 	let opt = {
 		editMenuTree: $('.edit-menu-items .menu-tree'),
@@ -143,4 +142,4 @@ const AdminMenu = (() => {
 
 })();
 
-export default AdminMenu;
+export default Menu;

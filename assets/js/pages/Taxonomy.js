@@ -1,6 +1,6 @@
 import "nestedSortable";
 
-const AdminTaxonomy = (() => {
+const Taxonomy = (() => {
 
 	let opt = {
 		editTree: $('.edit-taxonomy-items .taxonomy-tree'),
@@ -135,4 +135,4 @@ const AdminTaxonomy = (() => {
 
 })();
 
-export default AdminTaxonomy;
+export default Taxonomy;

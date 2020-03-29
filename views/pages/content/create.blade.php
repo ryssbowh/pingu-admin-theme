@@ -15,7 +15,7 @@
     				<small>{{ $type->description}}</small>
     			</div>
     			<div class="float-right">
-    				<a class="btn btn-primary" href="{{ $content::uris()->make('create', $type->bundle(), adminPrefix()) }}">Create</a>
+    				<a class="btn btn-primary" href="{{ $content::uris()->make('create', $type->toBundle(), adminPrefix()) }}">Create</a>
     			</div>
     		</li>
     		@endforeach

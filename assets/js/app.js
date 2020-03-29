@@ -1,40 +1,36 @@
 import 'bootstrap';
 import 'chosen-js';
 import 'form-serializer';
-import AdminModal from './components/AdminModal.js';
+import Modal from './components/Modal.js';
 import AdminTheme from './components/AdminTheme.js';
 import ObjectMapping from './components/ObjectMapping.js';
 
-import AdminBlocks from './pages/AdminInfo.js';
-import AdminInfo from './pages/AdminBlocks.js';
-import AdminLayout from './pages/AdminLayout.js';
-import AdminFormLayout from './pages/AdminFormLayout.js';
-import AdminMenu from './pages/AdminMenu.js';
-import AdminTaxonomy from './pages/AdminTaxonomy.js';
-import AdminMedia from './pages/AdminMedia.js';
-import AdminPage from './pages/AdminPage.js';
-import AdminFieldDisplay from './pages/AdminFieldDisplay.js';
-import AdminBundleFields from './pages/AdminBundleFields.js';
-import AdminViewModes from './pages/AdminViewModes.js';
+import Info from './pages/Info.js';
+import FieldLayout from './pages/FieldLayout.js';
+import Menu from './pages/Menu.js';
+import Taxonomy from './pages/Taxonomy.js';
+import Media from './pages/Media.js';
+import Page from './pages/Page.js';
+import FieldDisplay from './pages/FieldDisplay.js';
+import BundleFields from './pages/BundleFields.js';
+import ViewModes from './pages/ViewModes.js';
 
 String.prototype.rtrim = function(s) { 
     return this.replace(new RegExp(s + "*$"),''); 
 };
 
 $(() => {
-    window.Modal = new AdminModal();
+    window.Modal = new Modal();
     window.ObjectMapping = new ObjectMapping();
     window.AdminTheme = new AdminTheme();
-	AdminInfo.init();
-	AdminBlocks.init();
-	AdminLayout.init();
-    AdminFormLayout.init();
-	AdminMenu.init();
-	AdminTaxonomy.init();
-	AdminMedia.init();
-    AdminPage.init();
-    AdminFieldDisplay.init();
-	AdminBundleFields.init();
-    AdminViewModes.init();
+	Info.init();
+	FieldLayout.init();
+	Menu.init();
+	Taxonomy.init();
+	Media.init();
+    Page.init();
+    FieldDisplay.init();
+	BundleFields.init();
+    ViewModes.init();
     $('.showOnLoad').addClass('loaded');
 });

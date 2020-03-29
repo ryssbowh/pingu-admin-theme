@@ -1,14 +1,14 @@
 @extends('layouts.card')
 
 @section('title')
-    <h1>Bundle {{ $bundle->bundleFriendlyName() }}</h1>
+    <h1>Bundle {{ $bundle->friendlyName() }}</h1>
 @endsection
 
 @section('content')
 
     <div class="form-layout container">
 
-        {{ FormFacade::open(['url' => $bundle::uris()->make('patchFormLayout', $bundle, ajaxPrefix()), 'method' => 'patch', 'class' => 'js-show-message', 'autocomplete' => 'off']) }}
+        {{ FormFacade::open(['url' => $bundle::uris()->make('patchFieldLayout', $bundle, ajaxPrefix()), 'method' => 'patch', 'class' => 'js-show-message', 'autocomplete' => 'off']) }}
 
         @if($layout->isEmpty())
             <p>No fields</p>

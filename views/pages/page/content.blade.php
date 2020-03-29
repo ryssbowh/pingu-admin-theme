@@ -1,7 +1,7 @@
 @extends('layouts.card')
 
 @section('title')
-    {{ $page->name }}'s Blocks
+    <h1>{{ $page->name }}'s Content</h1>
 @endsection
 
 @section('primaryActions')

@@ -1,6 +1,6 @@
 import "nestedSortable";
 
-const AdminMedia = (() => {
+const Media = (() => {
 
 	let options = {
 		createTransformerForm: $('.form-media-transformer-create'),
@@ -146,4 +146,4 @@ const AdminMedia = (() => {
 
 })();
 
-export default AdminMedia;
+export default Media;

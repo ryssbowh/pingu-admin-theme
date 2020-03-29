@@ -1,4 +1,4 @@
-class AdminModal {
+class Modal {
 
 	constructor()
 	{
@@ -122,4 +122,4 @@ class AdminModal {
 
 };
 
-export default AdminModal;
+export default Modal;

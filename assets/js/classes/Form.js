@@ -27,16 +27,17 @@ class Form {
 		this.element.on('submit', function(e){
 			e.preventDefault();
 			if(_this.element.find('input[type=submit]').hasClass('disabled')){ return; }
-            let data = _this.element.serializeArray();
+            let data = _this.element.serializeObject();
 			_this.submitAjax(data);
-		});
+		}); 
 	}
 
     submitAjax(data)
     {
         if (!data) {
-            data = this.element.serializeArray();
+            data = this.element.serializeObject();
         }
+        data._theme = 'admin';
         let _this = this;
         let url = AdminTheme.ajaxUrl(this.getAction());
         AdminTheme.showSpinner();

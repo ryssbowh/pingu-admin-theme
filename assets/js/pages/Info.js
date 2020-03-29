@@ -1,4 +1,4 @@
-const AdminInfo = (() => {
+const Info = (() => {
 
 	let options = {
 		info: $('.container.infos'),
@@ -49,4 +49,4 @@ const AdminInfo = (() => {
 
 })();
 
-export default AdminInfo;
+export default Info;

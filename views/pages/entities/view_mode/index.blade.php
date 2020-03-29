@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-    <div class="list-entity list-entity-{{ $entity->entityType() }}">
+    <div class="list-entity list-entity-{{ $entity->identifier() }}">
         {{ FormFacade::open(['url' => $entity::uris()->make('patch', [], ajaxPrefix()), 'method' => 'patch', 'class' => 'form js-ajax-form js-show-message', 'autocomplete' => 'off']) }}
         @foreach(\ViewMode::get() as $viewMode)
             <div class="view-mode mb-4">
@@ -30,7 +30,7 @@
                                 {{ FormFacade::checkbox('models['.$viewMode->id.'][]', $name, \ViewMode::entityHas($name, $viewMode)) }}
                                 <div class="checkbox-label">
                                     <label for="{{ 'models['.$viewMode->id.'][]' }}">
-                                        {{ ucfirst($name) }}
+                                        {{ friendly_classname($class) }}
                                     </label>
                                 </div>
                             </div>

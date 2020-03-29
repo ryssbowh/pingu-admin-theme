@@ -1,7 +1,3 @@
-@if($form->classes->has('js-ajax-form'))
-    @include('forms.modal')
-@else
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul class="mb-0">
@@ -23,5 +19,3 @@
     @endif
 </div>
 {{ $form->renderEnd() }}
-
-@endif

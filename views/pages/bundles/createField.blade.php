@@ -1,7 +1,7 @@
 @extends('layouts.card')
 
 @section('title')
-	<h1>Add a {{ $fieldType::friendlyName() }} field to {{ $bundle->bundleFriendlyName() }}</h1>
+	<h1>Add a {{ $fieldType::friendlyName() }} field to {{ $bundle->friendlyName() }}</h1>
 @endsection
 
 @section('primaryActions')

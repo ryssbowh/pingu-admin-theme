@@ -1,6 +1,6 @@
 import "nestedSortable";
 
-const AdminBundleFields = (() => {
+const BundleFields = (() => {
 
 	let opt = {
 		list: $('.list-entity-fields ul'),
@@ -54,4 +54,4 @@ const AdminBundleFields = (() => {
 
 })();
 
-export default AdminBundleFields;
+export default BundleFields;

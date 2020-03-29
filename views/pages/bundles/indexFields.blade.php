@@ -1,7 +1,7 @@
 @extends('layouts.card')
 
 @section('title')
-    <h1>Bundle {{ $bundle->bundleFriendlyName() }}</h1>
+    <h1>Bundle {{ $bundle->friendlyName() }}</h1>
 @endsection
 
 @section('content')

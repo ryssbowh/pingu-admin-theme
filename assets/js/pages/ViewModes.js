@@ -1,5 +1,5 @@
 
-const AdminViewModes = (() => {
+const ViewModes = (() => {
 
 	let options = {
 		page: $('.list-entity-view_mode'),
@@ -45,4 +45,4 @@ const AdminViewModes = (() => {
 
 })();
 
-export default AdminViewModes;
+export default ViewModes;

@@ -1,9 +1,9 @@
-import Page from 'pingu-page';
+import PageModule from 'PageModule';
 import Block from 'BlockModule';
 import 'jquery-ui/ui/widgets/draggable';
 import 'jquery-ui/ui/widgets/droppable';
 
-const AdminBlocks = (() => {
+const Page = (() => {
 
 	let options = {
 		page: $('.page-blocks'),
@@ -108,7 +108,7 @@ const AdminBlocks = (() => {
 
     function addBlockToPage(block)
     {
-        Page.addBlockRequest(options.page.data('slug'), block.id).done(
+        PageModule.addBlockRequest(options.page.data('slug'), block.id).done(
             function () {
                 createBlockElement(block);
             }
@@ -153,4 +153,4 @@ const AdminBlocks = (() => {
 
 })();
 
-export default AdminBlocks;
+export default Page;

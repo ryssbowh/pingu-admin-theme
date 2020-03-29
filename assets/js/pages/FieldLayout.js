@@ -1,7 +1,7 @@
 import "nestedSortable";
-import FormLayout from 'FormLayout';
+import FieldLayoutCore from 'FieldLayout';
 
-const AdminFormLayout = (() => {
+const FieldLayout = (() => {
 
 	let opt = {
 		list: $('.form-layout .js-list-root'),
@@ -83,7 +83,7 @@ const AdminFormLayout = (() => {
                 values: JSON.parse(item.find('.options').val()),
                 _theme: 'admin'
             };
-            AdminTheme.performAjaxCall(link, data, FormLayout.editOptionsUri(field)).done(function(data){
+            AdminTheme.performAjaxCall(link, data, FieldLayoutCore.editOptionsUri(field)).done(function(data){
                 AdminTheme.initModalForm(data.html, link);
             });
         });
@@ -194,4 +194,4 @@ const AdminFormLayout = (() => {
 
 })();
 
-export default AdminFormLayout;
+export default FieldLayout;

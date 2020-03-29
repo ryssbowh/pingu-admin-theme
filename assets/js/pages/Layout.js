@@ -1,7 +1,7 @@
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/widgets/sortable';
 
-const AdminLayout = (() => {
+const Layout = (() => {
 
 	let options = {
 		page: $('.page-layout'),
@@ -134,4 +134,4 @@ const AdminLayout = (() => {
 
 })();
 
-export default AdminLayout;
+export default Layout;

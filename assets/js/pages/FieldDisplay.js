@@ -1,7 +1,7 @@
 import "nestedSortable";
-import FieldDisplay from 'FieldDisplay';
+import FieldDisplayCore from 'FieldDisplay';
 
-const AdminFieldDisplay = (() => {
+const FieldDisplay = (() => {
 
 	let opt = {
 		list: $('.field-display .js-list-root'),
@@ -63,7 +63,7 @@ const AdminFieldDisplay = (() => {
                 values: JSON.parse(item.find('.options').val()),
                 _theme: 'admin'
             };
-            AdminTheme.performAjaxCall(link, data, FieldDisplay.editOptionsUri(field)).done(function(data){
+            AdminTheme.performAjaxCall(link, data, FieldDisplayCore.editOptionsUri(field)).done(function(data){
                 AdminTheme.initModalForm(data.html, link);
             });
         });
@@ -86,7 +86,6 @@ const AdminFieldDisplay = (() => {
             let data = {models:[]};
             let weight = 0;
             $.each(opt.form.find('li.field'), function(i, field){
-                console.log($(field));
                 data.models.push({
                     id: $(field).find('input.id').val(),
                     weight: weight,
@@ -94,7 +93,6 @@ const AdminFieldDisplay = (() => {
                     displayer: $(field).find('select').val(),
                     hidden: $(field).find('input.hidden').is(':checked') ? 1 : 0
                 });
-                console.log(data.models);
                 weight++;
             });
             $(this).data('class-instance').submitAjax(data);
@@ -106,7 +104,7 @@ const AdminFieldDisplay = (() => {
         opt.format.change(function(){
             let item = $(this).closest('li');
             let field = $(this).val();
-            AdminTheme.performAjaxCall(item, {}, FieldDisplay.viewOptionsUri(field)).done(function(data){
+            AdminTheme.performAjaxCall(item, {}, FieldDisplayCore.viewOptionsUri(field)).done(function(data){
                 updateOptions(item, data);
             });
         });
@@ -129,4 +127,4 @@ const AdminFieldDisplay = (() => {
 
 })();
 
-export default AdminFieldDisplay;
+export default FieldDisplay;
