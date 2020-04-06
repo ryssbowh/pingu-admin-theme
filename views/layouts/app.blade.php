@@ -20,7 +20,7 @@
 </head>
 <body>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="globalModal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="messageModal">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -39,6 +39,13 @@
         </div>
     </div>
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalSkeleton">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
     <div id="js-global-spinner">
         <div class="loading-spinner"></div>
     </div>
@@ -49,7 +56,33 @@
             <div class="maintenance-mode-on">You're using {{ config('app.name') }} in maintenance mode</div>
         @endif
 
-        @include('menus.menu')
+        <nav class="navbar navbar-main">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                {{ config('app.name', 'Laravel') }}
+            </a>
+
+            {!! \Menus::menu('admin-menu')->render() !!}
+
+            <ul class="navbar-nav ml-auto user-form">
+                <li class="btn-group dropup">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Admin <span class="caret"></span>
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('user.logout') }}"
+                           onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </nav>
 
         <main class="py-4 @if(env('APP_ENV') == 'production') showOnLoad @endif">
             <div class="container">

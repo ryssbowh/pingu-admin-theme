@@ -6,7 +6,7 @@ const BundleFields = (() => {
 		list: $('.list-entity-fields ul'),
 		delete: $('.list-entity-fields .delete'),
 		edit: $('.list-entity-fields .edit'),
-		addFieldForm:$('.list-entity-fields .form-add-entity-field'),
+		addFieldForm:$('.list-entity-fields .form-add-bundle-field'),
         addGroupForm:$('.list-entity-fields .form-create-form-layout-group')
 	};
 

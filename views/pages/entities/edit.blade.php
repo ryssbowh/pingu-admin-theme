@@ -9,12 +9,12 @@
 @endsection
 
 @section('primaryActions')
-    <a href="{{ url()->previous() }}">Back</a>
+    <a href="{{ $indexUrl }}">Back</a>
 @endsection
 
 
 @section('content')
-    <div class="editPage edit-{{ kebab_case(strtolower($entity::friendlyName())) }}">
-		{{ $form->render() }}
+    <div class="edit-entity edit-{{ $entity->identifier() }}">
+		{!! $form->render() !!}
 	</div>
 @endsection

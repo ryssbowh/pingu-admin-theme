@@ -2,7 +2,7 @@
 const ViewModes = (() => {
 
 	let options = {
-		page: $('.list-entity-view_mode'),
+		page: $('.index-entity-view_mode'),
         createLink: $('.js-create'),
         deleteLink: $('.js-delete'),
         editLink: $('.js-edit')
@@ -34,7 +34,6 @@ const ViewModes = (() => {
     function bindEdit()
     {
         options.editLink.on('form.success', function(e, data){
-            console.log(data);
             $(this).closest('.view-mode').find('h3').html(data.entity.name);
         });
     }

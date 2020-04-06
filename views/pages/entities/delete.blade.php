@@ -13,8 +13,8 @@
 @endsection
 
 @section('content')
-    <div class="deletePage delete-{{ kebab_case(strtolower($entity::friendlyName())) }}">
+    <div class="delete-entity delete-{{ $entity->identifier() }}">
     	<p><b>This action cannot be undone</b></p>
-		{{ $form->render() }}
+		{!! $form->render() !!}
 	</div>
 @endsection

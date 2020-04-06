@@ -19,6 +19,7 @@
                     <div class="col-1"></div>
                     <div class="col">Field</div>
                     <div class="col">Hidden</div>
+                    <div class="col">Show label</div>
                     <div class="col">Format</div>
                     <div class="col"></div>
                     <div class="col-1"></div>
@@ -27,7 +28,7 @@
             @foreach($display->get() as $name => $displayModel)
                 <?php
                 $weight = 0;
-                $field = $fields[$displayModel->field]; 
+                $field = $displayModel->getField();
                 $displayer = $displayModel->displayer;
                 $hiddenClass = $displayModel->hidden ? 'hidden' : '';
                 ?>
@@ -48,6 +49,12 @@
                         <div class="col hideable {{ $hiddenClass }}">
                             <div class="checkbox-item col-inner">
                                 {{ FormFacade::checkbox('hidden['.$weight.']', 1, $displayModel->hidden, ['class' => 'hidden', 'data-default' => $displayModel->hidden]) }}
+                                <div class="checkbox-label"><label></label></div>
+                            </div>
+                        </div>
+                        <div class="col hideable">
+                            <div class="checkbox-item col-inner">
+                                {{ FormFacade::checkbox('label['.$weight.']', 1, $displayModel->label, ['class' => 'label', 'data-default' => $displayModel->label]) }}
                                 <div class="checkbox-label"><label></label></div>
                             </div>
                         </div>

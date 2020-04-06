@@ -34,9 +34,8 @@
         @endif
 
         @if($canCreate)
-            <?php $form->isAjax(); ?>
             <div class="add-field-form row mt-2">
-                {{ $form->render() }}
+                {!! $form->render() !!}
             </div>
         @endif
 

@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-    <div class="list-entity list-entity-{{ $entity->identifier() }}">
+    <div class="index-entity index-{{ $entity->identifier() }}">
         {{ FormFacade::open(['url' => $entity::uris()->make('patch', [], ajaxPrefix()), 'method' => 'patch', 'class' => 'form js-ajax-form js-show-message', 'autocomplete' => 'off']) }}
         @foreach(\ViewMode::get() as $viewMode)
             <div class="view-mode mb-4">
@@ -24,13 +24,13 @@
                         <h3 class="d-inline-block mr-3">{{ $viewMode->name }}</h3>  @can('delete', $viewMode) <a href="{{ $viewMode::uris()->make('delete', $viewMode) }}" class="js-delete js-ajax-confirm-link" data-confirmmessage="This will not check if entities are actually using this view mode" data-ajaxmethod="delete">Delete</a>@endcan
                         @can('edit', $viewMode) <a href="{{ $viewMode::uris()->make('edit', $viewMode) }}" class="js-edit js-ajax-link-form">Edit</a>@endcan
                     </div>
-                    @foreach (\Entity::getRenderableEntities() as $name => $class)
+                    @foreach ($entities as $identifier => $class)
                         <div class="col">
                             <div class="checkbox-item">
-                                {{ FormFacade::checkbox('models['.$viewMode->id.'][]', $name, \ViewMode::entityHas($name, $viewMode)) }}
+                                {{ FormFacade::checkbox('models['.$viewMode->machineName.'][]', $identifier, in_array($identifier, $mapping[$viewMode->machineName] ?? [])) }} 
                                 <div class="checkbox-label">
                                     <label for="{{ 'models['.$viewMode->id.'][]' }}">
-                                        {{ friendly_classname($class) }}
+                                        {{ $class::friendlyName() }}
                                     </label>
                                 </div>
                             </div>

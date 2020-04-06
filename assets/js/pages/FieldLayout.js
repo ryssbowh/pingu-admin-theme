@@ -80,8 +80,7 @@ const FieldLayout = (() => {
             let item = link.closest('.row');
             let field = item.find('select').val();
             let data = {
-                values: JSON.parse(item.find('.options').val()),
-                _theme: 'admin'
+                values: JSON.parse(item.find('.options').val())
             };
             AdminTheme.performAjaxCall(link, data, FieldLayoutCore.editOptionsUri(field)).done(function(data){
                 AdminTheme.initModalForm(data.html, link);

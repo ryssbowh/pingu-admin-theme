@@ -141,8 +141,7 @@ class AdminTheme {
 		let siteUrl = Config.get('app.url');
 		if(url.startsWith(siteUrl)){
 			url = url.substring(siteUrl.length);
-		}
-		else if(url.startsWith('http')){
+		} else if(url.startsWith('http')){
 			return url;
 		}
 		url.trimLeft('/');

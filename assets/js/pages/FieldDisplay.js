@@ -40,8 +40,10 @@ const FieldDisplay = (() => {
     function updateOptions(item, data)
     {
         if (!data.hasOptions) {
-            data.options.values = "";
-            data.options.description = '';
+            data.options = {
+                values : '',
+                description: ''
+            };
         }
         item.find('.options').val(JSON.stringify(data.options.values));
         item.find('.description').html(data.options.description);
@@ -61,7 +63,7 @@ const FieldDisplay = (() => {
             let field = item.find('select').val();
             let data = {
                 values: JSON.parse(item.find('.options').val()),
-                _theme: 'admin'
+                display: item.find('.id').val()
             };
             AdminTheme.performAjaxCall(link, data, FieldDisplayCore.editOptionsUri(field)).done(function(data){
                 AdminTheme.initModalForm(data.html, link);
@@ -91,7 +93,8 @@ const FieldDisplay = (() => {
                     weight: weight,
                     options: $(field).find('input.options').val(),
                     displayer: $(field).find('select').val(),
-                    hidden: $(field).find('input.hidden').is(':checked') ? 1 : 0
+                    hidden: $(field).find('input.hidden').is(':checked') ? 1 : 0,
+                    label: $(field).find('input.label').is(':checked') ? 1 : 0
                 });
                 weight++;
             });

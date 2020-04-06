@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <div class="page-blocks row" data-slug="{{ $page->slug }}">
+    <div class="page-blocks row" data-slug="{{ $page->machineName }}">
 
         <li id="blockSkeleton" class="list-group-item d-none block">
             <i class="fa fa-bars"></i>

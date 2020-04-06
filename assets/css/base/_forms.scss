@@ -44,6 +44,7 @@ input:not(.chosen-search-input){
 
 .checkboxes-items, select{
     @extend .form-control;
+    font-size: inherit;
 }
 
 .checkboxes-item{

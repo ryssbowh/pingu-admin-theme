@@ -16,7 +16,7 @@
             </div>
             <div class="col-12 col-sm-10 pl-0">
                 <div class="filters mb-2">
-                    {!! $filterForm !!}
+                    {!! $filterForm->render() !!}
                 </div>
                 <div class="entities-list container">
                     @if($entities->isEmpty())

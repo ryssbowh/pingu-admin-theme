@@ -31,7 +31,7 @@
                         @foreach($group->layout as $fieldLayout)
                             <?php
                             $field = $fields[$fieldLayout->field]; 
-                            $options = $fieldLayout->options;
+                            $options = $fieldLayout->options();
                             ?>
                             <li class="list-group-item container">
                                 <div class="row">

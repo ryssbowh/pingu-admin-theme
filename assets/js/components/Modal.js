@@ -2,8 +2,10 @@ class Modal {
 
 	constructor()
 	{
-        this.globalModal = $('#globalModal');
-		this.globalModal.css('z-index',1052);
+        this.messageModal = $('#messageModal');
+		this.messageModal.css('z-index',1052);
+        this.modalSkeleton = $('#modalSkeleton');
+        this.modalSkeleton.css('z-index', 1050);
 	}
 
 	showAjaxError(data)
@@ -21,27 +23,23 @@ class Modal {
 		this.show(message, title);
 	}
 
-	create(html, options)
+	create(html, identifier, options)
 	{
-		let modalId = html.attr('id');
-		if(!modalId){
-			Logger.logError('your root element must have an id to create a modal'); 
-			return;
-		}
-		if($('#'+modalId).length){
-			$('#'+modalId).remove();
-		}
-		$('body').append(html);
-		let modal = $('#'+modalId);
-		modal.modal(options);
+        let modal = this.modalSkeleton.clone().attr('id', 'modal-'+identifier);
+        modal.insertAfter(this.modalSkeleton);
+        modal.find('.modal-content').html(html);
         ObjectMapping.bind(modal);
+        modal.modal(options);
+        modal.on('hidden.bs.modal', function(){
+            $(this).remove();
+        })
 		return modal;
 	};
 
 	createForm(html, options = {}, showErrors = true)
 	{
 		options.backdrop = 'static';
-		let modal = this.create($(html), options);
+		let modal = this.create(html, 'form', options);
 		let form = modal.find('form.js-ajax-form');
         let _this = this;
 
@@ -75,16 +73,15 @@ class Modal {
 		input.focus();
 	}
 
-	show(message, title, type = 'info')
+	show(message, title, showConfirm = false)
 	{
-		let modal = this.globalModal;
+		let modal = this.messageModal;
 		modal.find('.modal-body').html(message);
 		modal.find('.modal-title').html(title);
-		if(type == 'info'){
-			modal.find('button.confirm').addClass('d-none');
-		}
-		else if(type == 'confirm'){
+		if(showConfirm){
 			modal.find('button.confirm').removeClass('d-none');
+		} else {
+			modal.find('button.confirm').addClass('d-none');
 		}
 		modal.modal({backdrop:'static'});
 		return modal;
@@ -102,7 +99,7 @@ class Modal {
 
 	showConfirm(message, title = 'Please confirm', confirmCallback, cancelCallback)
 	{
-		let modal = this.show(message, title, 'confirm');
+		let modal = this.show(message, title, true);
 		modal.find('button.confirm').off('click');
 		modal.find('button.confirm').on('click', function(){
 			modal.trigger('modal.confirmed');

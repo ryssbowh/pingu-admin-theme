@@ -26,23 +26,30 @@ class Form {
         let _this = this;
 		this.element.on('submit', function(e){
 			e.preventDefault();
-			if(_this.element.find('input[type=submit]').hasClass('disabled')){ return; }
-            let data = _this.element.serializeObject();
-			_this.submitAjax(data);
+			if(_this.element.find('input[type=submit]').hasClass('disabled')){ 
+                return; 
+            }
+			_this.submitAjax();
 		}); 
 	}
 
-    submitAjax(data)
+    submitAjax(data = false)
     {
-        if (!data) {
-            data = this.element.serializeObject();
-        }
+        data = data ? data : this.element.serializeObject();
         data._theme = 'admin';
+        let vars = {
+            data: data ? data : this.element.serializeObject(),
+            url: AdminTheme.ajaxUrl(this.getAction()),
+            method: this.getMethod(),
+            validated: true
+        };
+        this.element.trigger('form.submitting', vars);
+        if (!vars.validated) {
+            return;
+        }
         let _this = this;
-        let url = AdminTheme.ajaxUrl(this.getAction());
         AdminTheme.showSpinner();
-        let method = this.getMethod();
-        let promise = Helpers[method](url, data);
+        let promise = Helpers[vars.method](vars.url, vars.data);
         promise.done(function(data){
             _this.element.trigger('form.success', data);
             if(_this.element.hasClass('js-show-message') && data.message){

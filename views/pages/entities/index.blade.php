@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <div class="list-entity list-entity-{{ $entity->identifier() }}">
+    <div class="index-entity index-{{ $entity->identifier() }}">
     	@if(!$entities->isEmpty()) 
         <table class="table">
             <thead>
