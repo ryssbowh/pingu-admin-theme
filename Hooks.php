@@ -39,7 +39,7 @@ class Hooks
     {
         if ($from = $field->option('dashifyFrom')) {
             $renderer->classes->add('js-dashify');
-            $renderer->attributes->put('data-dashifyfrom', 'name');
+            $renderer->attributes->put('data-dashifyfrom', $from);
         }
     }
 }

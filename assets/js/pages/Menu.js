@@ -92,8 +92,8 @@ const Menu = (() => {
 		item.find('.name').html(data.name);
 		item.data('item', data.id);
 		item.removeClass('d-none');
-		item.find('.edit').attr('href', h.replaceUriSlugs(item.find('.edit').attr('href'), [data.id]));
-		item.find('.delete').attr('href', h.replaceUriSlugs(item.find('.delete').attr('href'), [data.id]));
+		item.find('.edit').attr('href', Helpers.replaceUriSlugs(item.find('.edit').attr('href'), [data.id]));
+		item.find('.delete').attr('href', Helpers.replaceUriSlugs(item.find('.delete').attr('href'), [data.id]));
 		let weight = item.find('input[type=hidden]');
 		weight.attr('name', weight.attr('name').replace('[id]', '['+data.id+']'));
 	

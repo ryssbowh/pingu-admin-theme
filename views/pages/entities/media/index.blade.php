@@ -31,7 +31,7 @@
                             @foreach($slice as $entity)
                                 <div class="media-item col-lg-2 col-md-4 col-sm-6 px-1 text-center">
                                     <div class="image position-relative d-inline-block">
-                                        {!! $entity->img('icon') !!}
+                                        <img src="{{ $entity->urlIcon() }}">
                                         <div class="actions-wrapper position-absolute w-100 h-100">
                                             <div class="actions align-middle text-center w-100">
                                                 <a href="{{ $entity->uris()->make('delete', $entity, adminPrefix()) }}" class="js-delete d-inline-block">Delete</a><br/>
