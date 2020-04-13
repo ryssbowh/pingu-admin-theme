@@ -31,26 +31,12 @@ const Page = (() => {
         });
     }
 
-    function toggleActive(elem)
-    {
-        let title = elem.closest('.block').find('.title');
-        if (elem.is(':checked')) {
-            title.removeClass('disabled');
-        } else {
-            title.addClass('disabled');
-        }
-    }
-
-	function bindEdit(elems)
+	function bindEdit(elems) 
 	{
-        elems.find('input.active').change(function(){
-            options.save.removeClass('d-none');
-            toggleActive($(this));
-        });
 		elems.find('.js-edit').click(function(e){
 			e.preventDefault();
             let block = $(this).closest('.block');
-			let ajax = Block.editRequest(block.data('id'), {_theme: 'admin'});
+			let ajax = Block.editRequest(block.find('.id').val(), {_theme: 'admin'});
             ajax.done(function(data){
                 let modal = Modal.createForm(data.html);
                 modal.on('form.success', function(e, data){
@@ -69,29 +55,18 @@ const Page = (() => {
 		let clone = $('#blockSkeleton').clone();
 		clone.removeAttr('id');
 		clone.removeClass('d-none');
-        clone.data('id', block.id);
 		clone.find('.title').html(block.instance.title);
-        clone.find('.active').prop('checked', block.active);
-        toggleActive(clone.find('.active'));
         if (!block.active) {
             clone.find('.title').addClass('disabled');
         }
-        replaceIdInName(clone.find('.active'), block.id);
-        replaceIdInName(clone.find('.weight'), block.id);
+        clone.find('.id').val(block.id);
 		options.blockList.append(clone);
 		makeSortable();
+        rebuildWeights();
 		bindDelete(clone);
         bindEdit(clone);
 		return clone;
 	}
-
-    function replaceIdInName(elem, id)
-    {
-        if(!elem.length) return;
-        let name = elem.attr('name');
-        name = name.replace('[]', '['+id+']');
-        elem.attr('name', name);
-    }
 
 	function bindAdd(elems){
 		elems.click(function(e){

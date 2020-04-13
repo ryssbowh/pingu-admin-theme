@@ -86,8 +86,6 @@
 
         <main class="py-4 @if(env('APP_ENV') == 'production') showOnLoad @endif">
             <div class="container">
-                @include('core@notify')
-                
                 @yield('main')
             </div>
         </main>

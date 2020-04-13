@@ -18,6 +18,7 @@
         </div>
 
         <div class="layout-body">
+            @include('core@notify')
             @yield('content')
         </div>
     </div>

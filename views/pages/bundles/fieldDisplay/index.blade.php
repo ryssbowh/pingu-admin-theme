@@ -8,7 +8,18 @@
 
     <div class="field-display container">
 
-        {{ FormFacade::open(['url' => $bundle::uris()->make('patchFieldDisplay', [$bundle, $viewMode], ajaxPrefix()), 'method' => 'patch', 'class' => 'js-show-message field-display-form', 'autocomplete' => 'off']) }}
+        <nav class="navbar navbar-expand-lg pt-0 pl-0">
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav">
+                    <span class="nav-item nav-link">View Mode : </span>
+                    @foreach($viewModes as $viewMode)
+                        <a class="nav-item nav-link @if($viewMode == $currentViewMode) font-weight-bold @endif" href="{{ $bundle::uris()->make('fieldDisplay', [$bundle, $viewMode], adminPrefix(), ['viewMode' => $viewMode->machineName]) }}">{{ $viewMode->name }}</a>
+                    @endforeach
+                </div>
+            </div>
+        </nav>
+
+        {{ FormFacade::open(['url' => $bundle::uris()->make('patchFieldDisplay', [$bundle], ajaxPrefix()), 'method' => 'patch', 'class' => 'js-show-message field-display-form', 'autocomplete' => 'off']) }}
 
         @if($display->isEmpty())
             <p>No fields</p>
@@ -25,7 +36,7 @@
                     <div class="col-1"></div>
                 </div>
             </li>
-            @foreach($display->get() as $name => $displayModel)
+            @foreach($display as $name => $displayModel)
                 <?php
                 $weight = 0;
                 $field = $displayModel->getField();

@@ -59,10 +59,11 @@
                      <p class="name">Blocks</p>
                     <ul class="js-block-list">
                         @foreach(\Pages::blocks($page) as $block)
-                            <li id="blockSkeleton" class="list-group-item block" data-id="{{ $block->id }}">
+                            <li id="blockSkeleton" class="list-group-item block">
                                 <i class="fa fa-bars"></i>
                                 <span class="title @if(!$block->active) disabled @endif">{{ $block->instance()->title() }}</span>
-                                <input type="hidden" class="weight" name="blocks[{{ $block->id }}][weight]">
+                                <input type="hidden" class="id" name="blocks[][id]" value="{{ $block->id }}">
+                                <input type="hidden" class="weight" name="blocks[][weight]">
                                 @can('delete', $block)
                                     <a href="{{ $page::uris()->make('deleteBlock', [$page, $block], adminPrefix()) }}" class="js-delete float-right"><i class="fa fa-times"></i></a>
                                 @endcan

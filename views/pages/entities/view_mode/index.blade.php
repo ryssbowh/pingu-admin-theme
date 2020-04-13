@@ -14,10 +14,10 @@
     @endcan
 @endsection
 
-@section('content')
+@section('content') 
     <div class="index-entity index-{{ $entity->identifier() }}">
         {{ FormFacade::open(['url' => $entity::uris()->make('patch', [], ajaxPrefix()), 'method' => 'patch', 'class' => 'form js-ajax-form js-show-message', 'autocomplete' => 'off']) }}
-        @foreach(\ViewMode::get() as $viewMode)
+        @foreach($viewModes as $viewMode)
             <div class="view-mode mb-4">
                 <div class="row">
                     <div class="col-12">
@@ -30,7 +30,7 @@
                                 {{ FormFacade::checkbox('models['.$viewMode->machineName.'][]', $identifier, in_array($identifier, $mapping[$viewMode->machineName] ?? [])) }} 
                                 <div class="checkbox-label">
                                     <label for="{{ 'models['.$viewMode->id.'][]' }}">
-                                        {{ $class::friendlyName() }}
+                                        {{ $class->friendlyName() }}
                                     </label>
                                 </div>
                             </div>
