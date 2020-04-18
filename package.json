@@ -10,6 +10,11 @@
         "form-serializer": "^2.5.0",
         "bootstrap4c-chosen": "^1.1.1",
         "chosen-js": "^1.8.7",
-        "babel-plugin-transform-class-properties": "^6.24.1"
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "rfs" : "^9.0",
+        "jquery":"^3.4.1",
+        "moment": "^2.24.0",
+        "moment-timezone": "^0.5.23",
+        "jquery-ui": "1.12.*"
 	}
 }

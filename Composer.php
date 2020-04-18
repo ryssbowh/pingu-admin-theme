@@ -16,7 +16,6 @@ class Composer
     public static function getComposers()
     {
         return [
-            ImageTransformations::class => ['pages.media.indexTransformations'],
             MediaFolders::class => ['pages.entities.media._includes.folderTree']
         ];
     }

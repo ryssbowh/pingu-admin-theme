@@ -1,6 +1,7 @@
 import 'bootstrap';
 import 'chosen-js';
 import 'form-serializer';
+import Helpers from './components/Helpers.js';
 import Modal from './components/Modal.js';
 import AdminTheme from './components/AdminTheme.js';
 import ObjectMapping from './components/ObjectMapping.js';
@@ -15,11 +16,16 @@ import FieldDisplay from './pages/FieldDisplay.js';
 import BundleFields from './pages/BundleFields.js';
 import ViewModes from './pages/ViewModes.js';
 
-String.prototype.rtrim = function(s) { 
-    return this.replace(new RegExp(s + "*$"),''); 
-};
+$.ajaxSetup(
+    {
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }
+);
 
 $(() => {
+    window.Helpers = new Helpers();
     window.Modal = new Modal();
     window.ObjectMapping = new ObjectMapping();
     window.AdminTheme = new AdminTheme();

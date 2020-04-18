@@ -9,9 +9,9 @@ use Pingu\Forms\Support\FormGroup;
 
 class Hooks
 {
-    public static $ajaxForms = ['block-options-form', 'edit-field-display-options', 'edit-form-layout-options', 'create-bundle-field', 'edit-bundle-field', 'create-model-taxonomy-item', 'edit-model-taxonomy-item', 'edit-model-menu-item', 'create-model-menu-item', 'add-bundle-field', 'create-model-view-mode', 'edit-model-view-mode'];
+    public static $ajaxForms = ['block-options-form', 'edit-field-display-options', 'edit-form-layout-options', 'create-bundle-field', 'edit-bundle-field', 'create-model-taxonomy-item', 'edit-model-taxonomy-item', 'edit-model-menu-item', 'create-model-menu-item', 'add-bundle-field', 'create-model-view-mode', 'edit-model-view-mode', 'media-transformer-create', 'media-add-transformer'];
 
-    public static $modalForms = ['block-options-form', 'edit-field-display-options', 'edit-form-layout-options', 'create-bundle-field', 'edit-bundle-field', 'create-model-taxonomy-item', 'edit-model-taxonomy-item', 'edit-model-menu-item', 'create-model-menu-item', 'create-model-view-mode', 'edit-model-view-mode'];
+    public static $modalForms = ['block-options-form', 'edit-field-display-options', 'edit-form-layout-options', 'create-bundle-field', 'edit-bundle-field', 'create-model-taxonomy-item', 'edit-model-taxonomy-item', 'edit-model-menu-item', 'create-model-menu-item', 'create-model-view-mode', 'edit-model-view-mode', 'media-add-transformer'];
 
     /**
      * This will be called before every forms related hook
@@ -22,6 +22,7 @@ class Hooks
      */
     public static function form(string $name, Form $form, RendererContract $renderer)
     {   
+        // dump($name);
         if (in_array($name, static::$ajaxForms)) {
             $renderer->classes->add('js-ajax-form');
         }

@@ -38,6 +38,7 @@ class AdminTheme {
     {
         $('body').on('ajax.sending', function(e, data){
             data._theme = 'admin';
+            $('body').css('cursor', 'initial');
         });
     }
 
@@ -120,6 +121,7 @@ class AdminTheme {
 	{
         let _this = this;
 		$('body').on('ajax.failure', function(e, data){
+            console.log('ajax error');
 			Modal.showError(_this.getErrorMessageFromResponse(data), _this.getErrorTitleFromResponse(data));
 		});
 	}
@@ -170,8 +172,6 @@ class AdminTheme {
         link.trigger('form.sending', data);
 		return Helpers.ajax(url, data, method).done(function(data){
 			link.trigger('ajax.success', data);
-		}).fail(function(data){
-			link.trigger('ajax.failure', data);
 		}).always(function(){
 			_this.hideSpinner();
 		});

@@ -15,6 +15,11 @@ mix.webpackConfig({
 	}
 });
 
+mix.autoload({
+    'jquery': ['$', 'jQuery'],
+    'moment' : ['moment']
+});
+
 //Javascript
 mix.js(assetPath + 'js/app.js', publicPath + 'Admin.js').sourceMaps();
 
