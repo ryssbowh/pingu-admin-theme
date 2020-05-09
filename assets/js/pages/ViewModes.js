@@ -34,7 +34,7 @@ const ViewModes = (() => {
     function bindEdit()
     {
         options.editLink.on('form.success', function(e, data){
-            $(this).closest('.view-mode').find('h3').html(data.entity.name);
+            $(this).closest('.view-mode').find('h3').html(data.model.name);
         });
     }
 

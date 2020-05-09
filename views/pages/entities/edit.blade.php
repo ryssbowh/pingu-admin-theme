@@ -4,7 +4,7 @@
     @if(isset($title))
     	<h1>{{ $title }}</h1>
     @else
-    	<h1>{{ $entity::friendlyName() }} {{ $entity->getDescription() }}</h1>
+    	<h1>{{ $model::friendlyName() }} {{ $model->getDescription() }}</h1>
     @endif
 @endsection
 
@@ -14,7 +14,7 @@
 
 
 @section('content')
-    <div class="edit-entity edit-{{ $entity->identifier() }}">
+    <div class="edit-model edit-{{ $model->identifier() }}">
 		{!! $form->render() !!}
 	</div>
 @endsection

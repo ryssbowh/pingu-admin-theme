@@ -40,8 +40,8 @@ const Page = (() => {
             ajax.done(function(data){
                 let modal = Modal.createForm(data.html);
                 modal.on('form.success', function(e, data){
-                    block.find('.title').html(data.instance.title);
-                    if (data.active) {
+                    block.find('.title').html(data.model.instance.title);
+                    if (data.model.active) {
                         block.find('.title').removeClass('disabled');
                     } else {
                         block.find('.title').addClass('disabled');
@@ -75,8 +75,8 @@ const Page = (() => {
             ajax.done(function(data){
                 let modal = Modal.createForm($(data.html));
                 modal.on('form.success', function (e, data) {
-                    addBlockToPage(data);
-                })
+                    addBlockToPage(data.model);
+                });
             });
 		});
 	}
@@ -103,13 +103,14 @@ const Page = (() => {
 		elem.find('.js-delete').click(function(e){
 			e.preventDefault();
             elem = $(this).closest('.block');
-            let id = $(this).closest('.block').data('id');
-			let ajax = Block.deleteRequest(id);
-            ajax.done(function(){
-                elem.slideUp('fast', function(){
-				    elem.remove();
-			    });
-            });
+            let id = elem.find('.id').val();
+            PageModule.deleteBlockRequest(options.page.data('slug'), id).done(
+                function () {
+                    elem.slideUp('fast', function(){
+                        elem.remove();
+                    });
+                }
+            );
 		});
 	}
 

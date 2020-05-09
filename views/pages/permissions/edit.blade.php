@@ -24,7 +24,12 @@
 						@endif
 					</td>
 					@foreach($roles as $role)
-						<td>{{ FormFacade::checkbox('perms['.$role->id.']['.$permission->id.']', 1, $permission->roleHasPermission($role), ['disabled' => !$canEdit]) }}</td>
+						<td>
+                            <div class="checkbox-item">
+                                {{ FormFacade::checkbox('perms['.$role->id.']['.$permission->id.']', 1, $permission->roleHasPermission($role), ['disabled' => !$canEdit]) }}
+                                <div class="checkbox-label"><label></label></div>
+                            </div>
+                        </td>
 					@endforeach()
 				</tr>
 			@endforeach()

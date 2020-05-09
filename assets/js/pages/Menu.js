@@ -55,8 +55,8 @@ const Menu = (() => {
 		});
 		items.find('.edit').on('form.success', function(e, data){
 			let item = $(this).closest('.menu-item');
-			item.children('.header').children('.name').html(data.entity.name);
-			makeActive(item, data.entity.active);
+			item.children('.header').children('.name').html(data.model.name);
+			makeActive(item, data.model.active);
 		});
 	};
 

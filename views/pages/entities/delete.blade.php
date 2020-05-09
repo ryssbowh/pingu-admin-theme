@@ -4,7 +4,7 @@
     @if(isset($title))
     	<h1>{{ $title }}</h1>
     @else
-    	<h1>Confirm deletion of {{ $entity::friendlyName() }} {{ $entity->getDescription() }}</h1>
+    	<h1>Confirm deletion of {{ $model::friendlyName() }} {{ $model->getDescription() }}</h1>
     @endif
 @endsection
 
@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <div class="delete-entity delete-{{ $entity->identifier() }}">
+    <div class="delete-model delete-{{ $model->identifier() }}">
     	<p><b>This action cannot be undone</b></p>
 		{!! $form->render() !!}
 	</div>

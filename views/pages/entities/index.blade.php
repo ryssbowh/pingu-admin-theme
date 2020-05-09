@@ -1,35 +1,35 @@
 @extends('layouts.card')
 
 @section('title')
-    <h1>{{ $entity::friendlyNames() }}</h1>
+    <h1>{{ $model::friendlyNames() }}</h1>
 @endsection
 
 @section('primaryActions')
-    @can('create', get_class($entity))
+    @can('create', get_class($model))
         <a href="{{ $createUrl }}">New</a>
     @endcan
 @endsection
 
 @section('content')
-    <div class="index-entity index-{{ $entity->identifier() }}">
-    	@if(!$entities->isEmpty()) 
+    <div class="index-model index-{{ $model->identifier() }}">
+    	@if(!$models->isEmpty()) 
         <table class="table">
             <thead>
                 <tr>
-                    @foreach($entities[0]->adminListFields as $field)
-                        <th scope="col">{{ $entity::getFriendlyFieldName($field) }}</th>
+                    @foreach($models[0]->adminListFields as $field)
+                        <th scope="col">{{ $model::getFriendlyFieldName($field) }}</th>
                     @endforeach
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-    		@foreach($entities as $entity)
+    		@foreach($models as $model)
                 <tr>
-                    @foreach($entity->adminListFields as $field)
-                        <td>{!! $entity->getFriendlyValue($field) !!}</td>
+                    @foreach($model->adminListFields as $field)
+                        <td>{!! $model->getFriendlyValue($field) !!}</td>
                     @endforeach
                     <td>
-                        @if($actions = $entity::actions()->make($entity))
+                        @if($actions = $model::actions()->make($model, adminPrefix()))
                             @if(sizeof($actions) > 1)
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>

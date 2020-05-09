@@ -6,8 +6,9 @@
             <div class="header"> 
                 <i class="fa fa-bars"></i>
                 <span class="name">{{ $item->name }}</span>
-                <input name="models[{{ $item->id }}][weight]" value="{{ $item->weight }}" type="hidden" class="weight">
-                <input name="models[{{ $item->id }}][parent]" value="{{ $parent ?? '' }}" type="hidden" class="parent">
+                <input name="models[][id]" value="{{ $item->id }}" type="hidden" class="id">
+                <input name="models[][weight]" value="{{ $item->weight }}" type="hidden" class="weight">
+                <input name="models[][parent]" value="{{ $parent ?? '' }}" type="hidden" class="parent">
                 @if($item->deletable)
                     @ifperm('delete menu items')
                         <a href="{{ $item::uris()->make('delete', $item, adminPrefix()) }}" data-ajaxmethod="delete" data-confirmtitle="Delete item ?" class="js-ajax-confirm-link delete float-right" data-confirmmessage="This action cannot be undone">Delete</a> 

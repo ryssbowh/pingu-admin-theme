@@ -15,8 +15,9 @@
           <div class="header">
             <i class="fa fa-bars"></i>
             <span class="name"></span>
-            <input name="models[id][weight]" value="" type="hidden" class="weight">
-            <input name="models[id][parent]" value="" type="hidden" class="parent">
+            <input name="models[][id]" value="" type="hidden" class="id">
+            <input name="models[][weight]" value="" type="hidden" class="weight">
+            <input name="models[][parent]" value="" type="hidden" class="parent">
             @ifperm('delete menu items')
               <a href="{{ $deleteItemUri }}" data-ajaxmethod="delete" data-confirmtitle="Delete item ?" class="js-ajax-confirm-link delete float-right" data-confirmmessage="This action cannot be undone">Delete</a>
             @endifperm

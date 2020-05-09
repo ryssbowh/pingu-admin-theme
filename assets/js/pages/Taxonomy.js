@@ -60,8 +60,8 @@ const Taxonomy = (() => {
 	{
 		items.find('.js-edit').on('form.success', function(e, data){
 			let item = $(this).closest('li');
-			item.find('.name').html(data.entity.name);
-			makeActive(item, data.entity.active);
+			item.find('.name').html(data.model.name);
+			makeActive(item, data.model.active);
 		});
 	}; 
 

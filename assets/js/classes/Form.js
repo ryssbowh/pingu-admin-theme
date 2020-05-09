@@ -67,6 +67,7 @@ class Form {
 
 	highlightInvalidFields(element, fields)
 	{
+        this.element.find('.is-invalid').removeClass('is-invalid');
 		fields.forEach(function(item){
 			element.find('[name='+item+']').addClass('is-invalid');
 		});

@@ -7,10 +7,10 @@
 </div>
 <div class="modal-body">
 	<div class="fields">
-        @if($hasGroups)
+        @if($form->hasGroups())
             @include('forms@groups')
         @else
-            @foreach($elements as $element)
+            @foreach($form->getElements() as $element)
                 {!! $element->render() !!}
             @endforeach
         @endif
